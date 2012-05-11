@@ -40,10 +40,7 @@ public class Ventana2 extends javax.swing.JFrame {
         labelDescripcion = new javax.swing.JLabel();
         scrollDescripcion = new javax.swing.JScrollPane();
         textDescripcion = new javax.swing.JTextArea();
-        labelDescripcion1 = new javax.swing.JLabel();
-        textURIDoc = new javax.swing.JTextField();
         panelCat = new javax.swing.JPanel();
-        labelDescripcion2 = new javax.swing.JLabel();
         labelDescripcion3 = new javax.swing.JLabel();
         comboTipo = new javax.swing.JComboBox();
         textFuente = new javax.swing.JTextField();
@@ -53,11 +50,24 @@ public class Ventana2 extends javax.swing.JFrame {
         labelTitulo3 = new javax.swing.JLabel();
         textURICat = new javax.swing.JTextField();
         botonAccionCatalogo = new javax.swing.JButton();
-        comboCatalogos = new javax.swing.JComboBox();
-        labelDescripcion4 = new javax.swing.JLabel();
-        botonModificar = new javax.swing.JButton();
         labelDescripcion5 = new javax.swing.JLabel();
         textNombreCat = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tablaFicheros1 = new javax.swing.JTable();
+        panelFicheros = new javax.swing.JPanel();
+        textFuente1 = new javax.swing.JTextField();
+        labelTitulo4 = new javax.swing.JLabel();
+        labelTitulo5 = new javax.swing.JLabel();
+        textFormato1 = new javax.swing.JTextField();
+        labelTitulo6 = new javax.swing.JLabel();
+        textURIFich = new javax.swing.JTextField();
+        botonAddFich = new javax.swing.JButton();
+        labelTitulo7 = new javax.swing.JLabel();
+        textNomFich = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaFicheros = new javax.swing.JTable();
+        labelDescripcion4 = new javax.swing.JLabel();
+        labelDescripcion6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -86,22 +96,9 @@ public class Ventana2 extends javax.swing.JFrame {
         textDescripcion.setText("Historia moderna de EEUU");
         scrollDescripcion.setViewportView(textDescripcion);
 
-        labelDescripcion1.setFont(new java.awt.Font("Tahoma", 0, 12));
-        labelDescripcion1.setText("URI Documento:");
-
-        textURIDoc.setText("/historiaAmericana/");
-        textURIDoc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textURIDocActionPerformed(evt);
-            }
-        });
-
         panelCat.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        labelDescripcion2.setFont(new java.awt.Font("Tahoma", 0, 12));
-        labelDescripcion2.setText("Catalogacion:");
-
-        labelDescripcion3.setFont(new java.awt.Font("Tahoma", 0, 12));
+        labelDescripcion3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         labelDescripcion3.setText("Tipo");
 
         comboTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Lista de Valores", "Taxonomia", "Tesauro" }));
@@ -118,10 +115,10 @@ public class Ventana2 extends javax.swing.JFrame {
             }
         });
 
-        labelTitulo1.setFont(new java.awt.Font("Tahoma", 0, 12));
+        labelTitulo1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         labelTitulo1.setText("Fuente:");
 
-        labelTitulo2.setFont(new java.awt.Font("Tahoma", 0, 12));
+        labelTitulo2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         labelTitulo2.setText("Formato:");
 
         textFormato.setText("pdf");
@@ -131,8 +128,8 @@ public class Ventana2 extends javax.swing.JFrame {
             }
         });
 
-        labelTitulo3.setFont(new java.awt.Font("Tahoma", 0, 12));
-        labelTitulo3.setText("URI Catalogo");
+        labelTitulo3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelTitulo3.setText("URI:");
 
         textURICat.setText("/catalogosAmerica/");
         textURICat.addActionListener(new java.awt.event.ActionListener() {
@@ -141,19 +138,14 @@ public class Ventana2 extends javax.swing.JFrame {
             }
         });
 
-        botonAccionCatalogo.setText("Añadir catalogo");
+        botonAccionCatalogo.setText("Añadir");
         botonAccionCatalogo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonAccionCatalogoActionPerformed(evt);
             }
         });
 
-        labelDescripcion4.setFont(new java.awt.Font("Tahoma", 0, 12));
-        labelDescripcion4.setText("Catalogo:");
-
-        botonModificar.setText("Modificar");
-
-        labelDescripcion5.setFont(new java.awt.Font("Tahoma", 0, 12));
+        labelDescripcion5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         labelDescripcion5.setText("Nombre:");
 
         textNombreCat.setText("EEUU_S_XII");
@@ -163,6 +155,16 @@ public class Ventana2 extends javax.swing.JFrame {
             }
         });
 
+        tablaFicheros1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Catalogaciones"
+            }
+        ));
+        jScrollPane2.setViewportView(tablaFicheros1);
+
         javax.swing.GroupLayout panelCatLayout = new javax.swing.GroupLayout(panelCat);
         panelCat.setLayout(panelCatLayout);
         panelCatLayout.setHorizontalGroup(
@@ -171,85 +173,186 @@ public class Ventana2 extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(panelCatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelCatLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(labelDescripcion5)
+                        .addGroup(panelCatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelCatLayout.createSequentialGroup()
+                                .addComponent(labelTitulo2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(textFormato, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE))
+                            .addGroup(panelCatLayout.createSequentialGroup()
+                                .addComponent(labelTitulo1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(textFuente, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE))
+                            .addGroup(panelCatLayout.createSequentialGroup()
+                                .addComponent(labelDescripcion5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(textNombreCat, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
+                            .addGroup(panelCatLayout.createSequentialGroup()
+                                .addComponent(labelDescripcion3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(comboTipo, 0, 163, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCatLayout.createSequentialGroup()
+                        .addComponent(labelTitulo3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textURICat, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(textNombreCat, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE))
-                    .addComponent(labelDescripcion2)
-                    .addGroup(panelCatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panelCatLayout.createSequentialGroup()
-                            .addGap(10, 10, 10)
-                            .addComponent(labelDescripcion4)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(comboCatalogos, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(labelTitulo3)
-                            .addGroup(panelCatLayout.createSequentialGroup()
-                                .addGroup(panelCatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panelCatLayout.createSequentialGroup()
-                                        .addGap(10, 10, 10)
-                                        .addGroup(panelCatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(textFuente, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelCatLayout.createSequentialGroup()
-                                                .addComponent(labelDescripcion3)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(comboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                    .addComponent(labelTitulo1))
-                                .addGap(18, 18, 18)
-                                .addGroup(panelCatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(panelCatLayout.createSequentialGroup()
-                                        .addGap(10, 10, 10)
-                                        .addComponent(textFormato, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCatLayout.createSequentialGroup()
-                                        .addComponent(labelTitulo2)
-                                        .addGap(11, 11, 11))))
-                            .addGroup(panelCatLayout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addGroup(panelCatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(botonModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(textURICat))))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCatLayout.createSequentialGroup()
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(botonAccionCatalogo))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(botonAccionCatalogo)))
+                .addContainerGap())
         );
         panelCatLayout.setVerticalGroup(
             panelCatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelCatLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelDescripcion2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelCatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelDescripcion5)
-                    .addComponent(textNombreCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(panelCatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelDescripcion4)
-                    .addComponent(comboCatalogos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelCatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(panelCatLayout.createSequentialGroup()
+                .addGroup(panelCatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelCatLayout.createSequentialGroup()
+                        .addGroup(panelCatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelDescripcion5)
+                            .addComponent(textNombreCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelCatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelDescripcion3)
                             .addComponent(comboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelTitulo1)
+                        .addGroup(panelCatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelTitulo1)
+                            .addComponent(textFuente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textFuente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelCatLayout.createSequentialGroup()
-                        .addComponent(labelTitulo2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textFormato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(panelCatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelTitulo2)
+                            .addComponent(textFormato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelTitulo3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textURICat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelCatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelCatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(botonAccionCatalogo)
-                    .addComponent(botonModificar))
+                    .addGroup(panelCatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(labelTitulo3)
+                        .addComponent(textURICat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
+
+        panelFicheros.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        textFuente1.setText("Arial Black");
+        textFuente1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textFuente1ActionPerformed(evt);
+            }
+        });
+
+        labelTitulo4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelTitulo4.setText("Fuente:");
+
+        labelTitulo5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelTitulo5.setText("Formato:");
+
+        textFormato1.setText("pdf");
+        textFormato1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textFormato1ActionPerformed(evt);
+            }
+        });
+
+        labelTitulo6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelTitulo6.setText("URI Fichero");
+
+        textURIFich.setText("/docPolitica/");
+        textURIFich.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textURIFichActionPerformed(evt);
+            }
+        });
+
+        botonAddFich.setText("Añadir");
+        botonAddFich.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAddFichActionPerformed(evt);
+            }
+        });
+
+        labelTitulo7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelTitulo7.setText("Nombre:");
+
+        textNomFich.setText("docusPoliticos");
+        textNomFich.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textNomFichActionPerformed(evt);
+            }
+        });
+
+        tablaFicheros.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Ficheros"
+            }
+        ));
+        jScrollPane1.setViewportView(tablaFicheros);
+
+        javax.swing.GroupLayout panelFicherosLayout = new javax.swing.GroupLayout(panelFicheros);
+        panelFicheros.setLayout(panelFicherosLayout);
+        panelFicherosLayout.setHorizontalGroup(
+            panelFicherosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelFicherosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelFicherosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelFicherosLayout.createSequentialGroup()
+                        .addGroup(panelFicherosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFicherosLayout.createSequentialGroup()
+                                .addComponent(labelTitulo7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(textNomFich, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE))
+                            .addGroup(panelFicherosLayout.createSequentialGroup()
+                                .addComponent(labelTitulo5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(textFormato1, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))
+                            .addGroup(panelFicherosLayout.createSequentialGroup()
+                                .addComponent(labelTitulo4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(textFuente1, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE))
+                            .addComponent(labelTitulo6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFicherosLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(textURIFich, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonAddFich)))
+                .addContainerGap())
+        );
+        panelFicherosLayout.setVerticalGroup(
+            panelFicherosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelFicherosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelFicherosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panelFicherosLayout.createSequentialGroup()
+                        .addGroup(panelFicherosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelTitulo7)
+                            .addComponent(textNomFich, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelFicherosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelTitulo4)
+                            .addComponent(textFuente1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelFicherosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelTitulo5)
+                            .addComponent(textFormato1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(labelTitulo6))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelFicherosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textURIFich, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonAddFich))
+                .addContainerGap())
+        );
+
+        labelDescripcion4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelDescripcion4.setText("Ficheros:");
+
+        labelDescripcion6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelDescripcion6.setText("Catalogaciones:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -257,28 +360,23 @@ public class Ventana2 extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(panelCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGap(10, 10, 10)
-                            .addComponent(scrollDescripcion))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGap(10, 10, 10)
-                            .addComponent(textURIDoc))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(10, 10, 10)
-                                    .addComponent(textTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(labelTitulo)
-                                .addComponent(labelDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(labelDescripcion1))
-                            .addGap(96, 96, 96))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(215, Short.MAX_VALUE)
-                .addComponent(botonSiguiente)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(scrollDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(textTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(labelTitulo)
+                            .addComponent(labelDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(96, 96, 96))
+                    .addComponent(panelFicheros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelDescripcion4)
+                    .addComponent(botonSiguiente, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(labelDescripcion6)
+                    .addComponent(panelCat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -292,15 +390,17 @@ public class Ventana2 extends javax.swing.JFrame {
                 .addComponent(labelDescripcion)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scrollDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(labelDescripcion1)
+                .addGap(7, 7, 7)
+                .addComponent(labelDescripcion4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textURIDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelFicheros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelDescripcion6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(botonSiguiente)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -319,10 +419,6 @@ public class Ventana2 extends javax.swing.JFrame {
     private void textTituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textTituloActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textTituloActionPerformed
-
-    private void textURIDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textURIDocActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textURIDocActionPerformed
 
     private void comboTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTipoActionPerformed
         // TODO add your handling code here:
@@ -346,7 +442,7 @@ public class Ventana2 extends javax.swing.JFrame {
                 comboTipo.getSelectedItem().toString(), textFuente.getText(),
                 textFormato.getText(), textURICat.getText());
         manejador.getDocumento().getCatalogaciones().add(catalogo);
-        this.comboCatalogos.addItem(catalogo.getNombre());
+        //this.comboCatalogos.addItem(catalogo.getNombre());
         textNombreCat.setText("");
         textFuente.setText("");
         textFormato.setText("");
@@ -357,19 +453,29 @@ public class Ventana2 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_textNombreCatActionPerformed
 
+    private void textFuente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFuente1ActionPerformed
+        // TODO add your handling code here:
+}//GEN-LAST:event_textFuente1ActionPerformed
+
+    private void textFormato1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFormato1ActionPerformed
+        // TODO add your handling code here:
+}//GEN-LAST:event_textFormato1ActionPerformed
+
+    private void textURIFichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textURIFichActionPerformed
+        // TODO add your handling code here:
+}//GEN-LAST:event_textURIFichActionPerformed
+
+    private void botonAddFichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAddFichActionPerformed
+
+}//GEN-LAST:event_botonAddFichActionPerformed
+
+    private void textNomFichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textNomFichActionPerformed
+        // TODO add your handling code here:
+}//GEN-LAST:event_textNomFichActionPerformed
+
 
     private boolean camposRellenos() {
         return true;
-    }
-    
-    void mandaEstadoV1(estados s) {
-        if (s == estados.CREAR){
-            botonModificar.setVisible(false);
-        } else {
-            botonModificar.setVisible(true);
-            botonAccionCatalogo.setText("Eliminar");
-            botonSiguiente.setVisible(false);
-        }
     }
 
     private void rellenaDocumento(DescriptorDocumento documento) {
@@ -394,29 +500,39 @@ public class Ventana2 extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAccionCatalogo;
-    private javax.swing.JButton botonModificar;
+    private javax.swing.JButton botonAddFich;
     private javax.swing.JButton botonSiguiente;
-    private javax.swing.JComboBox comboCatalogos;
     private javax.swing.JComboBox comboTipo;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel labelDescripcion;
-    private javax.swing.JLabel labelDescripcion1;
-    private javax.swing.JLabel labelDescripcion2;
     private javax.swing.JLabel labelDescripcion3;
     private javax.swing.JLabel labelDescripcion4;
     private javax.swing.JLabel labelDescripcion5;
+    private javax.swing.JLabel labelDescripcion6;
     private javax.swing.JLabel labelTitulo;
     private javax.swing.JLabel labelTitulo1;
     private javax.swing.JLabel labelTitulo2;
     private javax.swing.JLabel labelTitulo3;
+    private javax.swing.JLabel labelTitulo4;
+    private javax.swing.JLabel labelTitulo5;
+    private javax.swing.JLabel labelTitulo6;
+    private javax.swing.JLabel labelTitulo7;
     private javax.swing.JPanel panelCat;
+    private javax.swing.JPanel panelFicheros;
     private javax.swing.JScrollPane scrollDescripcion;
+    private javax.swing.JTable tablaFicheros;
+    private javax.swing.JTable tablaFicheros1;
     private javax.swing.JTextArea textDescripcion;
     private javax.swing.JTextField textFormato;
+    private javax.swing.JTextField textFormato1;
     private javax.swing.JTextField textFuente;
+    private javax.swing.JTextField textFuente1;
+    private javax.swing.JTextField textNomFich;
     private javax.swing.JTextField textNombreCat;
     private javax.swing.JTextField textTitulo;
     private javax.swing.JTextField textURICat;
-    private javax.swing.JTextField textURIDoc;
+    private javax.swing.JTextField textURIFich;
     // End of variables declaration//GEN-END:variables
 
 }
