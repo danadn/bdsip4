@@ -23,12 +23,11 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jPanel2" alignment="1" max="32767" attributes="1"/>
-                          <Component id="jScrollPane2" alignment="0" min="0" pref="0" max="32767" attributes="2"/>
                           <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
@@ -74,28 +73,34 @@
                               <EmptySpace min="10" pref="10" max="10" attributes="0"/>
                               <Component id="textoLugarDef" min="-2" pref="235" max="-2" attributes="0"/>
                           </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="jScrollPane2" pref="119" max="32767" attributes="2"/>
+                              <EmptySpace min="-2" max="-2" attributes="0"/>
+                              <Component id="jScrollPane4" pref="120" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="jSeparator1" min="-2" pref="9" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="panelCargo" alignment="0" max="32767" attributes="1"/>
                           <Component id="jLabel25" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jScrollPane3" alignment="0" max="32767" attributes="1"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="botonAceptar" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="228" max="-2" attributes="0"/>
                   </Group>
               </Group>
+              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
@@ -130,25 +135,28 @@
                       <Component id="textoLugarNac" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel24" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="9" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="textoLugarDef" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jScrollPane2" min="-2" pref="245" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jScrollPane4" min="-2" pref="245" max="-2" attributes="0"/>
+                          <Component id="jScrollPane2" alignment="0" min="-2" pref="245" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <Component id="jSeparator1" alignment="0" pref="602" max="32767" attributes="1"/>
+                  <Component id="jSeparator1" alignment="0" pref="599" max="32767" attributes="1"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="jLabel25" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane3" pref="136" max="32767" attributes="0"/>
+                      <Component id="jScrollPane3" pref="133" max="32767" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="panelCargo" min="-2" max="-2" attributes="2"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
               <Component id="botonAceptar" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -470,7 +478,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="MesIni">
           <Properties>
-            <Property name="text" type="java.lang.String" value="4"/>
+            <Property name="text" type="java.lang.String" value="04"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MesIniActionPerformed"/>
@@ -504,7 +512,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="MesFin">
           <Properties>
-            <Property name="text" type="java.lang.String" value="5"/>
+            <Property name="text" type="java.lang.String" value="05"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="DiaIni">
@@ -514,7 +522,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="DiaFin">
           <Properties>
-            <Property name="text" type="java.lang.String" value="2"/>
+            <Property name="text" type="java.lang.String" value="02"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel18">
@@ -571,6 +579,9 @@
                 <Property name="columns" type="int" value="20"/>
                 <Property name="rows" type="int" value="5"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="textDescCargo.setText(&quot;Gobernador del Estado \nde California.&quot;);"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>
@@ -676,14 +687,23 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="tablaInfo">
+        <Component class="javax.swing.JTable" name="tablaAlias">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="0" rowCount="4"/>
+              <Table columnCount="1" rowCount="0">
+                <Column editable="false" title="Alias" type="java.lang.Object"/>
+              </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-              <TableColumnModel selectionModel="0"/>
+              <TableColumnModel selectionModel="0">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+              </TableColumnModel>
             </Property>
+            <Property name="focusable" type="boolean" value="false"/>
             <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
@@ -737,6 +757,36 @@
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
             <Property name="text" type="java.lang.String" value="Actor de pel&#xed;culas de acci&#xf3;n,&#xa;culturista y gobernador del&#xa;estado de California"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane4">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTable" name="tablaCargos">
+          <Properties>
+            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+              <Table columnCount="1" rowCount="0">
+                <Column editable="false" title="Cargos" type="java.lang.Object"/>
+              </Table>
+            </Property>
+            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+              <TableColumnModel selectionModel="0">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+              </TableColumnModel>
+            </Property>
+            <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+              <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+            </Property>
           </Properties>
         </Component>
       </SubComponents>

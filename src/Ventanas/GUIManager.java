@@ -25,6 +25,7 @@ public class GUIManager {
     private DescriptorDocumento documento;
 
     public GUIManager() throws SQLException{
+        documento = new DescriptorDocumento();
         bd = new BBDDManager(this);
         v1 = new Ventana1(this);
         v2 = new Ventana2(this);
