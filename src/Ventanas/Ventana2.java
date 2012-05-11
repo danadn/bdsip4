@@ -19,7 +19,7 @@ public class Ventana2 extends javax.swing.JFrame {
     public Ventana2(GUIManager m) {
         manejador = m;
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation((d.width/3), (d.height/3));
+        this.setLocation(d.width/3, 20);
         initComponents();
         this.setTitle("Ventana 2");
         this.setDefaultCloseOperation(0);
