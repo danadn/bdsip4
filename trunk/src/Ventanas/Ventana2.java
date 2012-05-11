@@ -309,7 +309,6 @@ public class Ventana2 extends javax.swing.JFrame {
     private void botonSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSiguienteActionPerformed
         if (camposRellenos()){
             DescriptorDocumento doc = manejador.getDocumento();
-            doc = new DescriptorDocumento();
             rellenaDocumento(doc);
             manejador.cambiaEstado(estados.VENTANA3);
         } else {
@@ -347,6 +346,11 @@ public class Ventana2 extends javax.swing.JFrame {
                 comboTipo.getSelectedItem().toString(), textFuente.getText(),
                 textFormato.getText(), textURICat.getText());
         manejador.getDocumento().getCatalogaciones().add(catalogo);
+        this.comboCatalogos.addItem(catalogo.getNombre());
+        textNombreCat.setText("");
+        textFuente.setText("");
+        textFormato.setText("");
+        textURICat.setText("");
     }//GEN-LAST:event_botonAccionCatalogoActionPerformed
 
     private void textNombreCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textNombreCatActionPerformed

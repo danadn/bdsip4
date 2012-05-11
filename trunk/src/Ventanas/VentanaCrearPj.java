@@ -6,9 +6,12 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -87,7 +90,7 @@ public class VentanaCrearPj extends javax.swing.JFrame {
         botonAlias = new javax.swing.JButton();
         botonAceptar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tablaInfo = new javax.swing.JTable();
+        tablaAlias = new javax.swing.JTable();
         jLabel23 = new javax.swing.JLabel();
         textoLugarNac = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
@@ -95,6 +98,8 @@ public class VentanaCrearPj extends javax.swing.JFrame {
         jLabel25 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         textBiografia = new javax.swing.JTextArea();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tablaCargos = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -168,7 +173,7 @@ public class VentanaCrearPj extends javax.swing.JFrame {
         jLabel15.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel15.setText("Dia");
 
-        MesIni.setText("4");
+        MesIni.setText("04");
         MesIni.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MesIniActionPerformed(evt);
@@ -185,11 +190,11 @@ public class VentanaCrearPj extends javax.swing.JFrame {
 
         AnoFin.setText("2008");
 
-        MesFin.setText("5");
+        MesFin.setText("05");
 
         DiaIni.setText("23");
 
-        DiaFin.setText("2");
+        DiaFin.setText("02");
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel18.setText("Cargo");
@@ -209,6 +214,7 @@ public class VentanaCrearPj extends javax.swing.JFrame {
 
         textDescCargo.setColumns(20);
         textDescCargo.setRows(5);
+        textDescCargo.setText("Gobernador del Estado \nde California.");
         jScrollPane1.setViewportView(textDescCargo);
 
         botonCargo.setText("Añadir Cargo");
@@ -383,18 +389,25 @@ public class VentanaCrearPj extends javax.swing.JFrame {
             }
         });
 
-        tablaInfo.setModel(new javax.swing.table.DefaultTableModel(
+        tablaAlias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+
             },
             new String [] {
-
+                "Alias"
             }
-        ));
-        jScrollPane2.setViewportView(tablaInfo);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tablaAlias.setFocusable(false);
+        jScrollPane2.setViewportView(tablaAlias);
+        tablaAlias.getColumnModel().getColumn(0).setResizable(false);
 
         jLabel23.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel23.setText("Lugar de nacimiento:");
@@ -414,6 +427,25 @@ public class VentanaCrearPj extends javax.swing.JFrame {
         textBiografia.setText("Actor de películas de acción,\nculturista y gobernador del\nestado de California");
         jScrollPane3.setViewportView(textBiografia);
 
+        tablaCargos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Cargos"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane4.setViewportView(tablaCargos);
+        tablaCargos.getColumnModel().getColumn(0).setResizable(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -424,7 +456,6 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2, 0, 0, Short.MAX_VALUE)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2)
                             .addGroup(layout.createSequentialGroup()
@@ -464,18 +495,23 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                             .addComponent(jLabel24)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
-                                .addComponent(textoLugarDef, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(textoLugarDef, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(panelCargo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel25)
                             .addComponent(jScrollPane3))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(botonAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(228, 228, 228))))
+                        .addGap(228, 228, 228)))
+                .addGap(15, 15, 15))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -512,17 +548,19 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                         .addComponent(textoLugarNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel24)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(textoLugarDef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel25)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(panelCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(11, 11, 11)
@@ -543,8 +581,11 @@ public class VentanaCrearPj extends javax.swing.JFrame {
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
         if (camposRellenos()){
-            manejador.cambiaEstado(estados.VENTANA3);
             rellenaPersonaje(personaje);
+            manejador.getDocumento().addPersonaje(personaje);
+            System.out.print("Personaje "+personaje.getNombreYApe()+" añadido a documento "+
+                    manejador.getDocumento().getTitulo()+" con exito.");
+            manejador.cambiaEstado(estados.VENTANA3);
         }
         else{
             JOptionPane.showMessageDialog(null, "Debes rellnar todos los campos", "Aviso", 2);
@@ -552,19 +593,57 @@ public class VentanaCrearPj extends javax.swing.JFrame {
     }//GEN-LAST:event_botonAceptarActionPerformed
 
     private void botonAliasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAliasActionPerformed
-        personaje.getAlias().add(textAlias.getText());
+        if (!personaje.isAlias(textAlias.getText())){
+            personaje.getAlias().add(textAlias.getText());
+            actualizaTablaAlias();
+        }
     }//GEN-LAST:event_botonAliasActionPerformed
 
     private void botonCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCargoActionPerformed
-        DescriptorCargo cargo = new DescriptorCargo(textCargo.getText(),
-                textDescCargo.getText(),
-                java.sql.Date.valueOf(AnoIni.getText()+"-"+MesIni.getText()+"-"+DiaIni.getText()),
-                java.sql.Date.valueOf(AnoFin.getText()+"-"+MesFin.getText()+"-"+DiaFin.getText()),
-                new DescriptorFichero(textFormato.getText(), textFichero.getText(), textURICargo.getText())
-                );
-        personaje.getCargos().add(cargo);
+        if (!personaje.isCargo(textCargo.getText())){
+            DescriptorCargo cargo = new DescriptorCargo(textCargo.getText(),
+                    textDescCargo.getText(),
+                    java.sql.Date.valueOf(AnoIni.getText()+"-"+MesIni.getText()+"-"+DiaIni.getText()),
+                    java.sql.Date.valueOf(AnoFin.getText()+"-"+MesFin.getText()+"-"+DiaFin.getText()),
+                    new DescriptorFichero(textFormato.getText(), textFichero.getText(), textURICargo.getText())
+                    );
+            personaje.getCargos().add(cargo);
+            actualizaTablaCargos();
+        }
     }//GEN-LAST:event_botonCargoActionPerformed
 
+    private void actualizaTablaCargos() {
+        DefaultTableModel m;
+        m = new DefaultTableModel(new Object[] {"Cargos"}, 0);
+        Iterator<DescriptorCargo> itCargos = personaje.getCargos().iterator();
+        while (itCargos.hasNext()) {
+            DescriptorCargo cargo = itCargos.next();
+            m.addRow(new Object[]{cargo.getCargo()});
+        }
+        tablaCargos.setModel(m);
+    }
+    
+    private void actualizaTablaAlias() {
+        DefaultTableModel m;
+        m = new DefaultTableModel(new Object[] {"Alias"}, 0);
+        Iterator<String> itAlias = personaje.getAlias().iterator();
+        while (itAlias.hasNext()) {
+            String alias = itAlias.next();
+            m.addRow(new Object[]{alias});
+        }
+        tablaAlias.setModel(m);
+    }
+
+    private void rellenaPersonaje(DescriptorPersonaje personaje) {
+                personaje.setNombreYApe(textoNomYApe.getText());
+                personaje.setLugarNacimiento(textoLugarNac.getText());
+                personaje.setBiografia(textBiografia.getText().substring(0, 199));
+                personaje.setFechaNac(java.sql.Date.valueOf(AnoNac.getText()+"-"
+                        +MesNac.getText()+"-"+DiaNac.getText()));
+                personaje.setFechaMuerte(java.sql.Date.valueOf(AnoDef.getText()
+                        +"-"+MesDef.getText()+"-"+DiaDef.getText()));
+    }
+    
     private boolean camposRellenos() {
         return (textAlias.getText().length()==0 &&
                 textBiografia.getText().length()==0 &&
@@ -585,15 +664,6 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                 AnoDef.getText().length()==0 &&
                 DiaDef.getText().length()==0 &&
                 MesDef.getText().length()==0);
-    }
-    private void rellenaPersonaje(DescriptorPersonaje personaje) {
-                personaje.setNombreYApe(textoNomYApe.getText());
-                personaje.setLugarNacimiento(textoLugarNac.getText());
-                personaje.setBiografia(textBiografia.getText().substring(0, 199));
-                personaje.setFechaNac(java.sql.Date.valueOf(AnoNac.getText()+"-"
-                        +MesNac.getText()+"-"+DiaNac.getText()));
-                personaje.setFechaMuerte(java.sql.Date.valueOf(AnoDef.getText()
-                        +"-"+MesDef.getText()+"-"+DiaDef.getText()));
     }
 
     /**
@@ -657,9 +727,11 @@ public class VentanaCrearPj extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPanel panelCargo;
-    private javax.swing.JTable tablaInfo;
+    private javax.swing.JTable tablaAlias;
+    private javax.swing.JTable tablaCargos;
     private javax.swing.JTextField textAlias;
     private javax.swing.JTextArea textBiografia;
     private javax.swing.JTextField textCargo;
@@ -671,4 +743,5 @@ public class VentanaCrearPj extends javax.swing.JFrame {
     private javax.swing.JTextField textoLugarNac;
     private javax.swing.JTextField textoNomYApe;
     // End of variables declaration//GEN-END:variables
+
 }

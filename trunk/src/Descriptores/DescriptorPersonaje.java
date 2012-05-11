@@ -29,6 +29,12 @@ public class DescriptorPersonaje {
     }
 
     public DescriptorPersonaje() {
+        nombreYApe = "";
+        lugarMuerte = "";
+        lugarNacimiento = "";
+        biografia = "";
+        cargos = new ArrayList<DescriptorCargo>();
+        alias = new ArrayList<String>();
     }
 
     public ArrayList<String> getAlias() {
@@ -109,5 +115,26 @@ public class DescriptorPersonaje {
 
     public void setNombreYApe(String nombreYApe) {
         this.nombreYApe = nombreYApe;
+    }
+
+    public boolean isAlias(String text) {
+        Iterator it = alias.iterator();
+        while (it.hasNext()){
+            String a = (String) it.next();
+            if (a.equals(text)){
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean isCargo(String text) {
+        Iterator it = cargos.iterator();
+        while (it.hasNext()){
+            DescriptorCargo a = (DescriptorCargo) it.next();
+            if (a.getCargo().equals(text)){
+                return true;
+            }
+        }
+        return false;
     }
 }
