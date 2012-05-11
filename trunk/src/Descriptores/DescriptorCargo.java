@@ -6,6 +6,7 @@
 package Descriptores;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 /**
  *
@@ -16,14 +17,13 @@ public class DescriptorCargo {
     private String descCargo;
     private Date FechaIni;
     private Date FechaFin;
-    private DescriptorFichero fichero;
+    private ArrayList<DescriptorFichero> fichero;
 
-    public DescriptorCargo(String cargo, String descCargo, Date FechaIni, Date FechaFin, DescriptorFichero fichero) {
+    public DescriptorCargo(String cargo, String descCargo, Date FechaIni, Date FechaFin) {
         this.cargo = cargo;
         this.descCargo = descCargo;
         this.FechaIni = FechaIni;
         this.FechaFin = FechaFin;
-        this.fichero = fichero;
     }
 
     public Date getFechaFin() {
@@ -58,12 +58,8 @@ public class DescriptorCargo {
         this.descCargo = descCargo;
     }
 
-    public DescriptorFichero getFichero() {
-        return fichero;
+    public void addFichero(DescriptorFichero f){
+        if (this.fichero.contains(f))
+            this.fichero.add(f);
     }
-
-    public void setFichero(DescriptorFichero fichero) {
-        this.fichero = fichero;
-    }
-
 }
