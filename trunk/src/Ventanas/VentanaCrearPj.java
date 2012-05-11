@@ -4,13 +4,9 @@ import Descriptores.DescriptorFichero;
 import Descriptores.DescriptorPersonaje;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Iterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -24,7 +20,7 @@ public class VentanaCrearPj extends javax.swing.JFrame {
     public VentanaCrearPj(GUIManager m) {
         manejador = m;
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation((d.width/3), (d.height/3));
+        this.setLocation(d.width/4, 20);
         initComponents();
         this.setTitle("Crear Personaje");
         this.setDefaultCloseOperation(0);
@@ -121,7 +117,7 @@ public class VentanaCrearPj extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel4.setText("Mes");
 
-        MesNac.setText("4");
+        MesNac.setText("04");
 
         DiaNac.setText("23");
 
@@ -506,8 +502,7 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(panelCargo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel25)
-                            .addComponent(jScrollPane3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addComponent(jScrollPane3)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(botonAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(228, 228, 228)))
@@ -637,7 +632,7 @@ public class VentanaCrearPj extends javax.swing.JFrame {
     private void rellenaPersonaje(DescriptorPersonaje personaje) {
                 personaje.setNombreYApe(textoNomYApe.getText());
                 personaje.setLugarNacimiento(textoLugarNac.getText());
-                personaje.setBiografia(textBiografia.getText().substring(0, 199));
+                personaje.setBiografia(textBiografia.getText());
                 personaje.setFechaNac(java.sql.Date.valueOf(AnoNac.getText()+"-"
                         +MesNac.getText()+"-"+DiaNac.getText()));
                 personaje.setFechaMuerte(java.sql.Date.valueOf(AnoDef.getText()
@@ -645,25 +640,18 @@ public class VentanaCrearPj extends javax.swing.JFrame {
     }
     
     private boolean camposRellenos() {
-        return (textAlias.getText().length()==0 &&
-                textBiografia.getText().length()==0 &&
-                personaje.getCargos().isEmpty() &&
-                textoLugarNac.getText().length()==0 &&
-                textoLugarDef.getText().length()==0 &&
-                textoNomYApe.getText().length()==0 &&
-                personaje.getAlias().isEmpty() &&
-                AnoIni.getText().length()==0 &&
-                DiaIni.getText().length()==0 &&
-                MesIni.getText().length()==0 &&
-                AnoFin.getText().length()==0 &&
-                DiaFin.getText().length()==0 &&
-                MesFin.getText().length()==0 &&
-                AnoNac.getText().length()==0 &&
-                DiaNac.getText().length()==0 &&
-                MesNac.getText().length()==0 &&
-                AnoDef.getText().length()==0 &&
-                DiaDef.getText().length()==0 &&
-                MesDef.getText().length()==0);
+        return (textBiografia.getText().length()!=0 &&
+                textoLugarNac.getText().length()!=0 &&
+                textoLugarDef.getText().length()!=0 &&
+                textoNomYApe.getText().length()!=0 &&
+                !personaje.getCargos().isEmpty() &&
+                !personaje.getAlias().isEmpty() &&
+                AnoNac.getText().length()!=0 &&
+                DiaNac.getText().length()!=0 &&
+                MesNac.getText().length()!=0 &&
+                AnoDef.getText().length()!=0 &&
+                DiaDef.getText().length()!=0 &&
+                MesDef.getText().length()!=0);
     }
 
     /**

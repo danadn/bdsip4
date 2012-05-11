@@ -18,6 +18,7 @@ public class GUIManager {
     private Ventana4 v4;
     private VentanaMuestra vM;
     private VentanaCrearPj vPj;
+    private VentanaCrearCol vCearCol;
     private estados estado;
     private BBDDManager bd;
 
@@ -33,6 +34,7 @@ public class GUIManager {
         v4 = new Ventana4(this);
         vM = new VentanaMuestra(this);
         vPj = new VentanaCrearPj(this);
+        vCearCol = new VentanaCrearCol(this);
         v1.setEnabled(true);
         v1.setVisible(true);
         estado = estados.VENTANA1;
@@ -44,6 +46,7 @@ public class GUIManager {
         v4.dispose();
         vM.dispose();
         vPj.dispose();
+        vCearCol.dispose();
         bd.close();
     }
 
@@ -65,6 +68,7 @@ public class GUIManager {
                 v4.setVisible(false);
                 vM.setVisible(false);
                 vPj.setVisible(false);
+                vCearCol.setVisible(false);
                 break;
             case VENTANA2:
                 v1.setVisible(false);
@@ -74,6 +78,7 @@ public class GUIManager {
                 v4.setVisible(false);
                 vM.setVisible(false);
                 vPj.setVisible(false);
+                vCearCol.setVisible(false);
                 break;
             case VENTANA3:
                 v1.setVisible(false);
@@ -82,6 +87,7 @@ public class GUIManager {
                 v4.setVisible(false);
                 vM.setVisible(false);
                 vPj.setVisible(false);
+                vCearCol.setVisible(false);
                 break;
             case CREAR_PERSONAJE:
                 v1.setVisible(false);
@@ -90,6 +96,7 @@ public class GUIManager {
                 v4.setVisible(false);
                 vM.setVisible(false);
                 vPj.setVisible(true);
+                vCearCol.setVisible(false);
                 break;
             case CREAR_ACONTECIMIENTO:
                 v1.setVisible(false);
@@ -98,6 +105,7 @@ public class GUIManager {
                 v4.setVisible(false);
                 vM.setVisible(false);
                 vPj.setVisible(false);
+                vCearCol.setVisible(false);
                 break;
             case CREAR_COLECTIVO:
                 v1.setVisible(false);
@@ -106,6 +114,7 @@ public class GUIManager {
                 v4.setVisible(false);
                 vM.setVisible(false);
                 vPj.setVisible(false);
+                vCearCol.setVisible(true);
                 break;
             case BBDD_COLECTIVO:
                 v1.setVisible(false);
@@ -115,6 +124,7 @@ public class GUIManager {
                 vM.mandaEstadoV1(v1.getEstado());
                 vM.setVisible(true);
                 vPj.setVisible(false);
+                vCearCol.setVisible(false);
                 break;
             case BBDD_PERSONAJE:
                 v1.setVisible(false);
@@ -124,6 +134,7 @@ public class GUIManager {
                 vM.mandaEstadoV1(v1.getEstado());
                 vM.setVisible(true);
                 vPj.setVisible(false);
+                vCearCol.setVisible(false);
                 break;
             case BBDD_ACONTECIMIENTO:
                 v1.setVisible(false);
@@ -133,6 +144,7 @@ public class GUIManager {
                 vM.mandaEstadoV1(v1.getEstado());
                 vM.setVisible(true);
                 vPj.setVisible(false);
+                vCearCol.setVisible(false);
                 break;
             case MODIFICAR:
                 v1.setVisible(false);
@@ -141,6 +153,7 @@ public class GUIManager {
                 v4.setVisible(true);
                 vM.setVisible(false);
                 vPj.setVisible(false);
+                vCearCol.setVisible(false);
                 break;
             default:
                 estado = estados.VENTANA1;
