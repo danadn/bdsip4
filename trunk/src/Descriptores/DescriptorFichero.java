@@ -12,11 +12,13 @@ package Descriptores;
 public class DescriptorFichero {
     private String nombre;
     private String formato;
+    private String fuente;
     private String URI;
 
-    public DescriptorFichero(String nombre, String formato, String URI) {
+    public DescriptorFichero(String nombre, String formato, String fuente, String URI) {
         this.nombre = nombre;
         this.formato = formato;
+        this.fuente = fuente;
         this.URI = URI;
     }
 

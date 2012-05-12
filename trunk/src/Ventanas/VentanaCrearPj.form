@@ -135,7 +135,7 @@
                       <Component id="textoLugarNac" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel24" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="23" max="32767" attributes="0"/>
                       <Component id="textoLugarDef" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
@@ -145,7 +145,7 @@
                           <Component id="jScrollPane4" alignment="0" pref="226" max="32767" attributes="1"/>
                       </Group>
                   </Group>
-                  <Component id="jSeparator1" alignment="0" pref="580" max="32767" attributes="1"/>
+                  <Component id="jSeparator1" alignment="0" pref="597" max="32767" attributes="1"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="jLabel25" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -554,12 +554,12 @@
                                   <Group type="102" alignment="0" attributes="1">
                                       <Component id="labelTitulo5" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="textFormato1" pref="74" max="32767" attributes="0"/>
+                                      <Component id="textFormato" pref="74" max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="labelTitulo4" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="textFuente1" pref="80" max="32767" attributes="0"/>
+                                      <Component id="textFuente" pref="80" max="32767" attributes="0"/>
                                   </Group>
                                   <Component id="labelTitulo6" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
@@ -590,12 +590,12 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="labelTitulo4" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="textFuente1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="textFuente" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="labelTitulo5" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="textFormato1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="textFormato" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="labelTitulo6" min="-2" max="-2" attributes="0"/>
@@ -613,12 +613,12 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JTextField" name="textFuente1">
+            <Component class="javax.swing.JTextField" name="textFuente">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Arial Black"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textFuente1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textFuenteActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="labelTitulo4">
@@ -637,12 +637,12 @@
                 <Property name="text" type="java.lang.String" value="Formato:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="textFormato1">
+            <Component class="javax.swing.JTextField" name="textFormato">
               <Properties>
                 <Property name="text" type="java.lang.String" value="pdf"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textFormato1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textFormatoActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="labelTitulo6">

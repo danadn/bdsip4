@@ -31,6 +31,17 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
         acont = new DescriptorAcont();
     }
 
+    private void actualizaTablaFicheros() {
+        DefaultTableModel m;
+        m = new DefaultTableModel(new Object[] {"Catalogaciones"}, 0);
+        Iterator<DescriptorFichero> it = manejador.getDocumento().getFicheros().iterator();
+        while (it.hasNext()) {
+            DescriptorFichero fich = (DescriptorFichero)it.next();
+            m.addRow(new Object[]{fich.getNombre()});
+        }
+        tablaFicheros.setModel(m);
+    }
+    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -76,7 +87,7 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        labelTitulo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelTitulo.setFont(new java.awt.Font("Tahoma", 0, 12));
         labelTitulo.setText("Acontecimiento:");
 
         textNombre.setText("Elecciones Gobernor California");
@@ -91,7 +102,7 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
         textDescripcion.setText("Elecciones en las que el actor\nArnold Swardschneger obtuvo la\nvictoria.");
         scrollDescripcion.setViewportView(textDescripcion);
 
-        labelDescripcion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelDescripcion.setFont(new java.awt.Font("Tahoma", 0, 12));
         labelDescripcion.setText("Descripcion:");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -103,10 +114,10 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
             }
         });
 
-        labelTitulo1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelTitulo1.setFont(new java.awt.Font("Tahoma", 0, 12));
         labelTitulo1.setText("Fuente:");
 
-        labelTitulo2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelTitulo2.setFont(new java.awt.Font("Tahoma", 0, 12));
         labelTitulo2.setText("Formato:");
 
         textFormato.setText("pdf");
@@ -116,7 +127,7 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
             }
         });
 
-        labelTitulo3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelTitulo3.setFont(new java.awt.Font("Tahoma", 0, 12));
         labelTitulo3.setText("URI Fichero");
 
         textURIFich.setText("/eleccionesEEUU/");
@@ -133,7 +144,7 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
             }
         });
 
-        labelTitulo4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelTitulo4.setFont(new java.awt.Font("Tahoma", 0, 12));
         labelTitulo4.setText("Nombre:");
 
         textNomFich.setText("estadoCalifornia");
@@ -219,18 +230,18 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
             }
         });
 
-        labelDescripcion1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelDescripcion1.setFont(new java.awt.Font("Tahoma", 0, 12));
         labelDescripcion1.setText("Ficheros:");
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel12.setText("Fecha de inicio:");
 
-        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel17.setText("Año");
 
         AnoIni.setText("2004");
 
-        jLabel16.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel16.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel16.setText("Mes");
 
         MesIni.setText("04");
@@ -279,9 +290,7 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
                         .addGap(10, 10, 10)
                         .addComponent(textNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(labelTitulo)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(labelDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(96, 96, 96)))
+                    .addComponent(labelDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -319,23 +328,23 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(labelDescripcion1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(196, 196, 196))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(212, Short.MAX_VALUE)
+                .addComponent(botonAceptar)
+                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(scrollDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(212, Short.MAX_VALUE)
-                .addComponent(botonAceptar)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(28, Short.MAX_VALUE)
                 .addComponent(labelTitulo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -391,7 +400,16 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
 }//GEN-LAST:event_textURIFichActionPerformed
 
     private void botonAddFichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAddFichActionPerformed
-
+        DescriptorFichero f = new DescriptorFichero(textNomFich.getText(),
+                                                    textFormato.getText(),
+                                                    textFuente.getText(),
+                                                    textURIFich.getText());
+        // TODO: añadir el fichero al acontecimiento
+        textNomFich.setText("");
+        textFormato.setText("");
+        textFuente.setText("");
+        textURIFich.setText("");
+        actualizaTablaFicheros();
 }//GEN-LAST:event_botonAddFichActionPerformed
 
     private void textNomFichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textNomFichActionPerformed
