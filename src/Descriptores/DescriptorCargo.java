@@ -19,11 +19,12 @@ public class DescriptorCargo {
     private Date FechaFin;
     private ArrayList<DescriptorFichero> fichero;
 
-    public DescriptorCargo(String cargo, String descCargo, Date FechaIni, Date FechaFin) {
+    public DescriptorCargo(String cargo, String descCargo, Date FechaIni, Date FechaFin,ArrayList<DescriptorFichero> fichero) {
         this.cargo = cargo;
         this.descCargo = descCargo;
         this.FechaIni = FechaIni;
         this.FechaFin = FechaFin;
+        this.fichero = fichero;
     }
 
     public Date getFechaFin() {

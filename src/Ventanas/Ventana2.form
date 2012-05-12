@@ -1,6 +1,6 @@
 <?xml version="1.1" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.5" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
   </Properties>
@@ -145,12 +145,12 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="labelTitulo2" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="textFormato" pref="138" max="32767" attributes="0"/>
+                                  <Component id="textFormatoCat" pref="138" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="labelTitulo1" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="textFuente" pref="144" max="32767" attributes="0"/>
+                                  <Component id="textFuenteCat" pref="144" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="labelDescripcion5" min="-2" max="-2" attributes="0"/>
@@ -197,12 +197,12 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="labelTitulo1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="textFuente" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="textFuenteCat" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="labelTitulo2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="textFormato" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="textFormatoCat" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -242,12 +242,12 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboTipoActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="textFuente">
+        <Component class="javax.swing.JTextField" name="textFuenteCat">
           <Properties>
             <Property name="text" type="java.lang.String" value="Tahoma"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textFuenteActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textFuenteCatActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="labelTitulo1">
@@ -266,12 +266,12 @@
             <Property name="text" type="java.lang.String" value="Formato:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="textFormato">
+        <Component class="javax.swing.JTextField" name="textFormatoCat">
           <Properties>
             <Property name="text" type="java.lang.String" value="pdf"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textFormatoActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textFormatoCatActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="labelTitulo3">
@@ -321,7 +321,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="tablaFicheros1">
+            <Component class="javax.swing.JTable" name="tablaCat">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="1" rowCount="0">
@@ -371,12 +371,12 @@
                               <Group type="102" alignment="0" attributes="1">
                                   <Component id="labelTitulo5" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="textFormato1" pref="142" max="32767" attributes="0"/>
+                                  <Component id="textFormato" pref="142" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="labelTitulo4" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="textFuente1" pref="148" max="32767" attributes="0"/>
+                                  <Component id="textFuente" pref="148" max="32767" attributes="0"/>
                               </Group>
                               <Component id="labelTitulo6" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -407,12 +407,12 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="labelTitulo4" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="textFuente1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="textFuente" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="labelTitulo5" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="textFormato1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="textFormato" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="labelTitulo6" min="-2" max="-2" attributes="0"/>
@@ -430,12 +430,12 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JTextField" name="textFuente1">
+        <Component class="javax.swing.JTextField" name="textFuente">
           <Properties>
             <Property name="text" type="java.lang.String" value="Arial Black"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textFuente1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textFuenteActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="labelTitulo4">
@@ -454,12 +454,12 @@
             <Property name="text" type="java.lang.String" value="Formato:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="textFormato1">
+        <Component class="javax.swing.JTextField" name="textFormato">
           <Properties>
             <Property name="text" type="java.lang.String" value="pdf"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textFormato1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textFormatoActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="labelTitulo6">

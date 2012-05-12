@@ -1,12 +1,15 @@
 package Ventanas;
 import Descriptores.DescriptorCatalogo;
 import Descriptores.DescriptorDocumento;
+import Descriptores.DescriptorFichero;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -43,22 +46,22 @@ public class Ventana2 extends javax.swing.JFrame {
         panelCat = new javax.swing.JPanel();
         labelDescripcion3 = new javax.swing.JLabel();
         comboTipo = new javax.swing.JComboBox();
-        textFuente = new javax.swing.JTextField();
+        textFuenteCat = new javax.swing.JTextField();
         labelTitulo1 = new javax.swing.JLabel();
         labelTitulo2 = new javax.swing.JLabel();
-        textFormato = new javax.swing.JTextField();
+        textFormatoCat = new javax.swing.JTextField();
         labelTitulo3 = new javax.swing.JLabel();
         textURICat = new javax.swing.JTextField();
         botonAccionCatalogo = new javax.swing.JButton();
         labelDescripcion5 = new javax.swing.JLabel();
         textNombreCat = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tablaFicheros1 = new javax.swing.JTable();
+        tablaCat = new javax.swing.JTable();
         panelFicheros = new javax.swing.JPanel();
-        textFuente1 = new javax.swing.JTextField();
+        textFuente = new javax.swing.JTextField();
         labelTitulo4 = new javax.swing.JLabel();
         labelTitulo5 = new javax.swing.JLabel();
-        textFormato1 = new javax.swing.JTextField();
+        textFormato = new javax.swing.JTextField();
         labelTitulo6 = new javax.swing.JLabel();
         textURIFich = new javax.swing.JTextField();
         botonAddFich = new javax.swing.JButton();
@@ -98,7 +101,7 @@ public class Ventana2 extends javax.swing.JFrame {
 
         panelCat.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        labelDescripcion3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelDescripcion3.setFont(new java.awt.Font("Tahoma", 0, 12));
         labelDescripcion3.setText("Tipo");
 
         comboTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Lista de Valores", "Taxonomia", "Tesauro" }));
@@ -108,27 +111,27 @@ public class Ventana2 extends javax.swing.JFrame {
             }
         });
 
-        textFuente.setText("Tahoma");
-        textFuente.addActionListener(new java.awt.event.ActionListener() {
+        textFuenteCat.setText("Tahoma");
+        textFuenteCat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFuenteActionPerformed(evt);
+                textFuenteCatActionPerformed(evt);
             }
         });
 
-        labelTitulo1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelTitulo1.setFont(new java.awt.Font("Tahoma", 0, 12));
         labelTitulo1.setText("Fuente:");
 
-        labelTitulo2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelTitulo2.setFont(new java.awt.Font("Tahoma", 0, 12));
         labelTitulo2.setText("Formato:");
 
-        textFormato.setText("pdf");
-        textFormato.addActionListener(new java.awt.event.ActionListener() {
+        textFormatoCat.setText("pdf");
+        textFormatoCat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFormatoActionPerformed(evt);
+                textFormatoCatActionPerformed(evt);
             }
         });
 
-        labelTitulo3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelTitulo3.setFont(new java.awt.Font("Tahoma", 0, 12));
         labelTitulo3.setText("URI:");
 
         textURICat.setText("/catalogosAmerica/");
@@ -145,7 +148,7 @@ public class Ventana2 extends javax.swing.JFrame {
             }
         });
 
-        labelDescripcion5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelDescripcion5.setFont(new java.awt.Font("Tahoma", 0, 12));
         labelDescripcion5.setText("Nombre:");
 
         textNombreCat.setText("EEUU_S_XII");
@@ -155,7 +158,7 @@ public class Ventana2 extends javax.swing.JFrame {
             }
         });
 
-        tablaFicheros1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaCat.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -163,7 +166,7 @@ public class Ventana2 extends javax.swing.JFrame {
                 "Catalogaciones"
             }
         ));
-        jScrollPane2.setViewportView(tablaFicheros1);
+        jScrollPane2.setViewportView(tablaCat);
 
         javax.swing.GroupLayout panelCatLayout = new javax.swing.GroupLayout(panelCat);
         panelCat.setLayout(panelCatLayout);
@@ -177,11 +180,11 @@ public class Ventana2 extends javax.swing.JFrame {
                             .addGroup(panelCatLayout.createSequentialGroup()
                                 .addComponent(labelTitulo2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textFormato, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE))
+                                .addComponent(textFormatoCat, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE))
                             .addGroup(panelCatLayout.createSequentialGroup()
                                 .addComponent(labelTitulo1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textFuente, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE))
+                                .addComponent(textFuenteCat, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE))
                             .addGroup(panelCatLayout.createSequentialGroup()
                                 .addComponent(labelDescripcion5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -217,11 +220,11 @@ public class Ventana2 extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelCatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelTitulo1)
-                            .addComponent(textFuente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(textFuenteCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelCatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelTitulo2)
-                            .addComponent(textFormato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(textFormatoCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelCatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(botonAccionCatalogo)
@@ -233,27 +236,27 @@ public class Ventana2 extends javax.swing.JFrame {
 
         panelFicheros.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        textFuente1.setText("Arial Black");
-        textFuente1.addActionListener(new java.awt.event.ActionListener() {
+        textFuente.setText("Arial Black");
+        textFuente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFuente1ActionPerformed(evt);
+                textFuenteActionPerformed(evt);
             }
         });
 
-        labelTitulo4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelTitulo4.setFont(new java.awt.Font("Tahoma", 0, 12));
         labelTitulo4.setText("Fuente:");
 
-        labelTitulo5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelTitulo5.setFont(new java.awt.Font("Tahoma", 0, 12));
         labelTitulo5.setText("Formato:");
 
-        textFormato1.setText("pdf");
-        textFormato1.addActionListener(new java.awt.event.ActionListener() {
+        textFormato.setText("pdf");
+        textFormato.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFormato1ActionPerformed(evt);
+                textFormatoActionPerformed(evt);
             }
         });
 
-        labelTitulo6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelTitulo6.setFont(new java.awt.Font("Tahoma", 0, 12));
         labelTitulo6.setText("URI Fichero");
 
         textURIFich.setText("/docPolitica/");
@@ -270,7 +273,7 @@ public class Ventana2 extends javax.swing.JFrame {
             }
         });
 
-        labelTitulo7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelTitulo7.setFont(new java.awt.Font("Tahoma", 0, 12));
         labelTitulo7.setText("Nombre:");
 
         textNomFich.setText("docusPoliticos");
@@ -306,11 +309,11 @@ public class Ventana2 extends javax.swing.JFrame {
                             .addGroup(panelFicherosLayout.createSequentialGroup()
                                 .addComponent(labelTitulo5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textFormato1, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))
+                                .addComponent(textFormato, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))
                             .addGroup(panelFicherosLayout.createSequentialGroup()
                                 .addComponent(labelTitulo4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textFuente1, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE))
+                                .addComponent(textFuente, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE))
                             .addComponent(labelTitulo6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -333,11 +336,11 @@ public class Ventana2 extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelFicherosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelTitulo4)
-                            .addComponent(textFuente1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(textFuente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelFicherosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelTitulo5)
-                            .addComponent(textFormato1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(textFormato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(labelTitulo6))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE))
@@ -348,10 +351,10 @@ public class Ventana2 extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        labelDescripcion4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelDescripcion4.setFont(new java.awt.Font("Tahoma", 0, 12));
         labelDescripcion4.setText("Ficheros:");
 
-        labelDescripcion6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelDescripcion6.setFont(new java.awt.Font("Tahoma", 0, 12));
         labelDescripcion6.setText("Catalogaciones:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -424,13 +427,13 @@ public class Ventana2 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_comboTipoActionPerformed
 
-    private void textFuenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFuenteActionPerformed
+    private void textFuenteCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFuenteCatActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textFuenteActionPerformed
+    }//GEN-LAST:event_textFuenteCatActionPerformed
 
-    private void textFormatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFormatoActionPerformed
+    private void textFormatoCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFormatoCatActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textFormatoActionPerformed
+    }//GEN-LAST:event_textFormatoCatActionPerformed
 
     private void textURICatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textURICatActionPerformed
         // TODO add your handling code here:
@@ -439,40 +442,70 @@ public class Ventana2 extends javax.swing.JFrame {
     private void botonAccionCatalogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAccionCatalogoActionPerformed
         DescriptorCatalogo catalogo = new DescriptorCatalogo(
                 textNombreCat.getText(),
-                comboTipo.getSelectedItem().toString(), textFuente.getText(),
-                textFormato.getText(), textURICat.getText());
-        manejador.getDocumento().getCatalogaciones().add(catalogo);
-        //this.comboCatalogos.addItem(catalogo.getNombre());
+                comboTipo.getSelectedItem().toString(), textFuenteCat.getText(),
+                textFormatoCat.getText(), textURICat.getText());
+        manejador.getDocumento().addCatalogo(catalogo);
         textNombreCat.setText("");
-        textFuente.setText("");
-        textFormato.setText("");
+        textFuenteCat.setText("");
+        textFormatoCat.setText("");
         textURICat.setText("");
+        actualizaTablaCatalogo();
     }//GEN-LAST:event_botonAccionCatalogoActionPerformed
 
     private void textNombreCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textNombreCatActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textNombreCatActionPerformed
 
-    private void textFuente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFuente1ActionPerformed
+    private void textFuenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFuenteActionPerformed
         // TODO add your handling code here:
-}//GEN-LAST:event_textFuente1ActionPerformed
+}//GEN-LAST:event_textFuenteActionPerformed
 
-    private void textFormato1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFormato1ActionPerformed
+    private void textFormatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFormatoActionPerformed
         // TODO add your handling code here:
-}//GEN-LAST:event_textFormato1ActionPerformed
+}//GEN-LAST:event_textFormatoActionPerformed
 
     private void textURIFichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textURIFichActionPerformed
         // TODO add your handling code here:
 }//GEN-LAST:event_textURIFichActionPerformed
 
     private void botonAddFichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAddFichActionPerformed
-
+        DescriptorFichero f = new DescriptorFichero(textNomFich.getText(),
+                                                    textFormato.getText(),
+                                                    textFuente.getText(),
+                                                    textURIFich.getText());
+        manejador.getDocumento().addFichero(f);
+        textNomFich.setText("");
+        textFormato.setText("");
+        textFuente.setText("");
+        textURIFich.setText("");
+        actualizaTablaFicheros();
 }//GEN-LAST:event_botonAddFichActionPerformed
 
     private void textNomFichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textNomFichActionPerformed
         // TODO add your handling code here:
 }//GEN-LAST:event_textNomFichActionPerformed
 
+    private void actualizaTablaCatalogo() {
+        DefaultTableModel m;
+        m = new DefaultTableModel(new Object[] {"Catalogaciones"}, 0);
+        Iterator<DescriptorCatalogo> it = manejador.getDocumento().getCatalogaciones().iterator();
+        while (it.hasNext()) {
+            DescriptorCatalogo cat = (DescriptorCatalogo)it.next();
+            m.addRow(new Object[]{cat.getNombre()});
+        }
+        tablaCat.setModel(m);
+    }
+
+    private void actualizaTablaFicheros() {
+        DefaultTableModel m;
+        m = new DefaultTableModel(new Object[] {"Ficheros"}, 0);
+        Iterator<DescriptorFichero> it = manejador.getDocumento().getFicheros().iterator();
+        while (it.hasNext()) {
+            DescriptorFichero fich = (DescriptorFichero)it.next();
+            m.addRow(new Object[]{fich.getNombre()});
+        }
+        tablaFicheros.setModel(m);
+    }
 
     private boolean camposRellenos() {
         return true;
@@ -521,13 +554,13 @@ public class Ventana2 extends javax.swing.JFrame {
     private javax.swing.JPanel panelCat;
     private javax.swing.JPanel panelFicheros;
     private javax.swing.JScrollPane scrollDescripcion;
+    private javax.swing.JTable tablaCat;
     private javax.swing.JTable tablaFicheros;
-    private javax.swing.JTable tablaFicheros1;
     private javax.swing.JTextArea textDescripcion;
     private javax.swing.JTextField textFormato;
-    private javax.swing.JTextField textFormato1;
+    private javax.swing.JTextField textFormatoCat;
     private javax.swing.JTextField textFuente;
-    private javax.swing.JTextField textFuente1;
+    private javax.swing.JTextField textFuenteCat;
     private javax.swing.JTextField textNomFich;
     private javax.swing.JTextField textNombreCat;
     private javax.swing.JTextField textTitulo;

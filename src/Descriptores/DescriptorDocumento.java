@@ -20,16 +20,22 @@ public class DescriptorDocumento {
     private String descContenido;
     private ArrayList<DescriptorCatalogo> catalogaciones;
     private ArrayList<DescriptorPersonaje> personajes;
+    private ArrayList<DescriptorFichero> ficheros;
 
     public DescriptorDocumento(){
         titulo = "";
         descContenido = "";
         catalogaciones = new ArrayList<DescriptorCatalogo>();
         personajes = new ArrayList<DescriptorPersonaje>();
+        ficheros = new ArrayList<DescriptorFichero>();
     }
 
     public ArrayList<DescriptorCatalogo> getCatalogaciones() {
         return catalogaciones;
+    }
+
+    public ArrayList<DescriptorFichero> getFicheros() {
+        return ficheros;
     }
 
     public void setCatalogaciones(ArrayList<DescriptorCatalogo> catalogaciones) {
@@ -61,17 +67,18 @@ public class DescriptorDocumento {
     }
 
     public void addPersonaje(DescriptorPersonaje personaje) {
-        Iterator<DescriptorPersonaje> it = personajes.iterator();
-        boolean encontrado = false;
-        while (it.hasNext()){
-            DescriptorPersonaje pj = (DescriptorPersonaje) it.next();
-            if (pj.getNombreYApe().equals(personaje.getNombreYApe())){
-                encontrado = true;
-                break;
-            }
-        }
-        if (!encontrado){
+        if (!personajes.contains(personaje)){
             this.personajes.add(personaje);
+        }
+    }
+    public void addFichero(DescriptorFichero fich) {
+        if (!ficheros.contains(fich)){
+            this.ficheros.add(fich);
+        }
+    }
+    public void addCatalogo(DescriptorCatalogo cat) {
+        if (!catalogaciones.contains(cat)){
+            this.catalogaciones.add(cat);
         }
     }
 }

@@ -12,12 +12,15 @@
 package Ventanas;
 import Descriptores.DescriptorCatalogo;
 import Descriptores.DescriptorDocumento;
+import Descriptores.DescriptorFichero;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -104,10 +107,10 @@ public class VentanaCrearCol extends javax.swing.JFrame {
             }
         });
 
-        labelTitulo1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelTitulo1.setFont(new java.awt.Font("Tahoma", 0, 12));
         labelTitulo1.setText("Fuente:");
 
-        labelTitulo2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelTitulo2.setFont(new java.awt.Font("Tahoma", 0, 12));
         labelTitulo2.setText("Formato:");
 
         textFormato.setText("pdf");
@@ -117,7 +120,7 @@ public class VentanaCrearCol extends javax.swing.JFrame {
             }
         });
 
-        labelTitulo3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelTitulo3.setFont(new java.awt.Font("Tahoma", 0, 12));
         labelTitulo3.setText("URI Fichero");
 
         textURIFich.setText("/eleccionesEEUU/");
@@ -134,7 +137,7 @@ public class VentanaCrearCol extends javax.swing.JFrame {
             }
         });
 
-        labelTitulo4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelTitulo4.setFont(new java.awt.Font("Tahoma", 0, 12));
         labelTitulo4.setText("Nombre:");
 
         textNomFich.setText("estadoCalifornia");
@@ -285,13 +288,33 @@ public class VentanaCrearCol extends javax.swing.JFrame {
 }//GEN-LAST:event_textURIFichActionPerformed
 
     private void botonAddFichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAddFichActionPerformed
-
+        DescriptorFichero f = new DescriptorFichero(textNomFich.getText(),
+                                                    textFormato.getText(),
+                                                    textFuente.getText(),
+                                                    textURIFich.getText());
+        // TODO: añadir el fichero al colectivo
+        textNomFich.setText("");
+        textFormato.setText("");
+        textFuente.setText("");
+        textURIFich.setText("");
+        actualizaTablaFicheros();
 }//GEN-LAST:event_botonAddFichActionPerformed
 
     private void textNomFichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textNomFichActionPerformed
         // TODO add your handling code here:
 }//GEN-LAST:event_textNomFichActionPerformed
 
+    private void actualizaTablaFicheros() {
+        DefaultTableModel m;
+        m = new DefaultTableModel(new Object[] {"Catalogaciones"}, 0);
+        Iterator<DescriptorFichero> it = manejador.getDocumento().getFicheros().iterator();
+        while (it.hasNext()) {
+            DescriptorFichero fich = (DescriptorFichero)it.next();
+            m.addRow(new Object[]{fich.getNombre()});
+        }
+        tablaFicheros.setModel(m);
+    }
+    
     /**
     * @param args the command line arguments
     */

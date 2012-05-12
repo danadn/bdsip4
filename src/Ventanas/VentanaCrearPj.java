@@ -5,6 +5,7 @@ import Descriptores.DescriptorPersonaje;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -16,6 +17,7 @@ import javax.swing.table.DefaultTableModel;
 public class VentanaCrearPj extends javax.swing.JFrame {
     private GUIManager manejador;
     private DescriptorPersonaje personaje;
+    private ArrayList<DescriptorFichero> fichCargo;
     /** Creates new form VentanaCrearPj */
     public VentanaCrearPj(GUIManager m) {
         manejador = m;
@@ -25,6 +27,7 @@ public class VentanaCrearPj extends javax.swing.JFrame {
         this.setTitle("Crear Personaje");
         this.setDefaultCloseOperation(0);
         personaje = new DescriptorPersonaje();
+        fichCargo = new ArrayList<DescriptorFichero>();
     }
 
     /** This method is called from within the constructor to
@@ -75,10 +78,10 @@ public class VentanaCrearPj extends javax.swing.JFrame {
         textDescCargo = new javax.swing.JTextArea();
         botonCargo = new javax.swing.JButton();
         panelFicheros = new javax.swing.JPanel();
-        textFuente1 = new javax.swing.JTextField();
+        textFuente = new javax.swing.JTextField();
         labelTitulo4 = new javax.swing.JLabel();
         labelTitulo5 = new javax.swing.JLabel();
-        textFormato1 = new javax.swing.JTextField();
+        textFormato = new javax.swing.JTextField();
         labelTitulo6 = new javax.swing.JLabel();
         textURIFich = new javax.swing.JTextField();
         botonAddFich = new javax.swing.JButton();
@@ -114,7 +117,7 @@ public class VentanaCrearPj extends javax.swing.JFrame {
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel2.setText("Fecha de nacimiento:");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12));
@@ -129,7 +132,7 @@ public class VentanaCrearPj extends javax.swing.JFrame {
 
         DiaNac.setText("23");
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel5.setText("Dia");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12));
@@ -165,13 +168,13 @@ public class VentanaCrearPj extends javax.swing.JFrame {
 
         AnoIni.setText("2004");
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel12.setText("Fecha de inicio:");
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel13.setText("Fecha de fin:");
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel14.setText("Dia");
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 0, 12));
@@ -184,10 +187,10 @@ public class VentanaCrearPj extends javax.swing.JFrame {
             }
         });
 
-        jLabel16.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel16.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel16.setText("Mes");
 
-        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel17.setText("Año");
 
         textCargo.setText("Gobernador");
@@ -200,10 +203,10 @@ public class VentanaCrearPj extends javax.swing.JFrame {
 
         DiaFin.setText("02");
 
-        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel18.setText("Cargo");
 
-        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel21.setText("Descripcion del cargo:");
 
         textDescCargo.setColumns(20);
@@ -220,27 +223,27 @@ public class VentanaCrearPj extends javax.swing.JFrame {
 
         panelFicheros.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        textFuente1.setText("Arial Black");
-        textFuente1.addActionListener(new java.awt.event.ActionListener() {
+        textFuente.setText("Arial Black");
+        textFuente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFuente1ActionPerformed(evt);
+                textFuenteActionPerformed(evt);
             }
         });
 
-        labelTitulo4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelTitulo4.setFont(new java.awt.Font("Tahoma", 0, 12));
         labelTitulo4.setText("Fuente:");
 
-        labelTitulo5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelTitulo5.setFont(new java.awt.Font("Tahoma", 0, 12));
         labelTitulo5.setText("Formato:");
 
-        textFormato1.setText("pdf");
-        textFormato1.addActionListener(new java.awt.event.ActionListener() {
+        textFormato.setText("pdf");
+        textFormato.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFormato1ActionPerformed(evt);
+                textFormatoActionPerformed(evt);
             }
         });
 
-        labelTitulo6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelTitulo6.setFont(new java.awt.Font("Tahoma", 0, 12));
         labelTitulo6.setText("URI Fichero");
 
         textURIFich.setText("/docPolitica/");
@@ -257,7 +260,7 @@ public class VentanaCrearPj extends javax.swing.JFrame {
             }
         });
 
-        labelTitulo7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelTitulo7.setFont(new java.awt.Font("Tahoma", 0, 12));
         labelTitulo7.setText("Nombre:");
 
         textNomFich.setText("gobernadores");
@@ -293,11 +296,11 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                             .addGroup(panelFicherosLayout.createSequentialGroup()
                                 .addComponent(labelTitulo5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textFormato1, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE))
+                                .addComponent(textFormato, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE))
                             .addGroup(panelFicherosLayout.createSequentialGroup()
                                 .addComponent(labelTitulo4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textFuente1, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE))
+                                .addComponent(textFuente, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE))
                             .addComponent(labelTitulo6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -320,11 +323,11 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelFicherosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelTitulo4)
-                            .addComponent(textFuente1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(textFuente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelFicherosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelTitulo5)
-                            .addComponent(textFormato1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(textFormato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(labelTitulo6))
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE))
@@ -335,7 +338,7 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel19.setText("Ficheros del cargo:");
 
         javax.swing.GroupLayout panelCargoLayout = new javax.swing.GroupLayout(panelCargo);
@@ -501,7 +504,7 @@ public class VentanaCrearPj extends javax.swing.JFrame {
 
         textoLugarDef.setText("Yemen");
 
-        jLabel25.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel25.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel25.setText("Biografía:");
 
         textBiografia.setColumns(20);
@@ -528,7 +531,7 @@ public class VentanaCrearPj extends javax.swing.JFrame {
         jScrollPane4.setViewportView(tablaCargos);
         tablaCargos.getColumnModel().getColumn(0).setResizable(false);
 
-        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel26.setText("Cargos:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -633,7 +636,7 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                         .addComponent(textoLugarNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel24)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                         .addComponent(textoLugarDef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -641,7 +644,7 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane2, 0, 0, Short.MAX_VALUE)
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)))
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 597, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel25)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -691,27 +694,39 @@ public class VentanaCrearPj extends javax.swing.JFrame {
             DescriptorCargo cargo = new DescriptorCargo(textCargo.getText(),
                     textDescCargo.getText(),
                     java.sql.Date.valueOf(AnoIni.getText()+"-"+MesIni.getText()+"-"+DiaIni.getText()),
-                    java.sql.Date.valueOf(AnoFin.getText()+"-"+MesFin.getText()+"-"+DiaFin.getText())
+                    java.sql.Date.valueOf(AnoFin.getText()+"-"+MesFin.getText()+"-"+DiaFin.getText()),
+                    fichCargo
                     );
             personaje.getCargos().add(cargo);
             actualizaTablaCargos();
+            fichCargo = new ArrayList<DescriptorFichero>();
+            actualizaTablaFicheros();
         }
     }//GEN-LAST:event_botonCargoActionPerformed
 
-    private void textFuente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFuente1ActionPerformed
+    private void textFuenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFuenteActionPerformed
         // TODO add your handling code here:
-}//GEN-LAST:event_textFuente1ActionPerformed
+}//GEN-LAST:event_textFuenteActionPerformed
 
-    private void textFormato1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFormato1ActionPerformed
+    private void textFormatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFormatoActionPerformed
         // TODO add your handling code here:
-}//GEN-LAST:event_textFormato1ActionPerformed
+}//GEN-LAST:event_textFormatoActionPerformed
 
     private void textURIFichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textURIFichActionPerformed
         // TODO add your handling code here:
 }//GEN-LAST:event_textURIFichActionPerformed
 
     private void botonAddFichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAddFichActionPerformed
-
+        DescriptorFichero f = new DescriptorFichero(textNomFich.getText(),
+                                                    textFormato.getText(),
+                                                    textFuente.getText(),
+                                                    textURIFich.getText());
+        fichCargo.add(f);
+        textNomFich.setText("");
+        textFormato.setText("");
+        textFuente.setText("");
+        textURIFich.setText("");
+        actualizaTablaFicheros();
 }//GEN-LAST:event_botonAddFichActionPerformed
 
     private void textNomFichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textNomFichActionPerformed
@@ -740,6 +755,17 @@ public class VentanaCrearPj extends javax.swing.JFrame {
         tablaAlias.setModel(m);
     }
 
+    private void actualizaTablaFicheros() {
+        DefaultTableModel m;
+        m = new DefaultTableModel(new Object[] {"Ficheros"}, 0);
+        Iterator<DescriptorFichero> it = fichCargo.iterator();
+        while (it.hasNext()) {
+            DescriptorFichero fich = (DescriptorFichero)it.next();
+            m.addRow(new Object[]{fich.getNombre()});
+        }
+        tablaFicheros.setModel(m);
+    }
+    
     private void rellenaPersonaje(DescriptorPersonaje personaje) {
                 personaje.setNombreYApe(textoNomYApe.getText());
                 personaje.setLugarNacimiento(textoLugarNac.getText());
@@ -842,8 +868,8 @@ public class VentanaCrearPj extends javax.swing.JFrame {
     private javax.swing.JTextArea textBiografia;
     private javax.swing.JTextField textCargo;
     private javax.swing.JTextArea textDescCargo;
-    private javax.swing.JTextField textFormato1;
-    private javax.swing.JTextField textFuente1;
+    private javax.swing.JTextField textFormato;
+    private javax.swing.JTextField textFuente;
     private javax.swing.JTextField textNomFich;
     private javax.swing.JTextField textURIFich;
     private javax.swing.JTextField textoLugarDef;
