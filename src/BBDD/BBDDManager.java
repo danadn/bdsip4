@@ -75,12 +75,67 @@ public class BBDDManager {
             st.executeUpdate(consultas[i]+";");
         st.close();
     }
+    
+    public void creaDescripcion(String titulo, String descCont) throws SQLException{
+        Statement st = conexion.createStatement();
+        String consulta = "INSERT INTO descripcion (titulo,descContenido) VALUES "
+                + "('"+titulo+"','"+descCont+"');";
+        st.executeUpdate(consulta);
+        st.close();       
+    }  
+    
+    public void creaCatalogacion(String nombre, String tipo, String fuente,
+                                        String formato, String URI) throws SQLException{
+        Statement st = conexion.createStatement();
+        String consulta = "INSERT INTO catalogacion (nombreCat,tipo,fuente,formato,uri) VALUES" +
+                "('"+nombre+"','"+tipo+"','"+fuente+"','"+formato+"','"+URI+"');";
+        st.executeUpdate(consulta);
+        st.close();       
+    }
+
+    public void creaDocumento(String titulo) throws SQLException {
+        int id = Integer.parseInt(consultaPeticion("SELECT max(id) as id FROM documento;", "id"));
+        id++;
+        Statement st = conexion.createStatement();
+        String consulta = "INSERT INTO documento (id,descripcion) VALUES" +
+                "('"+id+"','"+titulo+"');";
+        st.executeUpdate(consulta);
+        st.close();  
+    }
+    
+    public void creaFicheroDesc(String nombre, String formato, String URI) throws SQLException {
+        String consulta = "INSERT INTO fichero_descripcion (nombreFichDoc,formatoFichDoc,uriFichDoc)" +
+                 " VALUES ('"+nombre+"','"+formato+"','"+URI+"');";
+        Statement st = conexion.createStatement();
+        st.executeUpdate(consulta);
+        st.close();  
+    }
+    public void creaFicheroCol(String nombre, String formato, String URI) throws SQLException {
+        String consulta = "INSERT INTO fichero_colectivo (nombreFichCol,formatoFichCol,uriFichCol)" +
+                 " VALUES ('"+nombre+"','"+formato+"','"+URI+"');";
+        Statement st = conexion.createStatement();
+        st.executeUpdate(consulta);
+        st.close();  
+    }
+    public void creaFicheroAcont(String nombre, String formato, String URI) throws SQLException {
+        String consulta = "INSERT INTO fichero_acontecimiento (nombreFichAcont,formatoFichAcont,uriFichAcont)" +
+                 " VALUES ('"+nombre+"','"+formato+"','"+URI+"');";
+        Statement st = conexion.createStatement();
+        st.executeUpdate(consulta);
+        st.close();  
+    }
+    public void creaFicheroCargo(String nombre, String formato, String URI) throws SQLException {
+        String consulta = "INSERT INTO fichero_cargo (nombreFichCargo,formatoFichCargo,uriFichCargo)" +
+                 " VALUES ('"+nombre+"','"+formato+"','"+URI+"');";
+        Statement st = conexion.createStatement();
+        st.executeUpdate(consulta);
+        st.close();  
+    }
 
     ////////////////////////////////////////////////////////////////////////////
     ////// Funciones de fichero y carga de la BBDD
     private void creaTablas(Statement st, Connection conexion) throws SQLException {
-        String consulta = leeFichero(".\\ScriptsSQL\\crearBBDD.sql");
-
+        String consulta = leeFichero("./ScriptsSQL/crearBBDD.sql");
         st = conexion.createStatement();
         String[] consultas = consulta.split(";");
         for (int i=0; i<consultas.length; i++)
@@ -90,7 +145,7 @@ public class BBDDManager {
 
     private void rellenaTablas(Statement st, Connection conexion) throws SQLException {
         //Se abre un nuevo statement para enviar commandos SQL a la nueva base de datos
-        String consulta = leeFichero(".\\ScriptsSQL\\rellenarBBDD.sql");
+        String consulta = leeFichero("./ScriptsSQL/rellenarBBDD.sql");
         st = conexion.createStatement();
         String[] consultas = consulta.split(";");
         for (int i=0; i<consultas.length; i++)
@@ -127,8 +182,8 @@ public class BBDDManager {
             }
         }
         return consulta;
-    }
-
+    }   
+    
     public void close() {
         try {
             conexion.close();

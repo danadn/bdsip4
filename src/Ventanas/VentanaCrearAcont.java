@@ -1,15 +1,12 @@
 package Ventanas;
-import Descriptores.DescriptorCargo;
 import Descriptores.DescriptorFichero;
-import Descriptores.DescriptorAcont;
-import Descriptores.DescriptorPersonaje;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.management.DescriptorAccess;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -19,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class VentanaCrearAcont extends javax.swing.JFrame {
     private GUIManager manejador;
-    private DescriptorAcont acont;
+    private ArrayList<DescriptorFichero> ficheros;
     /** Creates new form VentanaCrearAcont */
     public VentanaCrearAcont(GUIManager m) {
         manejador = m;
@@ -28,13 +25,13 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
         initComponents();
         this.setTitle("Crear Personaje");
         this.setDefaultCloseOperation(0);
-        acont = new DescriptorAcont();
+        ficheros = new ArrayList<DescriptorFichero>();
     }
 
     private void actualizaTablaFicheros() {
         DefaultTableModel m;
         m = new DefaultTableModel(new Object[] {"Catalogaciones"}, 0);
-        Iterator<DescriptorFichero> it = manejador.getDocumento().getFicheros().iterator();
+        Iterator<DescriptorFichero> it = ficheros.iterator();
         while (it.hasNext()) {
             DescriptorFichero fich = (DescriptorFichero)it.next();
             m.addRow(new Object[]{fich.getNombre()});
@@ -57,8 +54,6 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
         textDescripcion = new javax.swing.JTextArea();
         labelDescripcion = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        textFuente = new javax.swing.JTextField();
-        labelTitulo1 = new javax.swing.JLabel();
         labelTitulo2 = new javax.swing.JLabel();
         textFormato = new javax.swing.JTextField();
         labelTitulo3 = new javax.swing.JLabel();
@@ -87,7 +82,7 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        labelTitulo.setFont(new java.awt.Font("Tahoma", 0, 12));
+        labelTitulo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         labelTitulo.setText("Acontecimiento:");
 
         textNombre.setText("Elecciones Gobernor California");
@@ -106,16 +101,6 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
         labelDescripcion.setText("Descripcion:");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        textFuente.setText("Arial Black");
-        textFuente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFuenteActionPerformed(evt);
-            }
-        });
-
-        labelTitulo1.setFont(new java.awt.Font("Tahoma", 0, 12));
-        labelTitulo1.setText("Fuente:");
 
         labelTitulo2.setFont(new java.awt.Font("Tahoma", 0, 12));
         labelTitulo2.setText("Formato:");
@@ -171,30 +156,24 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelTitulo3)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(labelTitulo4)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(labelTitulo2)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(textFormato))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(labelTitulo1)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(textFuente, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGap(10, 10, 10)
-                                    .addComponent(textNomFich, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addGap(10, 10, 10)
-                            .addComponent(textURIFich, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(botonAddFich))))
-                .addGap(136, 136, 136))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelTitulo4)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(textNomFich, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(labelTitulo2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(textFormato, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE))
+                            .addComponent(labelTitulo3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(textURIFich, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonAddFich)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -205,17 +184,13 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
                         .addComponent(labelTitulo4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(textNomFich, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(labelTitulo1)
-                            .addComponent(textFuente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelTitulo2)
-                            .addComponent(textFormato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelTitulo3)
+                            .addComponent(textFormato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelTitulo3))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textURIFich, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -285,69 +260,64 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel13)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel17)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(AnoIni, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel16)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(MesIni, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel14)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(DiaIni, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel10)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(AnoFin, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel11)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(MesFin, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel15)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(DiaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(0, 48, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(botonAceptar))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(textNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(labelTitulo)
-                    .addComponent(labelDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(14, 14, 14))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel12)
-                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(scrollDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelDescripcion1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(13, 198, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(jLabel17)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(AnoIni, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel16)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(MesIni, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel14)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(DiaIni, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel13)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(AnoFin, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(MesFin, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel15)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(DiaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(56, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelDescripcion1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(196, 196, 196))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(212, Short.MAX_VALUE)
-                .addComponent(botonAceptar)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(scrollDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(textNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE))
+                    .addComponent(labelTitulo, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(28, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(labelTitulo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(textNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelDescripcion)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -377,7 +347,8 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botonAceptar))
+                .addComponent(botonAceptar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -386,10 +357,6 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
     private void textNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textNombreActionPerformed
         // TODO add your handling code here:
 }//GEN-LAST:event_textNombreActionPerformed
-
-    private void textFuenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFuenteActionPerformed
-        // TODO add your handling code here:
-}//GEN-LAST:event_textFuenteActionPerformed
 
     private void textFormatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFormatoActionPerformed
         // TODO add your handling code here:
@@ -402,12 +369,11 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
     private void botonAddFichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAddFichActionPerformed
         DescriptorFichero f = new DescriptorFichero(textNomFich.getText(),
                                                     textFormato.getText(),
-                                                    textFuente.getText(),
                                                     textURIFich.getText());
-        // TODO: añadir el fichero al acontecimiento
+        if (!ficheros.contains(f))
+            ficheros.add(f);
         textNomFich.setText("");
         textFormato.setText("");
-        textFuente.setText("");
         textURIFich.setText("");
         actualizaTablaFicheros();
 }//GEN-LAST:event_botonAddFichActionPerformed
@@ -417,7 +383,45 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
 }//GEN-LAST:event_textNomFichActionPerformed
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
-        manejador.cambiaEstado(estados.VENTANA3);
+        try {
+            // Introducimos el Acontecimiento en la BBDD
+            manejador.getBBDDManager().consultaInsetar("INSERT INTO acontecimiento "
+                    + "(nombreAcont,descrip,fechaC,fechaF) VALUES"
+                    + "('"+textNombre.getText()+"','"+textDescripcion.getText()+"',"
+                    + "'"+AnoIni.getText()+"-"+MesIni.getText()+"-"+DiaIni.getText()+"'"
+                    + ",'"+AnoFin.getText()+"-"+MesFin.getText()+"-"+DiaFin.getText()+"');");
+            // Asociamos el Acontecimiento al Documento
+            int idDocumento = Integer.parseInt(manejador.getBBDDManager().consultaPeticion(
+                    "SELECT max(id) as id FROM documento;", "id"));
+            manejador.getBBDDManager().consultaInsetar("INSERT INTO acontecimientosDocumento"
+                    + " (idDocumento,acontecimiento) VALUES"
+                    + "("+idDocumento+",'"+textNombre.getText()+"');");
+            // Creamos y asociamos sus ficheros
+            Iterator<DescriptorFichero> itF = ficheros.iterator();
+            while (itF.hasNext()) {
+                // Creamos el fichero en la BBDD
+                DescriptorFichero f = itF.next();
+                manejador.getBBDDManager().creaFicheroAcont(f.getNombre(),
+                        f.getFormato(), f.getURI());
+                // Lo relacionamos con el documento
+                manejador.getBBDDManager().consultaInsetar("INSERT INTO "
+                        + "acontsFichero(acontecimiento,ficheroAcont) VALUES "
+                        + "('"+textNombre.getText()+"','"+f.getNombre()+"');");
+            }
+            // Introducidos los ficheros, los borramos de memoria
+            ficheros.clear();
+            actualizaTablaFicheros();
+            textNombre.setText("");
+            textDescripcion.setText("");
+            textFormato.setText("");
+            textNomFich.setText("");
+            textURIFich.setText("");
+            AnoIni.setText(""); MesIni.setText(""); DiaIni.setText("");
+            AnoFin.setText(""); MesFin.setText(""); DiaFin.setText("");
+            manejador.cambiaEstado(estados.VENTANA3);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex, "Aviso", 2);
+        }
 }//GEN-LAST:event_botonAceptarActionPerformed
 
     private void MesIniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MesIniActionPerformed
@@ -465,7 +469,6 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
     private javax.swing.JLabel labelDescripcion;
     private javax.swing.JLabel labelDescripcion1;
     private javax.swing.JLabel labelTitulo;
-    private javax.swing.JLabel labelTitulo1;
     private javax.swing.JLabel labelTitulo2;
     private javax.swing.JLabel labelTitulo3;
     private javax.swing.JLabel labelTitulo4;
@@ -473,7 +476,6 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
     private javax.swing.JTable tablaFicheros;
     private javax.swing.JTextArea textDescripcion;
     private javax.swing.JTextField textFormato;
-    private javax.swing.JTextField textFuente;
     private javax.swing.JTextField textNomFich;
     private javax.swing.JTextField textNombre;
     private javax.swing.JTextField textURIFich;

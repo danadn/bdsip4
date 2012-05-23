@@ -5,6 +5,7 @@ import Descriptores.DescriptorFichero;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,11 +17,14 @@ import javax.swing.table.DefaultTableModel;
  * @author Daniel
  */
 public class Ventana2 extends javax.swing.JFrame {
-
+    private ArrayList<DescriptorCatalogo> catalogaciones;
+    private ArrayList<DescriptorFichero> ficheros;
     private GUIManager manejador;
     /** Creates new form Ventana2 */
     public Ventana2(GUIManager m) {
         manejador = m;
+        catalogaciones = new ArrayList<DescriptorCatalogo>();
+        ficheros = new ArrayList<DescriptorFichero>();
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(d.width/3, 20);
         initComponents();
@@ -58,8 +62,6 @@ public class Ventana2 extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaCat = new javax.swing.JTable();
         panelFicheros = new javax.swing.JPanel();
-        textFuente = new javax.swing.JTextField();
-        labelTitulo4 = new javax.swing.JLabel();
         labelTitulo5 = new javax.swing.JLabel();
         textFormato = new javax.swing.JTextField();
         labelTitulo6 = new javax.swing.JLabel();
@@ -104,7 +106,7 @@ public class Ventana2 extends javax.swing.JFrame {
         labelDescripcion3.setFont(new java.awt.Font("Tahoma", 0, 12));
         labelDescripcion3.setText("Tipo");
 
-        comboTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Lista de Valores", "Taxonomia", "Tesauro" }));
+        comboTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "lista_valores", "taxonomia", "tesauro" }));
         comboTipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboTipoActionPerformed(evt);
@@ -236,16 +238,6 @@ public class Ventana2 extends javax.swing.JFrame {
 
         panelFicheros.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        textFuente.setText("Arial Black");
-        textFuente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFuenteActionPerformed(evt);
-            }
-        });
-
-        labelTitulo4.setFont(new java.awt.Font("Tahoma", 0, 12));
-        labelTitulo4.setText("Fuente:");
-
         labelTitulo5.setFont(new java.awt.Font("Tahoma", 0, 12));
         labelTitulo5.setText("Formato:");
 
@@ -256,7 +248,7 @@ public class Ventana2 extends javax.swing.JFrame {
             }
         });
 
-        labelTitulo6.setFont(new java.awt.Font("Tahoma", 0, 12));
+        labelTitulo6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         labelTitulo6.setText("URI Fichero");
 
         textURIFich.setText("/docPolitica/");
@@ -301,27 +293,20 @@ public class Ventana2 extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(panelFicherosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelFicherosLayout.createSequentialGroup()
-                        .addGroup(panelFicherosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFicherosLayout.createSequentialGroup()
+                        .addGroup(panelFicherosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(panelFicherosLayout.createSequentialGroup()
                                 .addComponent(labelTitulo7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(textNomFich, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE))
-                            .addGroup(panelFicherosLayout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelFicherosLayout.createSequentialGroup()
                                 .addComponent(labelTitulo5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(textFormato, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))
-                            .addGroup(panelFicherosLayout.createSequentialGroup()
-                                .addComponent(labelTitulo4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textFuente, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE))
-                            .addComponent(labelTitulo6))
+                            .addComponent(labelTitulo6, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textURIFich, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFicherosLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(textURIFich, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botonAddFich)))
+                    .addComponent(botonAddFich, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         panelFicherosLayout.setVerticalGroup(
@@ -335,19 +320,16 @@ public class Ventana2 extends javax.swing.JFrame {
                             .addComponent(textNomFich, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelFicherosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(labelTitulo4)
-                            .addComponent(textFuente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelFicherosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelTitulo5)
                             .addComponent(textFormato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(labelTitulo6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelTitulo6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textURIFich, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(5, 5, 5))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelFicherosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textURIFich, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonAddFich))
+                .addComponent(botonAddFich)
                 .addContainerGap())
         );
 
@@ -361,13 +343,14 @@ public class Ventana2 extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(panelFicheros, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(scrollDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
@@ -375,11 +358,10 @@ public class Ventana2 extends javax.swing.JFrame {
                             .addComponent(labelTitulo)
                             .addComponent(labelDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(96, 96, 96))
-                    .addComponent(panelFicheros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(labelDescripcion4)
-                    .addComponent(botonSiguiente, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(labelDescripcion6)
-                    .addComponent(panelCat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(labelDescripcion4, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botonSiguiente)
+                    .addComponent(labelDescripcion6, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelCat, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -396,8 +378,8 @@ public class Ventana2 extends javax.swing.JFrame {
                 .addGap(7, 7, 7)
                 .addComponent(labelDescripcion4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelFicheros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelFicheros, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelDescripcion6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -411,9 +393,43 @@ public class Ventana2 extends javax.swing.JFrame {
 
     private void botonSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSiguienteActionPerformed
         if (camposRellenos()){
-            DescriptorDocumento doc = manejador.getDocumento();
-            rellenaDocumento(doc);
-            manejador.cambiaEstado(estados.VENTANA3);
+            try {
+                // Insertamos la descripcion en la BBDD
+                manejador.getBBDDManager().creaDescripcion(textTitulo.getText(), textDescripcion.getText());
+                manejador.getBBDDManager().creaDocumento(textTitulo.getText());
+                // Creamos y asociamos sus catalogaciones y ficheros
+                Iterator<DescriptorFichero> itF = ficheros.iterator();
+                while (itF.hasNext()) {
+                    // Creamos el fichero en la BBDD
+                    DescriptorFichero f = itF.next();
+                    manejador.getBBDDManager().creaFicheroDesc(f.getNombre(),
+                                    f.getFormato(),f.getURI());
+                    // Lo relacionamos con el documento
+                    manejador.getBBDDManager().consultaInsetar("INSERT INTO "
+                            + "descripcionesFichero(descripcion,ficheroDesc) VALUES "
+                            + "('"+textTitulo.getText()+"','"+f.getNombre()+"');");
+                }
+                Iterator<DescriptorCatalogo> it = catalogaciones.iterator();
+                while (it.hasNext()) {
+                    DescriptorCatalogo cat = it.next();
+                    // Creamos la catalogacion en la BBDD
+                    manejador.getBBDDManager().creaCatalogacion(cat.getNombre(),
+                            cat.getTipo(), cat.getFuente(),cat.getFormato(),
+                            cat.getURI());
+                    // La relacionamos con el documento
+                    manejador.getBBDDManager().consultaInsetar("INSERT INTO "
+                            + "catalogacionesDoc(descripcion,catalogacion) VALUES "
+                            + "('"+textTitulo.getText()+"','"+cat.getNombre()+"');");
+                }
+                // Borramos listas
+                catalogaciones.clear();
+                actualizaTablaCatalogo();
+                ficheros.clear();
+                actualizaTablaFicheros();
+                manejador.cambiaEstado(estados.VENTANA3);
+            } catch (SQLException ex) {
+                System.out.println(ex.toString());
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Debes rellnar todos los campos", "Aviso", 2);
         }
@@ -444,7 +460,8 @@ public class Ventana2 extends javax.swing.JFrame {
                 textNombreCat.getText(),
                 comboTipo.getSelectedItem().toString(), textFuenteCat.getText(),
                 textFormatoCat.getText(), textURICat.getText());
-        manejador.getDocumento().addCatalogo(catalogo);
+        if (!catalogaciones.contains(catalogo))      
+            catalogaciones.add(catalogo);
         textNombreCat.setText("");
         textFuenteCat.setText("");
         textFormatoCat.setText("");
@@ -455,10 +472,6 @@ public class Ventana2 extends javax.swing.JFrame {
     private void textNombreCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textNombreCatActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textNombreCatActionPerformed
-
-    private void textFuenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFuenteActionPerformed
-        // TODO add your handling code here:
-}//GEN-LAST:event_textFuenteActionPerformed
 
     private void textFormatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFormatoActionPerformed
         // TODO add your handling code here:
@@ -471,12 +484,11 @@ public class Ventana2 extends javax.swing.JFrame {
     private void botonAddFichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAddFichActionPerformed
         DescriptorFichero f = new DescriptorFichero(textNomFich.getText(),
                                                     textFormato.getText(),
-                                                    textFuente.getText(),
                                                     textURIFich.getText());
-        manejador.getDocumento().addFichero(f);
+        if (!ficheros.contains(f))
+            ficheros.add(f);
         textNomFich.setText("");
         textFormato.setText("");
-        textFuente.setText("");
         textURIFich.setText("");
         actualizaTablaFicheros();
 }//GEN-LAST:event_botonAddFichActionPerformed
@@ -488,7 +500,7 @@ public class Ventana2 extends javax.swing.JFrame {
     private void actualizaTablaCatalogo() {
         DefaultTableModel m;
         m = new DefaultTableModel(new Object[] {"Catalogaciones"}, 0);
-        Iterator<DescriptorCatalogo> it = manejador.getDocumento().getCatalogaciones().iterator();
+        Iterator<DescriptorCatalogo> it = catalogaciones.iterator();
         while (it.hasNext()) {
             DescriptorCatalogo cat = (DescriptorCatalogo)it.next();
             m.addRow(new Object[]{cat.getNombre()});
@@ -499,7 +511,7 @@ public class Ventana2 extends javax.swing.JFrame {
     private void actualizaTablaFicheros() {
         DefaultTableModel m;
         m = new DefaultTableModel(new Object[] {"Ficheros"}, 0);
-        Iterator<DescriptorFichero> it = manejador.getDocumento().getFicheros().iterator();
+        Iterator<DescriptorFichero> it = ficheros.iterator();
         while (it.hasNext()) {
             DescriptorFichero fich = (DescriptorFichero)it.next();
             m.addRow(new Object[]{fich.getNombre()});
@@ -508,7 +520,10 @@ public class Ventana2 extends javax.swing.JFrame {
     }
 
     private boolean camposRellenos() {
-        return true;
+        return textTitulo.getText().length()>0 &&
+               textDescripcion.getText().length()>0 &&
+               catalogaciones.size()>0 &&
+               ficheros.size()>0;
     }
 
     private void rellenaDocumento(DescriptorDocumento documento) {
@@ -547,7 +562,6 @@ public class Ventana2 extends javax.swing.JFrame {
     private javax.swing.JLabel labelTitulo1;
     private javax.swing.JLabel labelTitulo2;
     private javax.swing.JLabel labelTitulo3;
-    private javax.swing.JLabel labelTitulo4;
     private javax.swing.JLabel labelTitulo5;
     private javax.swing.JLabel labelTitulo6;
     private javax.swing.JLabel labelTitulo7;
@@ -559,7 +573,6 @@ public class Ventana2 extends javax.swing.JFrame {
     private javax.swing.JTextArea textDescripcion;
     private javax.swing.JTextField textFormato;
     private javax.swing.JTextField textFormatoCat;
-    private javax.swing.JTextField textFuente;
     private javax.swing.JTextField textFuenteCat;
     private javax.swing.JTextField textNomFich;
     private javax.swing.JTextField textNombreCat;

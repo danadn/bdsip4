@@ -23,11 +23,7 @@ public class GUIManager {
     private estados estado;
     private BBDDManager bd;
 
-    // documento sobre el que se trabaja en caso de crear uno:
-    private DescriptorDocumento documento;
-
     public GUIManager() throws SQLException{
-        documento = new DescriptorDocumento();
         bd = new BBDDManager(this);
         v1 = new Ventana1(this);
         v2 = new Ventana2(this);
@@ -170,13 +166,5 @@ public class GUIManager {
                 estado = estados.VENTANA1;
                 break;
         }
-    }
-
-    public DescriptorDocumento getDocumento() {
-        return documento;
-    }
-
-    public void setDocumento(DescriptorDocumento documento) {
-        this.documento = documento;
     }
 }
