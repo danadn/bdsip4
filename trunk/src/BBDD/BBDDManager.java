@@ -58,14 +58,23 @@ public class BBDDManager {
         st = conexion.createStatement();
         ResultSet rs = st.executeQuery(consulta);
         //resultado = (String) rs.getString(campo);
+        boolean entra=false;
         while(rs.next()){
+            entra=true;
             resultado += rs.getString(campo) + ",";
         }
-        resultado = resultado.substring(0, resultado.length()-1);
+        if(entra)
+            resultado = resultado.substring(0, resultado.length()-1);
         rs.close();
         st.close();
-        System.out.println("Respuesta a "+campo+": "+resultado);
-        return resultado;
+        if(entra){
+            System.out.println("Respuesta a "+campo+": "+resultado);
+            return resultado;
+        }else{
+            System.out.println("Respuesta a "+campo+": Sin resultado.");
+            return null;
+        }
+        
     }
 
     public void consultaInsetar(String consulta) throws SQLException {
