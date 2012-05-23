@@ -12,7 +12,7 @@ package Descriptores;
 public class DescriptorCatalogo {
 
     private String nombre;
-    private String  tipo;
+    private String tipo;
     private String fuente;
     private String formato;
     private String URI;

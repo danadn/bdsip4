@@ -4,21 +4,20 @@
  */
 
 package Descriptores;
-
 /**
  *
  * @author Daniel
  */
 public class DescriptorFichero {
+    
+    public enum tipos{lista_valores,taxonomia,tesauro};
     private String nombre;
     private String formato;
-    private String fuente;
     private String URI;
 
-    public DescriptorFichero(String nombre, String formato, String fuente, String URI) {
+    public DescriptorFichero(String nombre, String formato, String URI) {
         this.nombre = nombre;
         this.formato = formato;
-        this.fuente = fuente;
         this.URI = URI;
     }
 

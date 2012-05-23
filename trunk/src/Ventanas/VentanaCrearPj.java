@@ -16,8 +16,9 @@ import javax.swing.table.DefaultTableModel;
  */
 public class VentanaCrearPj extends javax.swing.JFrame {
     private GUIManager manejador;
-    private DescriptorPersonaje personaje;
     private ArrayList<DescriptorFichero> fichCargo;
+    private ArrayList<DescriptorCargo> cargos;
+    private ArrayList<String> alias;
     /** Creates new form VentanaCrearPj */
     public VentanaCrearPj(GUIManager m) {
         manejador = m;
@@ -26,8 +27,9 @@ public class VentanaCrearPj extends javax.swing.JFrame {
         initComponents();
         this.setTitle("Crear Personaje");
         this.setDefaultCloseOperation(0);
-        personaje = new DescriptorPersonaje();
         fichCargo = new ArrayList<DescriptorFichero>();
+        cargos = new ArrayList<DescriptorCargo>();
+        alias = new ArrayList<String>();
     }
 
     /** This method is called from within the constructor to
@@ -78,8 +80,6 @@ public class VentanaCrearPj extends javax.swing.JFrame {
         textDescCargo = new javax.swing.JTextArea();
         botonCargo = new javax.swing.JButton();
         panelFicheros = new javax.swing.JPanel();
-        textFuente = new javax.swing.JTextField();
-        labelTitulo4 = new javax.swing.JLabel();
         labelTitulo5 = new javax.swing.JLabel();
         textFormato = new javax.swing.JTextField();
         labelTitulo6 = new javax.swing.JLabel();
@@ -223,17 +223,7 @@ public class VentanaCrearPj extends javax.swing.JFrame {
 
         panelFicheros.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        textFuente.setText("Arial Black");
-        textFuente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFuenteActionPerformed(evt);
-            }
-        });
-
-        labelTitulo4.setFont(new java.awt.Font("Tahoma", 0, 12));
-        labelTitulo4.setText("Fuente:");
-
-        labelTitulo5.setFont(new java.awt.Font("Tahoma", 0, 12));
+        labelTitulo5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         labelTitulo5.setText("Formato:");
 
         textFormato.setText("pdf");
@@ -243,7 +233,7 @@ public class VentanaCrearPj extends javax.swing.JFrame {
             }
         });
 
-        labelTitulo6.setFont(new java.awt.Font("Tahoma", 0, 12));
+        labelTitulo6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         labelTitulo6.setText("URI Fichero");
 
         textURIFich.setText("/docPolitica/");
@@ -286,29 +276,21 @@ public class VentanaCrearPj extends javax.swing.JFrame {
             panelFicherosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelFicherosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelFicherosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelFicherosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelFicherosLayout.createSequentialGroup()
-                        .addGroup(panelFicherosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFicherosLayout.createSequentialGroup()
-                                .addComponent(labelTitulo7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textNomFich, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE))
-                            .addGroup(panelFicherosLayout.createSequentialGroup()
-                                .addComponent(labelTitulo5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textFormato, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE))
-                            .addGroup(panelFicherosLayout.createSequentialGroup()
-                                .addComponent(labelTitulo4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textFuente, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE))
-                            .addComponent(labelTitulo6))
+                        .addComponent(labelTitulo7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFicherosLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(textURIFich, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
+                        .addComponent(textNomFich, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelFicherosLayout.createSequentialGroup()
+                        .addComponent(labelTitulo5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botonAddFich)))
+                        .addComponent(textFormato, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE))
+                    .addComponent(labelTitulo6, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(textURIFich, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelFicherosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonAddFich, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         panelFicherosLayout.setVerticalGroup(
@@ -322,19 +304,16 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                             .addComponent(textNomFich, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelFicherosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(labelTitulo4)
-                            .addComponent(textFuente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelFicherosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelTitulo5)
                             .addComponent(textFormato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(labelTitulo6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelTitulo6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textURIFich, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(5, 5, 5))
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelFicherosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textURIFich, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonAddFich))
+                .addComponent(botonAddFich)
                 .addContainerGap())
         );
 
@@ -649,7 +628,7 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                         .addComponent(jLabel25)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                         .addComponent(jLabel26)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(panelCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -671,11 +650,69 @@ public class VentanaCrearPj extends javax.swing.JFrame {
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
         if (camposRellenos()){
-            rellenaPersonaje(personaje);
-            manejador.getDocumento().addPersonaje(personaje);
-            System.out.print("Personaje "+personaje.getNombreYApe()+" añadido a documento "+
-                    manejador.getDocumento().getTitulo()+" con exito.");
-            manejador.cambiaEstado(estados.VENTANA3);
+            try {
+                // Creamos el Personaje
+                manejador.getBBDDManager().consultaInsetar("INSERT INTO personaje "
+                        + "(nombreYApe,fechaNac,lugarNac,fechaMuerte,lugarMuerte,biografia) VALUES"
+                        + "('" + textoNomYApe.getText() + "',"
+                        + "'" + AnoNac.getText() + "-" + MesNac.getText() + "-" + DiaNac.getText() + "'"
+                        + ",'" + textoLugarNac.getText() + "',"
+                        + "'" + AnoDef.getText() + "-" + MesDef.getText() + "-" + DiaDef.getText() + "',"
+                        + "'" + textoLugarDef.getText() + "',"
+                        + "'" + textBiografia.getText() + "');");
+                // Asociamos el Personaje al Documento
+                int idDocumento = Integer.parseInt(manejador.getBBDDManager().consultaPeticion(
+                        "SELECT max(id) as id FROM documento;", "id"));
+                manejador.getBBDDManager().consultaInsetar("INSERT INTO "
+                        + "personajesDocumento (idDocumento,personaje) VALUES"
+                        + "(" + idDocumento + ",'" + textoNomYApe.getText() + "');");
+                // Añadimos sus alias
+                Iterator<String> itAlias = alias.iterator();
+                while (itAlias.hasNext()) {
+                    String a = itAlias.next();
+                    manejador.getBBDDManager().consultaInsetar("INSERT INTO alias "
+                            + "(personaje,nomAlias) VALUES('"+textoNomYApe.getText()+"',"
+                            + "'"+a+"');");
+                }
+                // Borramos informacion de la memoria
+                alias.clear();
+                actualizaTablaAlias();
+                // Añadimos sus cargos
+                Iterator<DescriptorCargo> itCargo = cargos.iterator();
+                while (itCargo.hasNext()){
+                    DescriptorCargo cargo = (DescriptorCargo)itCargo.next();
+                    // Creamos el cargo en la BBDD, si ya existe no se introducirá
+                    manejador.getBBDDManager().consultaInsetar("INSERT INTO "
+                            + "cargo(nombreCargo) VALUES('"+cargo.getCargo()+"');");
+                    // Creamos y asociamos los ficheros al cargo
+                    Iterator<DescriptorFichero> it = cargo.getFichero().iterator();
+                    while (it.hasNext()){
+                        // Creamos el fichero
+                        DescriptorFichero f = (DescriptorFichero)it.next();
+                        manejador.getBBDDManager().creaFicheroCargo(f.getNombre(),
+                                    f.getFormato(),f.getURI());
+                        // Asociamos el fichero al cargo
+                        manejador.getBBDDManager().consultaInsetar("INSERT INTO "
+                            + "cargosFichero(cargo,ficheroCargo) VALUES "
+                            + "('"+cargo.getCargo()+"','"+f.getNombre()+"');");
+                    }
+                    // Asociamos el cargo al personaje
+                    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+                    manejador.getBBDDManager().consultaInsetar("INSERT INTO "
+                            + "desempenia(personaje, cargo, descCargo, FechaIni, FechaFin) VALUES"
+                            + "('"+textoNomYApe.getText()+"',"
+                            + "'"+cargo.getCargo()+"',"
+                            + "'"+cargo.getDescCargo()+"',"
+                            + "'"+sdf.format(cargo.getFechaIni())+"',"
+                            + "'"+sdf.format(cargo.getFechaFin())+"');");
+                }
+                // Borramos informacion de la memoria
+                cargos.clear();
+                actualizaTablaCargos();
+                manejador.cambiaEstado(estados.VENTANA3);
+            } catch (SQLException ex) {
+                System.out.print(ex);
+            }
         }
         else{
             JOptionPane.showMessageDialog(null, "Debes rellnar todos los campos", "Aviso", 2);
@@ -683,30 +720,35 @@ public class VentanaCrearPj extends javax.swing.JFrame {
     }//GEN-LAST:event_botonAceptarActionPerformed
 
     private void botonAliasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAliasActionPerformed
-        if (!personaje.isAlias(textAlias.getText())){
-            personaje.getAlias().add(textAlias.getText());
-            actualizaTablaAlias();
-        }
+        if (!alias.contains(textAlias.getText()))
+                alias.add(textAlias.getText());
+        textAlias.setText("");
+        actualizaTablaAlias();
     }//GEN-LAST:event_botonAliasActionPerformed
 
     private void botonCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCargoActionPerformed
-        if (!personaje.isCargo(textCargo.getText())){
-            DescriptorCargo cargo = new DescriptorCargo(textCargo.getText(),
-                    textDescCargo.getText(),
-                    java.sql.Date.valueOf(AnoIni.getText()+"-"+MesIni.getText()+"-"+DiaIni.getText()),
-                    java.sql.Date.valueOf(AnoFin.getText()+"-"+MesFin.getText()+"-"+DiaFin.getText()),
-                    fichCargo
-                    );
-            personaje.getCargos().add(cargo);
+        // Añadimos el cargo a la lista de cargos
+        DescriptorCargo cargo = new DescriptorCargo(textCargo.getText(),
+                textDescCargo.getText(),
+                java.sql.Date.valueOf(AnoIni.getText() + "-" + MesIni.getText() + "-" + DiaIni.getText()),
+                java.sql.Date.valueOf(AnoFin.getText() + "-" + MesFin.getText() + "-" + DiaFin.getText()),
+                fichCargo);
+        if (!cargos.contains(cargo)) {
+            cargos.add(cargo);
+            textCargo.setText("");
+            textDescCargo.setText("");
+            AnoIni.setText(""); AnoFin.setText("");
+            MesIni.setText(""); MesFin.setText("");
+            DiaIni.setText(""); DiaFin.setText("");
+            textAlias.setText("");
+            textNomFich.setText("");
+            textURIFich.setText("");
+            textFormato.setText("");
             actualizaTablaCargos();
-            fichCargo = new ArrayList<DescriptorFichero>();
+            fichCargo.clear();
             actualizaTablaFicheros();
         }
     }//GEN-LAST:event_botonCargoActionPerformed
-
-    private void textFuenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFuenteActionPerformed
-        // TODO add your handling code here:
-}//GEN-LAST:event_textFuenteActionPerformed
 
     private void textFormatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFormatoActionPerformed
         // TODO add your handling code here:
@@ -719,12 +761,11 @@ public class VentanaCrearPj extends javax.swing.JFrame {
     private void botonAddFichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAddFichActionPerformed
         DescriptorFichero f = new DescriptorFichero(textNomFich.getText(),
                                                     textFormato.getText(),
-                                                    textFuente.getText(),
                                                     textURIFich.getText());
-        fichCargo.add(f);
+        if (!fichCargo.contains(f))
+            fichCargo.add(f);
         textNomFich.setText("");
         textFormato.setText("");
-        textFuente.setText("");
         textURIFich.setText("");
         actualizaTablaFicheros();
 }//GEN-LAST:event_botonAddFichActionPerformed
@@ -736,7 +777,7 @@ public class VentanaCrearPj extends javax.swing.JFrame {
     private void actualizaTablaCargos() {
         DefaultTableModel m;
         m = new DefaultTableModel(new Object[] {"Cargos"}, 0);
-        Iterator<DescriptorCargo> itCargos = personaje.getCargos().iterator();
+        Iterator<DescriptorCargo> itCargos = cargos.iterator();
         while (itCargos.hasNext()) {
             DescriptorCargo cargo = itCargos.next();
             m.addRow(new Object[]{cargo.getCargo()});
@@ -747,7 +788,7 @@ public class VentanaCrearPj extends javax.swing.JFrame {
     private void actualizaTablaAlias() {
         DefaultTableModel m;
         m = new DefaultTableModel(new Object[] {"Alias"}, 0);
-        Iterator<String> itAlias = personaje.getAlias().iterator();
+        Iterator<String> itAlias = alias.iterator();
         while (itAlias.hasNext()) {
             String alias = itAlias.next();
             m.addRow(new Object[]{alias});
@@ -777,18 +818,18 @@ public class VentanaCrearPj extends javax.swing.JFrame {
     }
     
     private boolean camposRellenos() {
-        return (textBiografia.getText().length()!=0 &&
-                textoLugarNac.getText().length()!=0 &&
-                textoLugarDef.getText().length()!=0 &&
-                textoNomYApe.getText().length()!=0 &&
-                !personaje.getCargos().isEmpty() &&
-                !personaje.getAlias().isEmpty() &&
-                AnoNac.getText().length()!=0 &&
-                DiaNac.getText().length()!=0 &&
-                MesNac.getText().length()!=0 &&
-                AnoDef.getText().length()!=0 &&
-                DiaDef.getText().length()!=0 &&
-                MesDef.getText().length()!=0);
+        return (true/*textBiografia.getText().length() > 0 &&
+                textoLugarNac.getText().length() > 0 &&
+                textoLugarDef.getText().length() > 0 &&
+                textoNomYApe.getText().length() > 0 &&
+                cargos.isEmpty() &&
+                alias.isEmpty() &&
+                AnoNac.getText().length() > 0 &&
+                DiaNac.getText().length() > 0 &&
+                MesNac.getText().length() > 0 &&
+                AnoDef.getText().length() > 0 &&
+                DiaDef.getText().length() > 0 &&
+                MesDef.getText().length() > 0*/);
     }
 
     /**
@@ -855,7 +896,6 @@ public class VentanaCrearPj extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JLabel labelTitulo4;
     private javax.swing.JLabel labelTitulo5;
     private javax.swing.JLabel labelTitulo6;
     private javax.swing.JLabel labelTitulo7;
@@ -869,7 +909,6 @@ public class VentanaCrearPj extends javax.swing.JFrame {
     private javax.swing.JTextField textCargo;
     private javax.swing.JTextArea textDescCargo;
     private javax.swing.JTextField textFormato;
-    private javax.swing.JTextField textFuente;
     private javax.swing.JTextField textNomFich;
     private javax.swing.JTextField textURIFich;
     private javax.swing.JTextField textoLugarDef;
