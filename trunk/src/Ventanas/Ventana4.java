@@ -13,6 +13,7 @@ import javax.swing.*;
  * @author Daniel
  */
 public final class Ventana4 extends JFrame {
+    private estados estado;
     private int botonPulsado;
     // Paneles
     private JPanel panelVentana1 = null;
@@ -88,25 +89,38 @@ public final class Ventana4 extends JFrame {
 
     private void botonPersonajeActionPerformed(ActionEvent evt) {
         botonPulsado = 3;
+        this.estado=estados.BBDD_PERSONAJE;
         manejador.cambiaEstado(estados.BBDD_PERSONAJE);
         this.dispose();
     }
 
     private void botonColectivoActionPerformed(ActionEvent evt) {
         botonPulsado = 4;
+        this.estado=estados.BBDD_COLECTIVO;
         manejador.cambiaEstado(estados.BBDD_COLECTIVO);
         this.dispose();
     }
 
     private void botonAcontActionPerformed(ActionEvent evt) {
         botonPulsado = 2;
+        this.estado=estados.BBDD_ACONTECIMIENTO;
         manejador.cambiaEstado(estados.BBDD_ACONTECIMIENTO);
         this.dispose();
     }
 
     private void botonDocumentoActionPerformed(ActionEvent evt) {
         botonPulsado = 1;
+        this.estado=estados.BBDD_DOCUMENTO;
         manejador.cambiaEstado(estados.BBDD_DOCUMENTO);
         this.dispose();
     }
+    
+    public estados getEstado() {
+        return this.estado;
+    }
+
+    public void setEstado(estados estado) {
+        this.estado = estado;
+    }
+    
 }

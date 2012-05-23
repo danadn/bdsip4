@@ -7,6 +7,8 @@ import java.awt.Toolkit;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -16,17 +18,21 @@ import javax.swing.table.DefaultTableModel;
  */
 public class VentanaCrearPj extends javax.swing.JFrame {
     private GUIManager manejador;
+    private DescriptorPersonaje personaje;
     private ArrayList<DescriptorFichero> fichCargo;
+    private boolean mod;
     private ArrayList<DescriptorCargo> cargos;
     private ArrayList<String> alias;
     /** Creates new form VentanaCrearPj */
     public VentanaCrearPj(GUIManager m) {
+        mod=false;
         manejador = m;
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(d.width/4, 20);
         initComponents();
         this.setTitle("Crear Personaje");
         this.setDefaultCloseOperation(0);
+        personaje = new DescriptorPersonaje();
         fichCargo = new ArrayList<DescriptorFichero>();
         cargos = new ArrayList<DescriptorCargo>();
         alias = new ArrayList<String>();
@@ -90,10 +96,12 @@ public class VentanaCrearPj extends javax.swing.JFrame {
         jScrollPane5 = new javax.swing.JScrollPane();
         tablaFicheros = new javax.swing.JTable();
         jLabel19 = new javax.swing.JLabel();
+        jButton8 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
         textAlias = new javax.swing.JTextField();
         botonAlias = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
         botonAceptar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaAlias = new javax.swing.JTable();
@@ -107,6 +115,13 @@ public class VentanaCrearPj extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         tablaCargos = new javax.swing.JTable();
         jLabel26 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -223,7 +238,7 @@ public class VentanaCrearPj extends javax.swing.JFrame {
 
         panelFicheros.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        labelTitulo5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelTitulo5.setFont(new java.awt.Font("Tahoma", 0, 12));
         labelTitulo5.setText("Formato:");
 
         textFormato.setText("pdf");
@@ -233,7 +248,7 @@ public class VentanaCrearPj extends javax.swing.JFrame {
             }
         });
 
-        labelTitulo6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelTitulo6.setFont(new java.awt.Font("Tahoma", 0, 12));
         labelTitulo6.setText("URI Fichero");
 
         textURIFich.setText("/docPolitica/");
@@ -320,6 +335,8 @@ public class VentanaCrearPj extends javax.swing.JFrame {
         jLabel19.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel19.setText("Ficheros del cargo:");
 
+        jButton8.setText("Eliminar Cargo");
+
         javax.swing.GroupLayout panelCargoLayout = new javax.swing.GroupLayout(panelCargo);
         panelCargo.setLayout(panelCargoLayout);
         panelCargoLayout.setHorizontalGroup(
@@ -363,7 +380,10 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                     .addComponent(panelFicheros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel21)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
-                    .addComponent(botonCargo, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCargoLayout.createSequentialGroup()
+                        .addComponent(jButton8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                        .addComponent(botonCargo)))
                 .addContainerGap())
         );
         panelCargoLayout.setVerticalGroup(
@@ -402,7 +422,9 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botonCargo)
+                .addGroup(panelCargoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonCargo)
+                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -420,6 +442,8 @@ public class VentanaCrearPj extends javax.swing.JFrame {
             }
         });
 
+        jButton6.setText("Eliminar Alias");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -427,11 +451,15 @@ public class VentanaCrearPj extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(textAlias, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE))
                     .addComponent(jLabel22)
-                    .addComponent(botonAlias, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jButton6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                                .addComponent(botonAlias))
+                            .addComponent(textAlias, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -442,7 +470,9 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textAlias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botonAlias)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonAlias)
+                    .addComponent(jButton6))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -513,6 +543,26 @@ public class VentanaCrearPj extends javax.swing.JFrame {
         jLabel26.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel26.setText("Cargos:");
 
+        jButton1.setText("Cambiar...");
+        jButton1.setName("cambiaNom"); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Cambiar...");
+
+        jButton3.setText("Cambiar...");
+
+        jButton4.setText("Cambiar...");
+
+        jButton5.setText("Cambiar...");
+
+        jButton7.setText("Cambiar...");
+
+        jButton9.setText("Cambiar...");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -521,11 +571,17 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                                .addComponent(jButton1))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                                .addComponent(jButton2))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -538,8 +594,11 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(DiaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel6)
-                            .addGroup(layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                                .addComponent(jButton3))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -552,29 +611,39 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(DiaDef, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
                                 .addComponent(textoNomYApe, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel23)
-                            .addGroup(layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel23)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                                .addComponent(jButton4))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
                                 .addComponent(textoLugarNac, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel24)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel24)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                                .addComponent(jButton5))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(textoLugarDef, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)))
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE))
+                            .addComponent(textoLugarDef, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(panelCargo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
-                            .addComponent(jLabel25)
-                            .addComponent(jLabel26)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel25)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 140, Short.MAX_VALUE)
+                                .addComponent(jButton7))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel26)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 149, Short.MAX_VALUE)
+                                .addComponent(jButton9))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(222, 222, 222)
                         .addComponent(botonAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -586,11 +655,15 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(textoNomYApe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
@@ -600,7 +673,9 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                             .addComponent(jLabel5)
                             .addComponent(DiaNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
@@ -610,26 +685,34 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                             .addComponent(jLabel9)
                             .addComponent(DiaDef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel23)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel23)
+                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(textoLugarNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel24)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel24)
+                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(textoLugarDef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane2, 0, 0, Short.MAX_VALUE)
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)))
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 597, Short.MAX_VALUE)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel25)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel25)
+                            .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                        .addComponent(jLabel26)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel26)
+                            .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(panelCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -649,6 +732,10 @@ public class VentanaCrearPj extends javax.swing.JFrame {
     }//GEN-LAST:event_MesDefActionPerformed
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
+        if(mod){
+            manejador.cambiaEstado(estados.MODIFICAR);
+        }
+        else
         if (camposRellenos()){
             try {
                 // Creamos el Personaje
@@ -774,6 +861,15 @@ public class VentanaCrearPj extends javax.swing.JFrame {
         // TODO add your handling code here:
 }//GEN-LAST:event_textNomFichActionPerformed
 
+private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            manejador.getBBDDManager().directInstruction("UPDATE `dochistoria`.`personaje` SET `nombreYApe` = '"+textoNomYApe.getText()+"' WHERE `personaje`.`nombreYApe` = '"+personaje.getNombreYApe()+"';");
+        // TODO add your handling code here:
+        } catch (SQLException ex) {
+            Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
+        }
+}//GEN-LAST:event_jButton1ActionPerformed
+
     private void actualizaTablaCargos() {
         DefaultTableModel m;
         m = new DefaultTableModel(new Object[] {"Cargos"}, 0);
@@ -818,18 +914,51 @@ public class VentanaCrearPj extends javax.swing.JFrame {
     }
     
     private boolean camposRellenos() {
-        return (true/*textBiografia.getText().length() > 0 &&
-                textoLugarNac.getText().length() > 0 &&
-                textoLugarDef.getText().length() > 0 &&
-                textoNomYApe.getText().length() > 0 &&
-                cargos.isEmpty() &&
-                alias.isEmpty() &&
-                AnoNac.getText().length() > 0 &&
-                DiaNac.getText().length() > 0 &&
-                MesNac.getText().length() > 0 &&
-                AnoDef.getText().length() > 0 &&
-                DiaDef.getText().length() > 0 &&
-                MesDef.getText().length() > 0*/);
+        return (/*textBiografia.getText().length()!=0 &&
+                textoLugarNac.getText().length()!=0 &&
+                textoLugarDef.getText().length()!=0 &&
+                textoNomYApe.getText().length()!=0 &&
+                !personaje.getCargos().isEmpty() &&
+                !personaje.getAlias().isEmpty() &&
+                AnoNac.getText().length()!=0 &&
+                DiaNac.getText().length()!=0 &&
+                MesNac.getText().length()!=0 &&
+                AnoDef.getText().length()!=0 &&
+                DiaDef.getText().length()!=0 &&
+                MesDef.getText().length()!=0*/true);
+    }
+    
+    public void cargaPersonaje(String personaje) throws SQLException{
+        String consulta=manejador.getBBDDManager().consultaPeticion("SELECT * FROM personaje WHERE `personaje`.`nombreYApe` = '"+personaje+"'", "biografia");
+        textBiografia.setText(consulta);
+        consulta=manejador.getBBDDManager().consultaPeticion("SELECT * FROM personaje WHERE `personaje`.`nombreYApe` = '"+personaje+"'", "lugarNac");
+        textoLugarNac.setText(consulta);
+        consulta=manejador.getBBDDManager().consultaPeticion("SELECT * FROM personaje WHERE `personaje`.`nombreYApe` = '"+personaje+"'", "lugarMuerte");
+        textoLugarDef.setText(consulta);
+        consulta=manejador.getBBDDManager().consultaPeticion("SELECT * FROM personaje WHERE `personaje`.`nombreYApe` = '"+personaje+"'", "nombreYApe");
+        textoNomYApe.setText(consulta);
+        consulta=manejador.getBBDDManager().consultaPeticion("SELECT * FROM personaje WHERE `personaje`.`nombreYApe` = '"+personaje+"'", "fechaNac");
+        String[] fecha = consulta.split("-");
+        AnoNac.setText(fecha[0]);
+        MesNac.setText(fecha[1]);
+        DiaNac.setText(fecha[2]);
+        consulta=manejador.getBBDDManager().consultaPeticion("SELECT * FROM personaje WHERE `personaje`.`nombreYApe` = '"+personaje+"'", "fechaMuerte");
+        fecha = consulta.split("-");
+        AnoDef.setText(fecha[0]);
+        MesDef.setText(fecha[1]);
+        DiaDef.setText(fecha[2]);
+        
+        consulta=manejador.getBBDDManager().consultaPeticion("SELECT * FROM alias WHERE `alias`.`personaje` = '"+personaje+"'", "nomAlias");
+        DefaultTableModel m;
+        m = new DefaultTableModel(new Object[] {"Alias"}, 0);
+        String[] alias = consulta.split(",");
+        System.out.println(alias);
+        tablaAlias.removeAll();
+        for(int k=0;k<alias.length;k++){
+            m.addRow(new Object[]{alias[k]});
+        }
+        tablaAlias.setModel(m);
+        rellenaPersonaje(this.personaje);
     }
 
     /**
@@ -845,6 +974,32 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                 }
             }
         });
+    }
+    
+    void mandaEstadoV1(estados s) {
+        if (s == estados.CREAR) {
+            jButton1.setVisible(false);
+            jButton2.setVisible(false);
+            jButton3.setVisible(false);
+            jButton4.setVisible(false);
+            jButton5.setVisible(false);
+            jButton6.setVisible(false);
+            jButton7.setVisible(false);
+            jButton8.setVisible(false);
+            jButton9.setVisible(false);
+            mod=false;
+        } else if (s == estados.MODIFICAR) {
+            jButton1.setVisible(true);
+            jButton2.setVisible(true);
+            jButton3.setVisible(true);
+            jButton4.setVisible(true);
+            jButton5.setVisible(true);
+            jButton6.setVisible(true);
+            jButton7.setVisible(true);
+            jButton8.setVisible(true);
+            jButton9.setVisible(true);
+            mod=true;
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -864,6 +1019,15 @@ public class VentanaCrearPj extends javax.swing.JFrame {
     private javax.swing.JButton botonAddFich;
     private javax.swing.JButton botonAlias;
     private javax.swing.JButton botonCargo;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
