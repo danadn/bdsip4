@@ -97,6 +97,7 @@ public class VentanaCrearPj extends javax.swing.JFrame {
         tablaFicheros = new javax.swing.JTable();
         jLabel19 = new javax.swing.JLabel();
         jButton8 = new javax.swing.JButton();
+        jButton10 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
         textAlias = new javax.swing.JTextField();
@@ -335,7 +336,19 @@ public class VentanaCrearPj extends javax.swing.JFrame {
         jLabel19.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel19.setText("Ficheros del cargo:");
 
-        jButton8.setText("Eliminar Cargo");
+        jButton8.setText("Desligar");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+
+        jButton10.setText("Eliminar");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelCargoLayout = new javax.swing.GroupLayout(panelCargo);
         panelCargo.setLayout(panelCargoLayout);
@@ -347,7 +360,7 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                     .addGroup(panelCargoLayout.createSequentialGroup()
                         .addComponent(jLabel18)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(textCargo, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE))
+                        .addComponent(textCargo, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE))
                     .addComponent(jLabel12)
                     .addGroup(panelCargoLayout.createSequentialGroup()
                         .addGap(10, 10, 10)
@@ -379,10 +392,12 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                     .addComponent(jLabel19)
                     .addComponent(panelFicheros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel21)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCargoLayout.createSequentialGroup()
                         .addComponent(jButton8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                         .addComponent(botonCargo)))
                 .addContainerGap())
         );
@@ -424,7 +439,8 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelCargoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonCargo)
-                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton10))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -443,6 +459,11 @@ public class VentanaCrearPj extends javax.swing.JFrame {
         });
 
         jButton6.setText("Eliminar Alias");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -457,9 +478,9 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(jButton6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                                 .addComponent(botonAlias))
-                            .addComponent(textAlias, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE))))
+                            .addComponent(textAlias, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -499,8 +520,15 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tablaAlias.setColumnSelectionAllowed(true);
         tablaAlias.setFocusable(false);
+        tablaAlias.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaAliasMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tablaAlias);
+        tablaAlias.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tablaAlias.getColumnModel().getColumn(0).setResizable(false);
 
         jLabel23.setFont(new java.awt.Font("Tahoma", 0, 12));
@@ -537,8 +565,16 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tablaCargos.setColumnSelectionAllowed(true);
+        tablaCargos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaCargosMouseClicked(evt);
+            }
+        });
         jScrollPane4.setViewportView(tablaCargos);
+        tablaCargos.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tablaCargos.getColumnModel().getColumn(0).setResizable(false);
+        tablaCargos.getColumnModel().getColumn(0).setHeaderValue("Cargos");
 
         jLabel26.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel26.setText("Cargos:");
@@ -552,14 +588,39 @@ public class VentanaCrearPj extends javax.swing.JFrame {
         });
 
         jButton2.setText("Cambiar...");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Cambiar...");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Cambiar...");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Cambiar...");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton7.setText("Cambiar...");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         jButton9.setText("Cambiar...");
 
@@ -571,17 +632,17 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
-                                .addComponent(jButton1))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                                .addComponent(jButton1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                                 .addComponent(jButton2))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGroup(layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -594,11 +655,11 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(DiaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                                 .addComponent(jButton3))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGroup(layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -611,38 +672,34 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(DiaDef, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(textoNomYApe, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLabel23)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-                                .addComponent(jButton4))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(textoLugarNac, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLabel24)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
-                                .addComponent(jButton5))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                                .addComponent(jLabel23)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                                .addComponent(jButton4))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel24)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                                .addComponent(jButton5))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE))
-                            .addComponent(textoLugarDef, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))
+                            .addComponent(textoNomYApe, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                            .addComponent(textoLugarNac, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                            .addComponent(textoLugarDef, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(panelCargo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel25)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 140, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 149, Short.MAX_VALUE)
                                 .addComponent(jButton7))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel26)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 149, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 158, Short.MAX_VALUE)
                                 .addComponent(jButton9))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(222, 222, 222)
@@ -696,20 +753,20 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                             .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(textoLugarDef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane2, 0, 0, Short.MAX_VALUE)
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)))
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 637, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel25)
                             .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel26)
                             .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -807,10 +864,19 @@ public class VentanaCrearPj extends javax.swing.JFrame {
     }//GEN-LAST:event_botonAceptarActionPerformed
 
     private void botonAliasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAliasActionPerformed
-        if (!alias.contains(textAlias.getText()))
-                alias.add(textAlias.getText());
-        textAlias.setText("");
-        actualizaTablaAlias();
+        if (mod) {
+            try {
+                manejador.getBBDDManager().consultaInsetar("INSERT INTO `dochistoria`.`alias` (`personaje`, `nomAlias`) VALUES ('"+personaje.getNombreYApe()+"', '"+textAlias.getText()+"');");
+                cargaTablaAlias(personaje.getNombreYApe());
+            } catch (SQLException ex) {
+                Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            if (!alias.contains(textAlias.getText()))
+                    alias.add(textAlias.getText());
+            textAlias.setText("");
+            actualizaTablaAlias();
+        }
     }//GEN-LAST:event_botonAliasActionPerformed
 
     private void botonCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCargoActionPerformed
@@ -862,13 +928,146 @@ public class VentanaCrearPj extends javax.swing.JFrame {
 }//GEN-LAST:event_textNomFichActionPerformed
 
 private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            manejador.getBBDDManager().directInstruction("UPDATE `dochistoria`.`personaje` SET `nombreYApe` = '"+textoNomYApe.getText()+"' WHERE `personaje`.`nombreYApe` = '"+personaje.getNombreYApe()+"';");
+    try {
+        manejador.getBBDDManager().consultaInsetar("UPDATE `dochistoria`.`personaje` SET `nombreYApe` = '" + textoNomYApe.getText() + "' WHERE `personaje`.`nombreYApe` = '" + personaje.getNombreYApe() + "';");
+        rellenaPersonaje(personaje);
         // TODO add your handling code here:
+    } catch (SQLException ex) {
+        Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_jButton1ActionPerformed
+
+private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+// TODO add your handling code here:
+    try {
+        manejador.getBBDDManager().consultaInsetar("UPDATE `dochistoria`.`personaje` SET `fechaNac` = '" + AnoNac.getText() + "-" + MesNac.getText() + "-" + DiaNac.getText() + "' WHERE `personaje`.`nombreYApe` = '" + personaje.getNombreYApe() + "';");
+        //rellenaPersonaje(personaje);
+        // TODO add your handling code here:
+    } catch (SQLException ex) {
+        Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_jButton2ActionPerformed
+
+private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+// TODO add your handling code here:
+    try {
+        manejador.getBBDDManager().consultaInsetar("UPDATE `dochistoria`.`personaje` SET `fechaMuerte` = '" + AnoDef.getText() + "-" + MesDef.getText() + "-" + DiaDef.getText() + "' WHERE `personaje`.`nombreYApe` = '" + personaje.getNombreYApe() + "';");
+        //rellenaPersonaje(personaje);
+        // TODO add your handling code here:
+    } catch (SQLException ex) {
+        Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_jButton3ActionPerformed
+
+private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+// TODO add your handling code here:
+    try {
+        manejador.getBBDDManager().consultaInsetar("UPDATE `dochistoria`.`personaje` SET `lugarNac` = '" + textoLugarNac.getText() + "' WHERE `personaje`.`nombreYApe` = '" + personaje.getNombreYApe() + "';");
+        //rellenaPersonaje(personaje);
+        // TODO add your handling code here:
+    } catch (SQLException ex) {
+        Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_jButton4ActionPerformed
+
+private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+// TODO add your handling code here:
+    try {
+        manejador.getBBDDManager().consultaInsetar("UPDATE `dochistoria`.`personaje` SET `lugarMuerte` = '" + textoLugarDef.getText() + "' WHERE `personaje`.`nombreYApe` = '" + personaje.getNombreYApe() + "';");
+        //rellenaPersonaje(personaje);
+        // TODO add your handling code here:
+    } catch (SQLException ex) {
+        Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_jButton5ActionPerformed
+
+private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+// TODO add your handling code here:
+    try {
+        manejador.getBBDDManager().consultaInsetar("UPDATE `dochistoria`.`personaje` SET `biografia` = '" + textBiografia.getText() + "' WHERE `personaje`.`nombreYApe` = '" + personaje.getNombreYApe() + "';");
+        //rellenaPersonaje(personaje);
+        // TODO add your handling code here:
+    } catch (SQLException ex) {
+        Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_jButton7ActionPerformed
+
+private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+// TODO add your handling code here:
+    try {
+        manejador.getBBDDManager().consultaInsetar("DELETE FROM `dochistoria`.`alias` WHERE `alias`.`personaje`='"+personaje.getNombreYApe()+"' AND `alias`.`nomAlias`='"+textAlias.getText()+"';");
+        cargaTablaAlias(personaje.getNombreYApe());
+        //rellenaPersonaje(personaje);
+        // TODO add your handling code here:
+    } catch (SQLException ex) {
+        Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_jButton6ActionPerformed
+
+private void tablaCargosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaCargosMouseClicked
+// TODO add your handling code here:
+    String cargo=tablaCargos.getValueAt(tablaCargos.getSelectedRow(),0).toString();
+    rellenaTablaCargo(cargo);
+    
+}//GEN-LAST:event_tablaCargosMouseClicked
+
+private void rellenaTablaCargo(String cargo){
+    textCargo.setText(cargo);
+    textFormato.setText("");
+    textNomFich.setText("");
+    textURIFich.setText("");
+    String consulta;
+        try {
+            consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM desempenia WHERE `desempenia`.`personaje`='"+personaje.getNombreYApe()+"' AND `desempenia`.`cargo`='"+cargo+"';", "descCargo");
+            textDescCargo.setText(consulta);
+            consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM desempenia WHERE `desempenia`.`personaje`='"+personaje.getNombreYApe()+"' AND `desempenia`.`cargo`='"+cargo+"';", "FechaIni");
+            String[] fecha = consulta.split("-");
+            AnoIni.setText(fecha[0]);
+            MesIni.setText(fecha[1]);
+            DiaIni.setText(fecha[2]);
+            consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM desempenia WHERE `desempenia`.`personaje`='"+personaje.getNombreYApe()+"' AND `desempenia`.`cargo`='"+cargo+"';", "FechaFin");
+            fecha = consulta.split("-");
+            AnoFin.setText(fecha[0]);
+            MesFin.setText(fecha[1]);
+            DiaFin.setText(fecha[2]);
+            cargaTablaCargosFichero(cargo);
+            
         } catch (SQLException ex) {
             Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
         }
-}//GEN-LAST:event_jButton1ActionPerformed
+}
+
+private void tablaAliasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaAliasMouseClicked
+// TODO add your handling code here:
+    textAlias.setText(tablaAlias.getValueAt(tablaAlias.getSelectedRow(),0).toString());
+}//GEN-LAST:event_tablaAliasMouseClicked
+
+private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+    // TODO add your handling code here:    
+    try {
+        manejador.getBBDDManager().consultaInsetar("DELETE FROM `dochistoria`.`desempenia` WHERE `desempenia`.`personaje`='"+personaje.getNombreYApe()+"' AND `desempenia`.`cargo`='"+textCargo.getText()+"';");
+        cargaTablaCargos(personaje.getNombreYApe());
+    } catch (SQLException ex) {
+        Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_jButton8ActionPerformed
+
+private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+// TODO add your handling code here:
+    try {
+        manejador.getBBDDManager().consultaInsetar("DELETE FROM `dochistoria`.`cargo` WHERE `cargo`.`nombreCargo`='"+textCargo.getText()+"';");
+        String consulta=manejador.getBBDDManager().consultaPeticion("SELECT * FROM desempenia WHERE `desempenia`.`cargo`='"+textCargo.getText()+"'","personaje");
+        if(consulta!=null){
+            String[] consultas=consulta.split(",");
+            for (int k = 0; k < consultas.length; k++) {
+                manejador.getBBDDManager().consultaInsetar("DELETE FROM `dochistoria`.`desempenia` WHERE `desempenia`.`personaje`='"+consultas[k]+"' AND `desempenia`.`cargo`='"+textCargo.getText()+"';");
+            }
+        }
+        cargaTablaCargos(personaje.getNombreYApe());
+    } catch (SQLException ex) {
+        Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_jButton10ActionPerformed
 
     private void actualizaTablaCargos() {
         DefaultTableModel m;
@@ -948,17 +1147,68 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         MesDef.setText(fecha[1]);
         DiaDef.setText(fecha[2]);
         
-        consulta=manejador.getBBDDManager().consultaPeticion("SELECT * FROM alias WHERE `alias`.`personaje` = '"+personaje+"'", "nomAlias");
-        DefaultTableModel m;
-        m = new DefaultTableModel(new Object[] {"Alias"}, 0);
-        String[] alias = consulta.split(",");
-        System.out.println(alias);
-        tablaAlias.removeAll();
-        for(int k=0;k<alias.length;k++){
-            m.addRow(new Object[]{alias[k]});
-        }
-        tablaAlias.setModel(m);
+        cargaTablaAlias(personaje);
+        
+        cargaTablaCargos(personaje);
+        
         rellenaPersonaje(this.personaje);
+    }
+    
+    void cargaTablaAlias(String personaje) throws SQLException{
+        String consulta=manejador.getBBDDManager().consultaPeticion("SELECT * FROM alias WHERE `alias`.`personaje` = '"+personaje+"'", "nomAlias");
+        tablaAlias.removeAll();
+        if (consulta!=null){
+            DefaultTableModel m;
+            m = new DefaultTableModel(new Object[]{"Alias"}, 0);
+            String[] alias = consulta.split(",");
+            System.out.println(alias);
+            
+            for (int k = 0; k < alias.length; k++) {
+                m.addRow(new Object[]{alias[k]});
+            }
+            tablaAlias.setModel(m);
+        }else{
+            DefaultTableModel m = new DefaultTableModel(new Object[]{"Alias"}, 0);
+            tablaAlias.setModel(m);
+        }
+    };
+    
+    void cargaTablaCargos(String personaje) throws SQLException{
+        String consulta=manejador.getBBDDManager().consultaPeticion("SELECT * FROM desempenia WHERE `desempenia`.`personaje` = '"+personaje+"'", "cargo");
+        tablaCargos.removeAll();
+        if (consulta!=null){
+            DefaultTableModel m;
+            m = new DefaultTableModel(new Object[]{"Cargos"}, 0);
+            String[] cargos = consulta.split(",");
+            System.out.println(cargos);
+            
+            for (int k = 0; k < cargos.length; k++) {
+                m.addRow(new Object[]{cargos[k]});
+            }
+            tablaCargos.setModel(m);
+        }else{
+            DefaultTableModel m = new DefaultTableModel(new Object[]{"Cargos"}, 0);
+            tablaCargos.setModel(m);
+        }
+    };
+    
+    void cargaTablaCargosFichero(String cargo) throws SQLException{
+        String consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM cargosfichero WHERE `cargosfichero`.`cargo`='"+cargo+"';", "ficheroCargo");
+        tablaFicheros.removeAll();
+        if (consulta!=null){
+            DefaultTableModel m;
+            m = new DefaultTableModel(new Object[]{"Ficheros"}, 0);
+            String[] ficheros = consulta.split(",");
+            System.out.println(ficheros);
+            
+            for (int k = 0; k < ficheros.length; k++) {
+                m.addRow(new Object[]{ficheros[k]});
+            }
+            tablaFicheros.setModel(m);
+        }else{
+            DefaultTableModel m = new DefaultTableModel(new Object[]{"Ficheros"}, 0);
+            tablaFicheros.setModel(m);
+        }
     }
 
     /**
@@ -1020,6 +1270,7 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JButton botonAlias;
     private javax.swing.JButton botonCargo;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
