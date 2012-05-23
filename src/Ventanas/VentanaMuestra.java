@@ -17,8 +17,10 @@ import javax.swing.JLabel;
 public class VentanaMuestra extends javax.swing.JFrame {
     GUIManager manejador;
     private Icon loading;
+    private boolean mod;
     /** Creates new form VentanaMuestra */
     public VentanaMuestra(GUIManager m) {
+        mod=false;
         manejador = m;
         loading = new ImageIcon("./img/loading.gif");
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
@@ -145,13 +147,18 @@ public class VentanaMuestra extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonTerminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonTerminarActionPerformed
-        manejador.cambiaEstado(estados.VENTANA3);
+        if(mod)
+            manejador.cambiaEstado(estados.MODIFICAR);
+        else
+            manejador.cambiaEstado(estados.VENTANA3);
     }//GEN-LAST:event_botonTerminarActionPerformed
 
     private void comboEleccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboEleccionActionPerformed
         labelGif.setVisible(true);
- /*        try {
-           String eleccion = comboEleccion.getSelectedItem().toString() ;
+         try {
+            String eleccion;
+            if(comboEleccion.getItemCount()!=0)
+                eleccion = comboEleccion.getSelectedItem().toString() ;
             String consulta = "SELECT * FROM ";
             String columnas = "";
             switch (manejador.getEstado()) {
@@ -179,12 +186,36 @@ public class VentanaMuestra extends javax.swing.JFrame {
             }
         } catch (SQLException ex) {
             System.out.print(ex);
-        }*/
+        }
         labelGif.setVisible(false);        // TODO add your handling code here:
     }//GEN-LAST:event_comboEleccionActionPerformed
 
     private void botonAccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAccionActionPerformed
-        // TODO add your handling code here:
+        try {
+            if(mod)
+                switch (manejador.getEstado()) {
+                    case BBDD_PERSONAJE:
+                        manejador.cambiaEstado(estados.CREAR_PERSONAJE);
+                        manejador.getVentanaPj().cargaPersonaje(comboEleccion.getSelectedItem().toString());
+                        break;
+                    case BBDD_ACONTECIMIENTO:
+                        manejador.cambiaEstado(estados.BBDD_ACONTECIMIENTO);
+                        break;
+                    case BBDD_COLECTIVO:
+                        manejador.cambiaEstado(estados.BBDD_COLECTIVO);
+                        break;
+                    case BBDD_DOCUMENTO:
+                        manejador.cambiaEstado(estados.BBDD_DOCUMENTO);
+                        break;
+                    default:
+                        break;
+                }
+            this.setVisible(false);
+            // TODO add your handling code here:
+            // TODO add your handling code here:
+        } catch (SQLException ex) {
+            Logger.getLogger(VentanaMuestra.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_botonAccionActionPerformed
 
     void mandaEstadoV1(estados s) {
@@ -193,8 +224,8 @@ public class VentanaMuestra extends javax.swing.JFrame {
             if (s == estados.CREAR) {
                 botonAccion.setText("Añadir");
                 botonAccion.setVisible(true);
-            } else {
-                botonAccion.setText("Guardar cambios");
+            } else if(s == estados.MODIFICAR) {
+                botonAccion.setText("Modificar");
                 botonAccion.setVisible(true);
             }
         } catch (SQLException ex) {
@@ -230,7 +261,7 @@ public class VentanaMuestra extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void rellenaComboEleccion(estados s) throws SQLException {
-        if (s == estados.CREAR){
+        if (s == estados.CREAR || s == estados.MODIFICAR){
             String consulta = "SELECT * FROM ";
             String campo = "";
             switch (manejador.getEstado()) {
@@ -265,4 +296,6 @@ public class VentanaMuestra extends javax.swing.JFrame {
                 comboEleccion.addItem(res[i]);
         }
     }
+    
+    public void setMod(boolean b){mod=b;};
 }
