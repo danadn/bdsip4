@@ -207,13 +207,14 @@ public class VentanaMuestra extends javax.swing.JFrame {
                         manejador.getVentanaPj().cargaPersonaje(tablaEncontrados.getValueAt(row, 0).toString());
                         break;
                     case BBDD_ACONTECIMIENTO:
-                        manejador.cambiaEstado(estados.BBDD_ACONTECIMIENTO);
+                        manejador.cambiaEstado(estados.CREAR_ACONTECIMIENTO);
+                        //manejador.getVentanaAcon().
                         break;
                     case BBDD_COLECTIVO:
-                        manejador.cambiaEstado(estados.BBDD_COLECTIVO);
+                        manejador.cambiaEstado(estados.CREAR_COLECTIVO);
                         break;
                     case BBDD_DOCUMENTO:
-                        manejador.cambiaEstado(estados.BBDD_DOCUMENTO);
+                        manejador.cambiaEstado(estados.CREAR);
                         break;
                     default:
                         break;
