@@ -224,14 +224,15 @@ public class VentanaBusqSimple extends javax.swing.JFrame {
     private void encuentraDocumentos(String[] busqueda) throws SQLException {
         // Cogemos los nombres de las columnas para buscar informacion
         String columnas = "select COLUMN_NAME from information_schema.COLUMNS"
-                + " where TABLE_NAME='documento';";
+                            + " where TABLE_NAME='documento';";
         columnas = manejador.getBBDDManager().consultaPeticion(columnas, "COLUMN_NAME");
         String[] camposBusqueda = columnas.split(",");
         for (int i=0;i<camposBusqueda.length;i++){
             for (int j = 0; j < busqueda.length; j++){
-                String consulta = "SELECT * FROM documento WHERE "+camposBusqueda[i]+"="+busqueda[j];
-                String resultado = manejador.getBBDDManager().consultaPeticion(busqueda[j], camposBusqueda[i]);
-                imprimeResultado(tablaDocs,resultado);
+                String consulta = "SELECT * FROM documento WHERE "+camposBusqueda[i]+"='"+busqueda[j]+"';";
+                String resultado = manejador.getBBDDManager().consultaPeticion(consulta, camposBusqueda[i]);
+                if (resultado != null)
+                    imprimeResultado(tablaDocs,resultado);
             }
         }
     }
