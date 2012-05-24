@@ -10,6 +10,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Daniel
@@ -29,6 +30,8 @@ public class VentanaMuestra extends javax.swing.JFrame {
         this.setTitle("Buscar en la Base de Datos");
         this.setDefaultCloseOperation(0);
         labelGif.setVisible(false);
+        labelTitulo.setVisible(false);
+        comboEleccion.setVisible(false);
     }
 
     /** This method is called from within the constructor to
@@ -42,7 +45,7 @@ public class VentanaMuestra extends javax.swing.JFrame {
 
         labelTitulo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaEncontrados = new javax.swing.JTable();
         botonTerminar = new javax.swing.JButton();
         labelTitulo1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -55,7 +58,7 @@ public class VentanaMuestra extends javax.swing.JFrame {
         labelTitulo.setFont(new java.awt.Font("Tahoma", 0, 12));
         labelTitulo.setText("Elige un elemento:");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaEncontrados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -66,7 +69,7 @@ public class VentanaMuestra extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tablaEncontrados);
 
         botonTerminar.setText("Terminar");
         botonTerminar.addActionListener(new java.awt.event.ActionListener() {
@@ -196,7 +199,9 @@ public class VentanaMuestra extends javax.swing.JFrame {
                 switch (manejador.getEstado()) {
                     case BBDD_PERSONAJE:
                         manejador.cambiaEstado(estados.CREAR_PERSONAJE);
-                        manejador.getVentanaPj().cargaPersonaje(comboEleccion.getSelectedItem().toString());
+                        //manejador.getVentanaPj().cargaPersonaje(comboEleccion.getSelectedItem().toString());
+                        int row = tablaEncontrados.getSelectedRow();
+                        manejador.getVentanaPj().cargaPersonaje(tablaEncontrados.getValueAt(row, 0).toString());
                         break;
                     case BBDD_ACONTECIMIENTO:
                         manejador.cambiaEstado(estados.BBDD_ACONTECIMIENTO);
@@ -210,29 +215,45 @@ public class VentanaMuestra extends javax.swing.JFrame {
                     default:
                         break;
                 }
-            this.setVisible(false);
-            // TODO add your handling code here:
-            // TODO add your handling code here:
-        } catch (SQLException ex) {
-            Logger.getLogger(VentanaMuestra.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_botonAccionActionPerformed
-
-    void mandaEstadoV1(estados s) {
-        try {
-            rellenaComboEleccion(s);
-            if (s == estados.CREAR) {
-                botonAccion.setText("Añadir");
-                botonAccion.setVisible(true);
-            } else if(s == estados.MODIFICAR) {
-                botonAccion.setText("Modificar");
-                botonAccion.setVisible(true);
+            else {
+                int row = tablaEncontrados.getSelectedRow();
+                String elemento = tablaEncontrados.getValueAt(row, 0).toString();
+                int idDocumento = Integer.parseInt(manejador.getBBDDManager().consultaPeticion(
+                        "SELECT max(id) as id FROM documento;", "id"));
+                switch (manejador.getEstado()) {
+                    case BBDD_PERSONAJE:
+                        // Asociamos el Personaje al Documento
+                        manejador.getBBDDManager().consultaInsetar("INSERT "
+                                + "INTO personajesDocumento (idDocumento,personaje) "
+                                + "VALUES("+idDocumento+",'"+elemento+"');");
+                        manejador.cambiaEstado(estados.VENTANA3);
+                        break;
+                    case BBDD_ACONTECIMIENTO:
+                        // Asociamos el Personaje al Documento
+                        manejador.getBBDDManager().consultaInsetar("INSERT "
+                                + "INTO acontecimientosDocumento (idDocumento,acontecimiento) "
+                                + "VALUES("+idDocumento+",'"+elemento+"');");
+                        manejador.cambiaEstado(estados.VENTANA3);
+                        break;
+                    case BBDD_COLECTIVO:
+                        // Asociamos el Colectivo al Documento
+                        manejador.getBBDDManager().consultaInsetar("INSERT "
+                                + "INTO colectivosDocumento (idDocumento,colectivo) "
+                                + "VALUES("+idDocumento+",'"+elemento+"');");
+                        manejador.cambiaEstado(estados.VENTANA3);
+                        break;
+                    default:
+                        break;
+                }
+                System.out.print(elemento+" añadido con exito al documento con id "+idDocumento+"\n");
             }
+            //this.setVisible(false);
+            this.dispose();
         } catch (SQLException ex) {
             System.out.print(ex);
         }
-    }
-    
+    }//GEN-LAST:event_botonAccionActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -254,12 +275,27 @@ public class VentanaMuestra extends javax.swing.JFrame {
     private javax.swing.JComboBox comboEleccion;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel labelGif;
     private javax.swing.JLabel labelTitulo;
     private javax.swing.JLabel labelTitulo1;
+    private javax.swing.JTable tablaEncontrados;
     // End of variables declaration//GEN-END:variables
 
+    void mandaEstadoV1(estados s) {
+        try {
+            rellenaComboEleccion(s);
+            if (s == estados.CREAR) {
+                botonAccion.setText("Añadir");
+                botonAccion.setVisible(true);
+            } else if(s == estados.MODIFICAR) {
+                botonAccion.setText("Modificar");
+                botonAccion.setVisible(true);
+            }
+        } catch (SQLException ex) {
+            System.out.print(ex);
+        }
+    }
+    
     private void rellenaComboEleccion(estados s) throws SQLException {
         if (s == estados.CREAR || s == estados.MODIFICAR){
             String consulta = "SELECT * FROM ";
@@ -292,8 +328,13 @@ public class VentanaMuestra extends javax.swing.JFrame {
             // Cogemos los nombres de las columnas para buscar informacion
             String resultado = manejador.getBBDDManager().consultaPeticion(consulta, campo);
             String[] res = resultado.split(",");
+            DefaultTableModel m;
+            m = new DefaultTableModel(new Object[]{"Elementos encontrados"}, 0);
             for (int i = 0; i < res.length; i++)
-                comboEleccion.addItem(res[i]);
+                m.addRow(new Object[]{res[i]});
+            tablaEncontrados.setModel(m);
+            /*for (int i = 0; i < res.length; i++)
+                comboEleccion.addItem(res[i]);*/
         }
     }
     

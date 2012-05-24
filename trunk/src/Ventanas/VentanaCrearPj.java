@@ -753,20 +753,20 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                             .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(textoLugarDef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane2, 0, 0, Short.MAX_VALUE)
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)))
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 637, Short.MAX_VALUE)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel25)
                             .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel26)
                             .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -857,10 +857,8 @@ public class VentanaCrearPj extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 System.out.print(ex);
             }
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "Debes rellnar todos los campos", "Aviso", 2);
-        }
+        } else
+            JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos", "Aviso", 2);        
     }//GEN-LAST:event_botonAceptarActionPerformed
 
     private void botonAliasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAliasActionPerformed
@@ -915,12 +913,16 @@ public class VentanaCrearPj extends javax.swing.JFrame {
         DescriptorFichero f = new DescriptorFichero(textNomFich.getText(),
                                                     textFormato.getText(),
                                                     textURIFich.getText());
-        if (!fichCargo.contains(f))
-            fichCargo.add(f);
-        textNomFich.setText("");
-        textFormato.setText("");
-        textURIFich.setText("");
-        actualizaTablaFicheros();
+        if (textNomFich.getText().length()>0 && textFormato.getText().length()>0 &&
+        textURIFich.getText().length()>0){
+            if (!fichCargo.contains(f))
+                fichCargo.add(f);
+            textNomFich.setText("");
+            textFormato.setText("");
+            textURIFich.setText("");
+            actualizaTablaFicheros();
+        } else
+            JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos del fichero del cargo", "Aviso", 2);
 }//GEN-LAST:event_botonAddFichActionPerformed
 
     private void textNomFichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textNomFichActionPerformed
@@ -1113,18 +1115,18 @@ private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     }
     
     private boolean camposRellenos() {
-        return (/*textBiografia.getText().length()!=0 &&
-                textoLugarNac.getText().length()!=0 &&
-                textoLugarDef.getText().length()!=0 &&
-                textoNomYApe.getText().length()!=0 &&
-                !personaje.getCargos().isEmpty() &&
-                !personaje.getAlias().isEmpty() &&
-                AnoNac.getText().length()!=0 &&
-                DiaNac.getText().length()!=0 &&
-                MesNac.getText().length()!=0 &&
-                AnoDef.getText().length()!=0 &&
-                DiaDef.getText().length()!=0 &&
-                MesDef.getText().length()!=0*/true);
+        return (textBiografia.getText().length()>0 &&
+                textoLugarNac.getText().length()>0 &&
+                textoLugarDef.getText().length()>0 &&
+                textoNomYApe.getText().length()>0 &&
+                AnoNac.getText().length()>0 &&
+                DiaNac.getText().length()>0 &&
+                MesNac.getText().length()>0 &&
+                AnoDef.getText().length()>0 &&
+                DiaDef.getText().length()>0 &&
+                MesDef.getText().length()>0 &&
+                !cargos.isEmpty() &&
+                !alias.isEmpty());
     }
     
     public void cargaPersonaje(String personaje) throws SQLException{
