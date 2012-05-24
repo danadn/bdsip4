@@ -1,4 +1,5 @@
 package Ventanas;
+
 import Descriptores.DescriptorCargo;
 import Descriptores.DescriptorFichero;
 import Descriptores.DescriptorPersonaje;
@@ -17,18 +18,20 @@ import javax.swing.table.DefaultTableModel;
  * @author Daniel
  */
 public class VentanaCrearPj extends javax.swing.JFrame {
+
     private GUIManager manejador;
     private DescriptorPersonaje personaje;
     private ArrayList<DescriptorFichero> fichCargo;
     private boolean mod;
     private ArrayList<DescriptorCargo> cargos;
     private ArrayList<String> alias;
+
     /** Creates new form VentanaCrearPj */
     public VentanaCrearPj(GUIManager m) {
-        mod=false;
+        mod = false;
         manejador = m;
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(d.width/4, 20);
+        this.setLocation(d.width / 4, 20);
         initComponents();
         this.setTitle("Crear Personaje");
         this.setDefaultCloseOperation(0);
@@ -95,9 +98,14 @@ public class VentanaCrearPj extends javax.swing.JFrame {
         textNomFich = new javax.swing.JTextField();
         jScrollPane5 = new javax.swing.JScrollPane();
         tablaFicheros = new javax.swing.JTable();
+        jButton12 = new javax.swing.JButton();
+        jButton13 = new javax.swing.JButton();
         jLabel19 = new javax.swing.JLabel();
         jButton8 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
+        jButton14 = new javax.swing.JButton();
+        jButton15 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
         textAlias = new javax.swing.JTextField();
@@ -122,7 +130,7 @@ public class VentanaCrearPj extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -284,7 +292,26 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                 "Ficheros"
             }
         ));
+        tablaFicheros.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaFicherosMouseClicked(evt);
+            }
+        });
         jScrollPane5.setViewportView(tablaFicheros);
+
+        jButton12.setText("Desligar");
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
+
+        jButton13.setText("Eliminar");
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelFicherosLayout = new javax.swing.GroupLayout(panelFicheros);
         panelFicheros.setLayout(panelFicherosLayout);
@@ -292,21 +319,25 @@ public class VentanaCrearPj extends javax.swing.JFrame {
             panelFicherosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelFicherosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelFicherosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(panelFicherosLayout.createSequentialGroup()
+                .addGroup(panelFicherosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFicherosLayout.createSequentialGroup()
                         .addComponent(labelTitulo7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textNomFich, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelFicherosLayout.createSequentialGroup()
+                        .addComponent(textNomFich, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE))
+                    .addGroup(panelFicherosLayout.createSequentialGroup()
                         .addComponent(labelTitulo5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textFormato, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE))
-                    .addComponent(labelTitulo6, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textURIFich, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE))
+                        .addComponent(textFormato, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE))
+                    .addComponent(labelTitulo6)
+                    .addComponent(textURIFich, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
+                    .addGroup(panelFicherosLayout.createSequentialGroup()
+                        .addComponent(jButton12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton13, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelFicherosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonAddFich, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGroup(panelFicherosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(botonAddFich, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelFicherosLayout.setVerticalGroup(
@@ -329,7 +360,11 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                         .addGap(5, 5, 5))
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botonAddFich)
+                .addGroup(panelFicherosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelFicherosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton12)
+                        .addComponent(jButton13))
+                    .addComponent(botonAddFich))
                 .addContainerGap())
         );
 
@@ -350,6 +385,27 @@ public class VentanaCrearPj extends javax.swing.JFrame {
             }
         });
 
+        jButton9.setText("Cambiar...");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+
+        jButton14.setText("Cambiar...");
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
+
+        jButton15.setText("Cambiar...");
+        jButton15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton15ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelCargoLayout = new javax.swing.GroupLayout(panelCargo);
         panelCargo.setLayout(panelCargoLayout);
         panelCargoLayout.setHorizontalGroup(
@@ -360,8 +416,11 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                     .addGroup(panelCargoLayout.createSequentialGroup()
                         .addComponent(jLabel18)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(textCargo, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE))
-                    .addComponent(jLabel12)
+                        .addComponent(textCargo, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE))
+                    .addGroup(panelCargoLayout.createSequentialGroup()
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
+                        .addComponent(jButton9))
                     .addGroup(panelCargoLayout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(jLabel17)
@@ -375,7 +434,10 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                         .addComponent(jLabel14)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(DiaIni, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel13)
+                    .addGroup(panelCargoLayout.createSequentialGroup()
+                        .addComponent(jLabel13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
+                        .addComponent(jButton14))
                     .addGroup(panelCargoLayout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(jLabel10)
@@ -391,14 +453,17 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                         .addComponent(DiaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel19)
                     .addComponent(panelFicheros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel21)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCargoLayout.createSequentialGroup()
+                    .addGroup(panelCargoLayout.createSequentialGroup()
+                        .addComponent(jLabel21)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                        .addComponent(jButton15))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
+                    .addGroup(panelCargoLayout.createSequentialGroup()
                         .addComponent(jButton8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(4, 4, 4)
                         .addComponent(jButton10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                        .addComponent(botonCargo)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonCargo, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelCargoLayout.setVerticalGroup(
@@ -409,7 +474,9 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                     .addComponent(jLabel18)
                     .addComponent(textCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel12)
+                .addGroup(panelCargoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelCargoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
@@ -419,7 +486,9 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                     .addComponent(jLabel14)
                     .addComponent(DiaIni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel13)
+                .addGroup(panelCargoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelCargoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
@@ -433,7 +502,9 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelFicheros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel21)
+                .addGroup(panelCargoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel21)
+                    .addComponent(jButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -478,9 +549,9 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(jButton6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                                 .addComponent(botonAlias))
-                            .addComponent(textAlias, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE))))
+                            .addComponent(textAlias, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -622,25 +693,30 @@ public class VentanaCrearPj extends javax.swing.JFrame {
             }
         });
 
-        jButton9.setText("Cambiar...");
+        jButton11.setText("Eliminar");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                                 .addComponent(jButton1))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                                 .addComponent(jButton2))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
@@ -657,7 +733,7 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                                 .addComponent(DiaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                                 .addComponent(jButton3))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
@@ -674,35 +750,33 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                                 .addComponent(DiaDef, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel23)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                                 .addComponent(jButton4))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel24)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                                 .addComponent(jButton5))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))
-                            .addComponent(textoNomYApe, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
-                            .addComponent(textoLugarNac, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
-                            .addComponent(textoLugarDef, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE))
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
+                            .addComponent(textoNomYApe, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
+                            .addComponent(textoLugarNac, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
+                            .addComponent(textoLugarDef, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(panelCargo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel25)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 149, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 159, Short.MAX_VALUE)
                                 .addComponent(jButton7))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel26)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 158, Short.MAX_VALUE)
-                                .addComponent(jButton9))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(222, 222, 222)
+                            .addComponent(jLabel26)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 337, Short.MAX_VALUE)
                         .addComponent(botonAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -753,27 +827,27 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                             .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(textoLugarDef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane2, 0, 0, Short.MAX_VALUE)
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)))
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel25)
                             .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel26)
-                            .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                        .addComponent(jLabel26)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(panelCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botonAceptar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonAceptar)
+                    .addComponent(jButton11))
                 .addContainerGap())
         );
 
@@ -789,11 +863,9 @@ public class VentanaCrearPj extends javax.swing.JFrame {
     }//GEN-LAST:event_MesDefActionPerformed
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
-        if(mod){
+        if (mod) {
             manejador.cambiaEstado(estados.MODIFICAR);
-        }
-        else
-        if (camposRellenos()){
+        } else if (camposRellenos()) {
             try {
                 // Creamos el Personaje
                 manejador.getBBDDManager().consultaInsetar("INSERT INTO personaje "
@@ -815,40 +887,40 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                 while (itAlias.hasNext()) {
                     String a = itAlias.next();
                     manejador.getBBDDManager().consultaInsetar("INSERT INTO alias "
-                            + "(personaje,nomAlias) VALUES('"+textoNomYApe.getText()+"',"
-                            + "'"+a+"');");
+                            + "(personaje,nomAlias) VALUES('" + textoNomYApe.getText() + "',"
+                            + "'" + a + "');");
                 }
                 // Borramos informacion de la memoria
                 alias.clear();
                 actualizaTablaAlias();
                 // Añadimos sus cargos
                 Iterator<DescriptorCargo> itCargo = cargos.iterator();
-                while (itCargo.hasNext()){
-                    DescriptorCargo cargo = (DescriptorCargo)itCargo.next();
+                while (itCargo.hasNext()) {
+                    DescriptorCargo cargo = (DescriptorCargo) itCargo.next();
                     // Creamos el cargo en la BBDD, si ya existe no se introducirá
                     manejador.getBBDDManager().consultaInsetar("INSERT INTO "
-                            + "cargo(nombreCargo) VALUES('"+cargo.getCargo()+"');");
+                            + "cargo(nombreCargo) VALUES('" + cargo.getCargo() + "');");
                     // Creamos y asociamos los ficheros al cargo
                     Iterator<DescriptorFichero> it = cargo.getFichero().iterator();
-                    while (it.hasNext()){
+                    while (it.hasNext()) {
                         // Creamos el fichero
-                        DescriptorFichero f = (DescriptorFichero)it.next();
+                        DescriptorFichero f = (DescriptorFichero) it.next();
                         manejador.getBBDDManager().creaFicheroCargo(f.getNombre(),
-                                    f.getFormato(),f.getURI());
+                                f.getFormato(), f.getURI());
                         // Asociamos el fichero al cargo
                         manejador.getBBDDManager().consultaInsetar("INSERT INTO "
-                            + "cargosFichero(cargo,ficheroCargo) VALUES "
-                            + "('"+cargo.getCargo()+"','"+f.getNombre()+"');");
+                                + "cargosFichero(cargo,ficheroCargo) VALUES "
+                                + "('" + cargo.getCargo() + "','" + f.getNombre() + "');");
                     }
                     // Asociamos el cargo al personaje
                     java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
                     manejador.getBBDDManager().consultaInsetar("INSERT INTO "
                             + "desempenia(personaje, cargo, descCargo, FechaIni, FechaFin) VALUES"
-                            + "('"+textoNomYApe.getText()+"',"
-                            + "'"+cargo.getCargo()+"',"
-                            + "'"+cargo.getDescCargo()+"',"
-                            + "'"+sdf.format(cargo.getFechaIni())+"',"
-                            + "'"+sdf.format(cargo.getFechaFin())+"');");
+                            + "('" + textoNomYApe.getText() + "',"
+                            + "'" + cargo.getCargo() + "',"
+                            + "'" + cargo.getDescCargo() + "',"
+                            + "'" + sdf.format(cargo.getFechaIni()) + "',"
+                            + "'" + sdf.format(cargo.getFechaFin()) + "');");
                 }
                 // Borramos informacion de la memoria
                 cargos.clear();
@@ -857,21 +929,23 @@ public class VentanaCrearPj extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 System.out.print(ex);
             }
-        } else
-            JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos", "Aviso", 2);        
+        } else {
+            JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos", "Aviso", 2);
+        }
     }//GEN-LAST:event_botonAceptarActionPerformed
 
     private void botonAliasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAliasActionPerformed
         if (mod) {
             try {
-                manejador.getBBDDManager().consultaInsetar("INSERT INTO `dochistoria`.`alias` (`personaje`, `nomAlias`) VALUES ('"+personaje.getNombreYApe()+"', '"+textAlias.getText()+"');");
+                manejador.getBBDDManager().consultaInsetar("INSERT INTO `dochistoria`.`alias` (`personaje`, `nomAlias`) VALUES ('" + personaje.getNombreYApe() + "', '" + textAlias.getText() + "');");
                 cargaTablaAlias(personaje.getNombreYApe());
             } catch (SQLException ex) {
                 Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-            if (!alias.contains(textAlias.getText()))
-                    alias.add(textAlias.getText());
+            if (!alias.contains(textAlias.getText())) {
+                alias.add(textAlias.getText());
+            }
             textAlias.setText("");
             actualizaTablaAlias();
         }
@@ -879,25 +953,55 @@ public class VentanaCrearPj extends javax.swing.JFrame {
 
     private void botonCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCargoActionPerformed
         // Añadimos el cargo a la lista de cargos
-        DescriptorCargo cargo = new DescriptorCargo(textCargo.getText(),
-                textDescCargo.getText(),
-                java.sql.Date.valueOf(AnoIni.getText() + "-" + MesIni.getText() + "-" + DiaIni.getText()),
-                java.sql.Date.valueOf(AnoFin.getText() + "-" + MesFin.getText() + "-" + DiaFin.getText()),
-                fichCargo);
-        if (!cargos.contains(cargo)) {
-            cargos.add(cargo);
-            textCargo.setText("");
-            textDescCargo.setText("");
-            AnoIni.setText(""); AnoFin.setText("");
-            MesIni.setText(""); MesFin.setText("");
-            DiaIni.setText(""); DiaFin.setText("");
-            textAlias.setText("");
-            textNomFich.setText("");
-            textURIFich.setText("");
-            textFormato.setText("");
-            actualizaTablaCargos();
-            fichCargo.clear();
-            actualizaTablaFicheros();
+        if (mod) {
+            try {
+                if (datosCargoLleno()) {
+                    String consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM `dochistoria`.`cargo` WHERE `cargo`.`nombreCargo`='" + textCargo.getText() + "';","nombreCargo");
+                    if (consulta == null) {
+                        manejador.getBBDDManager().consultaInsetar("INSERT INTO `dochistoria`.`cargo` (`nombreCargo`) VALUES ('" + textCargo.getText() + "');");
+                        manejador.getBBDDManager().consultaInsetar("INSERT INTO `dochistoria`.`desempenia` (`personaje`,`cargo`,`descCargo`,`FechaIni`,`FechaFin`) VALUES ('" + personaje.getNombreYApe() + "','" + textCargo.getText() + "','" + textDescCargo.getText() + "','" + AnoIni.getText() + "-" + MesIni.getText() + "-" + DiaIni.getText() + "','" + AnoFin.getText() + "-" + MesFin.getText() + "-" + DiaFin.getText() + "');");
+                    } else {
+                        consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM desempenia WHERE `desempenia`.`personaje`='" + personaje.getNombreYApe() + "' AND `desempenia`.`cargo`='" + textCargo.getText() + "';", "personaje");
+                        if (consulta == null) {
+                            manejador.getBBDDManager().consultaInsetar("INSERT INTO `dochistoria`.`desempenia` (`personaje`,`cargo`,`descCargo`,`FechaIni`,`FechaFin`) VALUES ('" + personaje.getNombreYApe() + "','" + textCargo.getText() + "','" + textDescCargo.getText() + "','" + AnoIni.getText() + "-" + MesIni.getText() + "-" + DiaIni.getText() + "','" + AnoFin.getText() + "-" + MesFin.getText() + "-" + DiaFin.getText() + "');");
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Este personaje ya tiene asociado el cargo " + textCargo.getText() + ". Solo puede modificarlo, desligarlo o eliminarlo.", "Aviso", 2);
+                        }
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Debe rellenar todos los campos pertinentes para introducir un nuevo cargo al personaje.", "Aviso", 2);
+                }
+                //manejador.getBBDDManager().consultaInsetar("INSERT INTO `dochistoria`.`cargo` (`nombreCargo`) VALUES ('"+textCargo.getText()+"');");
+                //manejador.getBBDDManager().consultaInsetar("INSERT INTO `dochistoria`.`desempenia` (`personaje`,`cargo`,`descCargo`,`FechaIni`,`FechaFin`) VALUES ('"+personaje.getNombreYApe()+"','"+textCargo.getText()+"','"+textDescCargo.getText()+"','"+AnoIni.getText()+"-"+MesIni.getText()+"-"+DiaIni.getText()+"','"+AnoFin.getText()+"-"+MesFin.getText()+"-"+DiaFin.getText()+"');");
+                cargaTablaCargos(personaje.getNombreYApe());
+                cargaTablaCargosFichero(textCargo.getText());
+            } catch (SQLException ex) {
+                Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            DescriptorCargo cargo = new DescriptorCargo(textCargo.getText(),
+                    textDescCargo.getText(),
+                    java.sql.Date.valueOf(AnoIni.getText() + "-" + MesIni.getText() + "-" + DiaIni.getText()),
+                    java.sql.Date.valueOf(AnoFin.getText() + "-" + MesFin.getText() + "-" + DiaFin.getText()),
+                    fichCargo);
+            if (!cargos.contains(cargo)) {
+                cargos.add(cargo);
+                textCargo.setText("");
+                textDescCargo.setText("");
+                AnoIni.setText("");
+                AnoFin.setText("");
+                MesIni.setText("");
+                MesFin.setText("");
+                DiaIni.setText("");
+                DiaFin.setText("");
+                textAlias.setText("");
+                textNomFich.setText("");
+                textURIFich.setText("");
+                textFormato.setText("");
+                actualizaTablaCargos();
+                fichCargo.clear();
+                actualizaTablaFicheros();
+            }
         }
     }//GEN-LAST:event_botonCargoActionPerformed
 
@@ -910,19 +1014,46 @@ public class VentanaCrearPj extends javax.swing.JFrame {
 }//GEN-LAST:event_textURIFichActionPerformed
 
     private void botonAddFichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAddFichActionPerformed
-        DescriptorFichero f = new DescriptorFichero(textNomFich.getText(),
-                                                    textFormato.getText(),
-                                                    textURIFich.getText());
-        if (textNomFich.getText().length()>0 && textFormato.getText().length()>0 &&
-        textURIFich.getText().length()>0){
-            if (!fichCargo.contains(f))
-                fichCargo.add(f);
-            textNomFich.setText("");
-            textFormato.setText("");
-            textURIFich.setText("");
-            actualizaTablaFicheros();
-        } else
-            JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos del fichero del cargo", "Aviso", 2);
+        if (mod) {
+            try {
+                String consulta;
+                consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM cargo WHERE `cargo`.`nombreCargo`='" + textCargo.getText() + "';", "nombreCargo");
+                if (consulta != null) {
+                    consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM fichero_cargo WHERE `fichero_cargo`.`nombreFichCargo`='" + textNomFich.getText() + "';", "nombreFichCargo");
+                    if (consulta == null) {
+                        if (textNomFich.getText().length() > 0 && textFormato.getText().length() > 0 && textURIFich.getText().length() > 0) {
+                            manejador.getBBDDManager().consultaInsetar("INSERT INTO `dochistoria`.`fichero_cargo` (`nombreFichCargo`,`formatoFichCargo`,`uriFichCargo`) VALUES ('" + textNomFich.getText() + "','" + textFormato.getText() + "','" + textURIFich.getText() + "');");
+                            manejador.getBBDDManager().consultaInsetar("INSERT INTO `dochistoria`.`cargosfichero` (`cargo`,`ficheroCargo`) VALUES ('" + textCargo.getText() + "','" + textNomFich.getText() + "');");
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Si el fichero no existe en la base de datos, se deben rellenar todos los campos.", "Aviso", 2);
+                        }
+                    } else {
+                        manejador.getBBDDManager().consultaInsetar("INSERT INTO `dochistoria`.`cargosfichero` (`cargo`,`ficheroCargo`) VALUES ('" + textCargo.getText() + "','" + textNomFich.getText() + "');");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se pueden añadir ficheros a un cargo que no se ha creado.", "Aviso", 2);
+                }
+                cargaTablaCargosFichero(textCargo.getText());
+            } catch (SQLException ex) {
+                Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            DescriptorFichero f = new DescriptorFichero(textNomFich.getText(),
+                    textFormato.getText(),
+                    textURIFich.getText());
+            if (textNomFich.getText().length() > 0 && textFormato.getText().length() > 0
+                    && textURIFich.getText().length() > 0) {
+                if (!fichCargo.contains(f)) {
+                    fichCargo.add(f);
+                }
+                textNomFich.setText("");
+                textFormato.setText("");
+                textURIFich.setText("");
+                actualizaTablaFicheros();
+            } else {
+                JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos del fichero del cargo", "Aviso", 2);
+            }
+        }
 }//GEN-LAST:event_botonAddFichActionPerformed
 
     private void textNomFichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textNomFichActionPerformed
@@ -932,6 +1063,10 @@ public class VentanaCrearPj extends javax.swing.JFrame {
 private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
     try {
         manejador.getBBDDManager().consultaInsetar("UPDATE `dochistoria`.`personaje` SET `nombreYApe` = '" + textoNomYApe.getText() + "' WHERE `personaje`.`nombreYApe` = '" + personaje.getNombreYApe() + "';");
+        manejador.getBBDDManager().consultaInsetar("UPDATE `dochistoria`.`alias` SET `personaje` = '" + textoNomYApe.getText() + "' WHERE `alias`.`personaje` = '" + personaje.getNombreYApe() + "';");
+        manejador.getBBDDManager().consultaInsetar("UPDATE `dochistoria`.`desempenia` SET `personaje` = '" + textoNomYApe.getText() + "' WHERE `desempenia`.`personaje` = '" + personaje.getNombreYApe() + "';");
+        manejador.getBBDDManager().consultaInsetar("UPDATE `dochistoria`.`personajesdocumento` SET `personaje` = '" + textoNomYApe.getText() + "' WHERE `personajesdocumento`.`personaje` = '" + personaje.getNombreYApe() + "';");
+
         rellenaPersonaje(personaje);
         // TODO add your handling code here:
     } catch (SQLException ex) {
@@ -997,7 +1132,7 @@ private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
 // TODO add your handling code here:
     try {
-        manejador.getBBDDManager().consultaInsetar("DELETE FROM `dochistoria`.`alias` WHERE `alias`.`personaje`='"+personaje.getNombreYApe()+"' AND `alias`.`nomAlias`='"+textAlias.getText()+"';");
+        manejador.getBBDDManager().consultaInsetar("DELETE FROM `dochistoria`.`alias` WHERE `alias`.`personaje`='" + personaje.getNombreYApe() + "' AND `alias`.`nomAlias`='" + textAlias.getText() + "';");
         cargaTablaAlias(personaje.getNombreYApe());
         //rellenaPersonaje(personaje);
         // TODO add your handling code here:
@@ -1008,47 +1143,49 @@ private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
 private void tablaCargosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaCargosMouseClicked
 // TODO add your handling code here:
-    String cargo=tablaCargos.getValueAt(tablaCargos.getSelectedRow(),0).toString();
-    rellenaTablaCargo(cargo);
-    
+    String cargo = tablaCargos.getValueAt(tablaCargos.getSelectedRow(), 0).toString();
+    rellenaDatosCargo(cargo);
+
 }//GEN-LAST:event_tablaCargosMouseClicked
 
-private void rellenaTablaCargo(String cargo){
-    textCargo.setText(cargo);
-    textFormato.setText("");
-    textNomFich.setText("");
-    textURIFich.setText("");
-    String consulta;
+    private void rellenaDatosCargo(String cargo) {
+        textCargo.setText(cargo);
+        textFormato.setText("");
+        textNomFich.setText("");
+        textURIFich.setText("");
+        String consulta;
         try {
-            consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM desempenia WHERE `desempenia`.`personaje`='"+personaje.getNombreYApe()+"' AND `desempenia`.`cargo`='"+cargo+"';", "descCargo");
+            consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM desempenia WHERE `desempenia`.`personaje`='" + personaje.getNombreYApe() + "' AND `desempenia`.`cargo`='" + cargo + "';", "descCargo");
             textDescCargo.setText(consulta);
-            consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM desempenia WHERE `desempenia`.`personaje`='"+personaje.getNombreYApe()+"' AND `desempenia`.`cargo`='"+cargo+"';", "FechaIni");
+            consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM desempenia WHERE `desempenia`.`personaje`='" + personaje.getNombreYApe() + "' AND `desempenia`.`cargo`='" + cargo + "';", "FechaIni");
             String[] fecha = consulta.split("-");
             AnoIni.setText(fecha[0]);
             MesIni.setText(fecha[1]);
             DiaIni.setText(fecha[2]);
-            consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM desempenia WHERE `desempenia`.`personaje`='"+personaje.getNombreYApe()+"' AND `desempenia`.`cargo`='"+cargo+"';", "FechaFin");
+            consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM desempenia WHERE `desempenia`.`personaje`='" + personaje.getNombreYApe() + "' AND `desempenia`.`cargo`='" + cargo + "';", "FechaFin");
             fecha = consulta.split("-");
             AnoFin.setText(fecha[0]);
             MesFin.setText(fecha[1]);
             DiaFin.setText(fecha[2]);
             cargaTablaCargosFichero(cargo);
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
         }
-}
+    }
 
 private void tablaAliasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaAliasMouseClicked
 // TODO add your handling code here:
-    textAlias.setText(tablaAlias.getValueAt(tablaAlias.getSelectedRow(),0).toString());
+    textAlias.setText(tablaAlias.getValueAt(tablaAlias.getSelectedRow(), 0).toString());
 }//GEN-LAST:event_tablaAliasMouseClicked
 
 private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
     // TODO add your handling code here:    
     try {
-        manejador.getBBDDManager().consultaInsetar("DELETE FROM `dochistoria`.`desempenia` WHERE `desempenia`.`personaje`='"+personaje.getNombreYApe()+"' AND `desempenia`.`cargo`='"+textCargo.getText()+"';");
+        manejador.getBBDDManager().consultaInsetar("DELETE FROM `dochistoria`.`desempenia` WHERE `desempenia`.`personaje`='" + personaje.getNombreYApe() + "' AND `desempenia`.`cargo`='" + textCargo.getText() + "';");
         cargaTablaCargos(personaje.getNombreYApe());
+        vaciaDatosFichero();
+        vaciaDatosCargo();
     } catch (SQLException ex) {
         Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
     }
@@ -1057,23 +1194,131 @@ private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
 // TODO add your handling code here:
     try {
-        manejador.getBBDDManager().consultaInsetar("DELETE FROM `dochistoria`.`cargo` WHERE `cargo`.`nombreCargo`='"+textCargo.getText()+"';");
-        String consulta=manejador.getBBDDManager().consultaPeticion("SELECT * FROM desempenia WHERE `desempenia`.`cargo`='"+textCargo.getText()+"'","personaje");
-        if(consulta!=null){
-            String[] consultas=consulta.split(",");
+        manejador.getBBDDManager().consultaInsetar("DELETE FROM `dochistoria`.`cargo` WHERE `cargo`.`nombreCargo`='" + textCargo.getText() + "';");
+        String consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM desempenia WHERE `desempenia`.`cargo`='" + textCargo.getText() + "'", "personaje");
+        if (consulta != null) {
+            String[] consultas = consulta.split(",");
             for (int k = 0; k < consultas.length; k++) {
-                manejador.getBBDDManager().consultaInsetar("DELETE FROM `dochistoria`.`desempenia` WHERE `desempenia`.`personaje`='"+consultas[k]+"' AND `desempenia`.`cargo`='"+textCargo.getText()+"';");
+                manejador.getBBDDManager().consultaInsetar("DELETE FROM `dochistoria`.`desempenia` WHERE `desempenia`.`personaje`='" + consultas[k] + "' AND `desempenia`.`cargo`='" + textCargo.getText() + "';");
             }
         }
+        vaciaDatosFichero();
+        vaciaDatosCargo();
         cargaTablaCargos(personaje.getNombreYApe());
     } catch (SQLException ex) {
         Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
     }
 }//GEN-LAST:event_jButton10ActionPerformed
 
+private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+    try {
+        manejador.getBBDDManager().consultaInsetar("DELETE FROM `dochistoria`.`personaje` WHERE `personaje`.`nombreYApe`='" + personaje.getNombreYApe() + "';");
+        manejador.getBBDDManager().consultaInsetar("DELETE FROM `dochistoria`.`alias` WHERE `alias`.`personaje`='" + personaje.getNombreYApe() + "';");
+        manejador.getBBDDManager().consultaInsetar("DELETE FROM `dochistoria`.`desempenia` WHERE `desempenia`.`personaje`='" + personaje.getNombreYApe() + "';");
+        manejador.cambiaEstado(estados.MODIFICAR);
+    } catch (SQLException ex) {
+        Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_jButton11ActionPerformed
+
+private void tablaFicherosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaFicherosMouseClicked
+// TODO add your handling code here:
+    String fichero = tablaFicheros.getValueAt(tablaFicheros.getSelectedRow(), 0).toString();
+    try {
+        rellenaDatosFichero(fichero);
+    } catch (SQLException ex) {
+        Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_tablaFicherosMouseClicked
+
+private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+    // TODO add your handling code here:    
+    try {
+        manejador.getBBDDManager().consultaInsetar("DELETE FROM `dochistoria`.`cargosfichero` WHERE `cargosfichero`.`cargo`='" + textCargo.getText() + "' AND `cargosfichero`.`ficheroCargo`='" + textNomFich.getText() + "';");
+        cargaTablaCargosFichero(textCargo.getText());
+        vaciaDatosFichero();
+    } catch (SQLException ex) {
+        Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_jButton12ActionPerformed
+
+private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+// TODO add your handling code here:
+    try {
+        manejador.getBBDDManager().consultaInsetar("DELETE FROM `dochistoria`.`fichero_cargo` WHERE `fichero_cargo`.`nombreFichCargo`='" + textNomFich.getText() + "';");
+        manejador.getBBDDManager().consultaInsetar("DELETE FROM `dochistoria`.`cargosfichero` WHERE `cargosfichero`.`ficheroCargo`='" + textNomFich.getText() + "';");
+        /*String consulta=manejador.getBBDDManager().consultaPeticion("SELECT * FROM cargosfichero WHERE `cargosfichero`.`ficheroCargo`='"+textNomFich.getText()+"'","cargo");
+        if(consulta!=null){
+        String[] consultas=consulta.split(",");
+        for (int k = 0; k < consultas.length; k++) {
+        manejador.getBBDDManager().consultaInsetar("DELETE FROM `dochistoria`.`desempenia` WHERE `desempenia`.`personaje`='"+consultas[k]+"' AND `desempenia`.`cargo`='"+textCargo.getText()+"';");
+        }
+        }*/
+        cargaTablaCargosFichero(textCargo.getText());
+        vaciaDatosFichero();
+    } catch (SQLException ex) {
+        Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_jButton13ActionPerformed
+
+private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+    // TODO add your handling code here:    
+    try {
+        String consulta;
+        consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM cargo WHERE `cargo`.`nombreCargo`='" + textCargo.getText() + "';", "nombreCargo");
+        if (consulta != null) {
+            String fecha = AnoIni.getText() + "-" + MesIni.getText() + "-" + DiaIni.getText();
+            manejador.getBBDDManager().consultaInsetar("UPDATE `dochistoria`.`desempenia` SET `FechaIni` = '" + fecha + "' WHERE `desempenia`.`personaje` = '" + personaje.getNombreYApe() + "' AND `desempenia`.`cargo`= '" + textCargo.getText() + "';");
+        } else {
+            JOptionPane.showMessageDialog(null, "No se pueden modificar datos de un cargo inexistente.", "Aviso", 2);
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_jButton9ActionPerformed
+
+private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+// TODO add your handling code here:
+    try {
+        String consulta;
+        consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM cargo WHERE `cargo`.`nombreCargo`='" + textCargo.getText() + "';", "nombreCargo");
+        if (consulta != null) {
+            String fecha = AnoFin.getText() + "-" + MesFin.getText() + "-" + DiaFin.getText();
+            manejador.getBBDDManager().consultaInsetar("UPDATE `dochistoria`.`desempenia` SET `FechaFin` = '" + fecha + "' WHERE `desempenia`.`personaje` = '" + personaje.getNombreYApe() + "' AND `desempenia`.`cargo`= '" + textCargo.getText() + "';");
+        } else {
+            JOptionPane.showMessageDialog(null, "No se pueden modificar datos de un cargo inexistente.", "Aviso", 2);
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_jButton14ActionPerformed
+
+private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+// TODO add your handling code here:
+    try {
+        String consulta;
+        consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM cargo WHERE `cargo`.`nombreCargo`='" + textCargo.getText() + "';", "nombreCargo");
+        if (consulta != null) {
+            manejador.getBBDDManager().consultaInsetar("UPDATE `dochistoria`.`desempenia` SET `descCargo` = '" + textDescCargo.getText() + "' WHERE `desempenia`.`personaje` = '" + personaje.getNombreYApe() + "' AND `desempenia`.`cargo`= '" + textCargo.getText() + "';");
+        } else {
+            JOptionPane.showMessageDialog(null, "No se pueden modificar datos de un cargo inexistente.", "Aviso", 2);
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_jButton15ActionPerformed
+
+    private void rellenaDatosFichero(String fichero) throws SQLException {
+        textNomFich.setText(fichero);
+        String consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM `dochistoria`.`fichero_cargo` WHERE `fichero_cargo`.`nombreFichCargo`='" + fichero + "';", "formatoFichCargo");
+        textFormato.setText(consulta);
+        consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM `dochistoria`.`fichero_cargo` WHERE `fichero_cargo`.`nombreFichCargo`='" + fichero + "';", "uriFichCargo");
+        textURIFich.setText(consulta);
+    }
+
     private void actualizaTablaCargos() {
         DefaultTableModel m;
-        m = new DefaultTableModel(new Object[] {"Cargos"}, 0);
+        m = new DefaultTableModel(new Object[]{"Cargos"}, 0);
         Iterator<DescriptorCargo> itCargos = cargos.iterator();
         while (itCargos.hasNext()) {
             DescriptorCargo cargo = itCargos.next();
@@ -1081,10 +1326,10 @@ private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         }
         tablaCargos.setModel(m);
     }
-    
+
     private void actualizaTablaAlias() {
         DefaultTableModel m;
-        m = new DefaultTableModel(new Object[] {"Alias"}, 0);
+        m = new DefaultTableModel(new Object[]{"Alias"}, 0);
         Iterator<String> itAlias = alias.iterator();
         while (itAlias.hasNext()) {
             String alias = itAlias.next();
@@ -1095,129 +1340,164 @@ private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 
     private void actualizaTablaFicheros() {
         DefaultTableModel m;
-        m = new DefaultTableModel(new Object[] {"Ficheros"}, 0);
+        m = new DefaultTableModel(new Object[]{"Ficheros"}, 0);
         Iterator<DescriptorFichero> it = fichCargo.iterator();
         while (it.hasNext()) {
-            DescriptorFichero fich = (DescriptorFichero)it.next();
+            DescriptorFichero fich = (DescriptorFichero) it.next();
             m.addRow(new Object[]{fich.getNombre()});
         }
         tablaFicheros.setModel(m);
     }
+
+    private void vaciaDatosFichero() {
+        textNomFich.setText("");
+        textFormato.setText("");
+        textURIFich.setText("");
+    }
+
+    private void vaciaDatosCargo() {
+        textCargo.setText("");
+        AnoIni.setText("");
+        MesIni.setText("");
+        DiaIni.setText("");
+        AnoFin.setText("");
+        MesFin.setText("");
+        DiaFin.setText("");
+        textDescCargo.setText("");
+    }
+
+    ;
     
+    private boolean datosCargoLleno() {
+        return textCargo.getText().length() > 0
+                && AnoIni.getText().length() > 0
+                && MesIni.getText().length() > 0
+                && DiaIni.getText().length() > 0
+                && AnoFin.getText().length() > 0
+                && MesFin.getText().length() > 0
+                && DiaFin.getText().length() > 0
+                && textDescCargo.getText().length() > 0;
+    }
+
     private void rellenaPersonaje(DescriptorPersonaje personaje) {
-                personaje.setNombreYApe(textoNomYApe.getText());
-                personaje.setLugarNacimiento(textoLugarNac.getText());
-                personaje.setBiografia(textBiografia.getText());
-                personaje.setFechaNac(java.sql.Date.valueOf(AnoNac.getText()+"-"
-                        +MesNac.getText()+"-"+DiaNac.getText()));
-                personaje.setFechaMuerte(java.sql.Date.valueOf(AnoDef.getText()
-                        +"-"+MesDef.getText()+"-"+DiaDef.getText()));
+        personaje.setNombreYApe(textoNomYApe.getText());
+        personaje.setLugarNacimiento(textoLugarNac.getText());
+        personaje.setBiografia(textBiografia.getText());
+        personaje.setFechaNac(java.sql.Date.valueOf(AnoNac.getText() + "-"
+                + MesNac.getText() + "-" + DiaNac.getText()));
+        personaje.setFechaMuerte(java.sql.Date.valueOf(AnoDef.getText()
+                + "-" + MesDef.getText() + "-" + DiaDef.getText()));
     }
-    
+
     private boolean camposRellenos() {
-        return (textBiografia.getText().length()>0 &&
-                textoLugarNac.getText().length()>0 &&
-                textoLugarDef.getText().length()>0 &&
-                textoNomYApe.getText().length()>0 &&
-                AnoNac.getText().length()>0 &&
-                DiaNac.getText().length()>0 &&
-                MesNac.getText().length()>0 &&
-                AnoDef.getText().length()>0 &&
-                DiaDef.getText().length()>0 &&
-                MesDef.getText().length()>0 &&
-                !cargos.isEmpty() &&
-                !alias.isEmpty());
+        return (textBiografia.getText().length() > 0
+                && textoLugarNac.getText().length() > 0
+                && textoLugarDef.getText().length() > 0
+                && textoNomYApe.getText().length() > 0
+                && AnoNac.getText().length() > 0
+                && DiaNac.getText().length() > 0
+                && MesNac.getText().length() > 0
+                && AnoDef.getText().length() > 0
+                && DiaDef.getText().length() > 0
+                && MesDef.getText().length() > 0
+                && !cargos.isEmpty()
+                && !alias.isEmpty());
     }
-    
-    public void cargaPersonaje(String personaje) throws SQLException{
-        String consulta=manejador.getBBDDManager().consultaPeticion("SELECT * FROM personaje WHERE `personaje`.`nombreYApe` = '"+personaje+"'", "biografia");
+
+    public void cargaPersonaje(String personaje) throws SQLException {
+        String consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM personaje WHERE `personaje`.`nombreYApe` = '" + personaje + "'", "biografia");
         textBiografia.setText(consulta);
-        consulta=manejador.getBBDDManager().consultaPeticion("SELECT * FROM personaje WHERE `personaje`.`nombreYApe` = '"+personaje+"'", "lugarNac");
+        consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM personaje WHERE `personaje`.`nombreYApe` = '" + personaje + "'", "lugarNac");
         textoLugarNac.setText(consulta);
-        consulta=manejador.getBBDDManager().consultaPeticion("SELECT * FROM personaje WHERE `personaje`.`nombreYApe` = '"+personaje+"'", "lugarMuerte");
+        consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM personaje WHERE `personaje`.`nombreYApe` = '" + personaje + "'", "lugarMuerte");
         textoLugarDef.setText(consulta);
-        consulta=manejador.getBBDDManager().consultaPeticion("SELECT * FROM personaje WHERE `personaje`.`nombreYApe` = '"+personaje+"'", "nombreYApe");
+        consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM personaje WHERE `personaje`.`nombreYApe` = '" + personaje + "'", "nombreYApe");
         textoNomYApe.setText(consulta);
-        consulta=manejador.getBBDDManager().consultaPeticion("SELECT * FROM personaje WHERE `personaje`.`nombreYApe` = '"+personaje+"'", "fechaNac");
+        consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM personaje WHERE `personaje`.`nombreYApe` = '" + personaje + "'", "fechaNac");
         String[] fecha = consulta.split("-");
         AnoNac.setText(fecha[0]);
         MesNac.setText(fecha[1]);
         DiaNac.setText(fecha[2]);
-        consulta=manejador.getBBDDManager().consultaPeticion("SELECT * FROM personaje WHERE `personaje`.`nombreYApe` = '"+personaje+"'", "fechaMuerte");
+        consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM personaje WHERE `personaje`.`nombreYApe` = '" + personaje + "'", "fechaMuerte");
         fecha = consulta.split("-");
         AnoDef.setText(fecha[0]);
         MesDef.setText(fecha[1]);
         DiaDef.setText(fecha[2]);
-        
+
         cargaTablaAlias(personaje);
-        
+
         cargaTablaCargos(personaje);
-        
+
         rellenaPersonaje(this.personaje);
     }
-    
-    void cargaTablaAlias(String personaje) throws SQLException{
-        String consulta=manejador.getBBDDManager().consultaPeticion("SELECT * FROM alias WHERE `alias`.`personaje` = '"+personaje+"'", "nomAlias");
+
+    void cargaTablaAlias(String personaje) throws SQLException {
+        String consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM alias WHERE `alias`.`personaje` = '" + personaje + "'", "nomAlias");
         tablaAlias.removeAll();
-        if (consulta!=null){
+        if (consulta != null) {
             DefaultTableModel m;
             m = new DefaultTableModel(new Object[]{"Alias"}, 0);
             String[] alias = consulta.split(",");
             System.out.println(alias);
-            
+
             for (int k = 0; k < alias.length; k++) {
                 m.addRow(new Object[]{alias[k]});
             }
             tablaAlias.setModel(m);
-        }else{
+        } else {
             DefaultTableModel m = new DefaultTableModel(new Object[]{"Alias"}, 0);
             tablaAlias.setModel(m);
         }
-    };
+    }
+
+    ;
     
-    void cargaTablaCargos(String personaje) throws SQLException{
-        String consulta=manejador.getBBDDManager().consultaPeticion("SELECT * FROM desempenia WHERE `desempenia`.`personaje` = '"+personaje+"'", "cargo");
+    void cargaTablaCargos(String personaje) throws SQLException {
+        String consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM desempenia WHERE `desempenia`.`personaje` = '" + personaje + "'", "cargo");
         tablaCargos.removeAll();
-        if (consulta!=null){
+        if (consulta != null) {
             DefaultTableModel m;
             m = new DefaultTableModel(new Object[]{"Cargos"}, 0);
             String[] cargos = consulta.split(",");
             System.out.println(cargos);
-            
+
             for (int k = 0; k < cargos.length; k++) {
                 m.addRow(new Object[]{cargos[k]});
             }
             tablaCargos.setModel(m);
-        }else{
+        } else {
             DefaultTableModel m = new DefaultTableModel(new Object[]{"Cargos"}, 0);
             tablaCargos.setModel(m);
         }
-    };
+    }
+
+    ;
     
-    void cargaTablaCargosFichero(String cargo) throws SQLException{
-        String consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM cargosfichero WHERE `cargosfichero`.`cargo`='"+cargo+"';", "ficheroCargo");
+    void cargaTablaCargosFichero(String cargo) throws SQLException {
+        String consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM cargosfichero WHERE `cargosfichero`.`cargo`='" + cargo + "';", "ficheroCargo");
         tablaFicheros.removeAll();
-        if (consulta!=null){
+        if (consulta != null) {
             DefaultTableModel m;
             m = new DefaultTableModel(new Object[]{"Ficheros"}, 0);
             String[] ficheros = consulta.split(",");
             System.out.println(ficheros);
-            
+
             for (int k = 0; k < ficheros.length; k++) {
                 m.addRow(new Object[]{ficheros[k]});
             }
             tablaFicheros.setModel(m);
-        }else{
+        } else {
             DefaultTableModel m = new DefaultTableModel(new Object[]{"Ficheros"}, 0);
             tablaFicheros.setModel(m);
         }
     }
 
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 try {
                     new VentanaCrearPj(new GUIManager()).setVisible(true);
@@ -1227,7 +1507,7 @@ private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
             }
         });
     }
-    
+
     void mandaEstadoV1(estados s) {
         if (s == estados.CREAR) {
             jButton1.setVisible(false);
@@ -1239,7 +1519,7 @@ private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
             jButton7.setVisible(false);
             jButton8.setVisible(false);
             jButton9.setVisible(false);
-            mod=false;
+            mod = false;
         } else if (s == estados.MODIFICAR) {
             jButton1.setVisible(true);
             jButton2.setVisible(true);
@@ -1250,10 +1530,11 @@ private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
             jButton7.setVisible(true);
             jButton8.setVisible(true);
             jButton9.setVisible(true);
-            mod=true;
+            vaciaDatosFichero();
+            vaciaDatosCargo();
+            mod = true;
         }
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField AnoDef;
     private javax.swing.JTextField AnoFin;
@@ -1273,6 +1554,11 @@ private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private javax.swing.JButton botonCargo;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
+    private javax.swing.JButton jButton12;
+    private javax.swing.JButton jButton13;
+    private javax.swing.JButton jButton14;
+    private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -1332,5 +1618,4 @@ private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private javax.swing.JTextField textoLugarNac;
     private javax.swing.JTextField textoNomYApe;
     // End of variables declaration//GEN-END:variables
-
 }
