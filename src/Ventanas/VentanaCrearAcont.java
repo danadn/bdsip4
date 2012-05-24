@@ -82,10 +82,10 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        labelTitulo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelTitulo.setFont(new java.awt.Font("Tahoma", 0, 12));
         labelTitulo.setText("Acontecimiento:");
 
-        textNombre.setText("Elecciones Gobernor California");
+        textNombre.setText("Elec. California");
         textNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textNombreActionPerformed(evt);
@@ -94,7 +94,7 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
 
         textDescripcion.setColumns(20);
         textDescripcion.setRows(5);
-        textDescripcion.setText("Elecciones en las que el actor\nArnold Swardschneger obtuvo la\nvictoria.");
+        textDescripcion.setText("Elecciones que gano\nArnold Swardschneger");
         scrollDescripcion.setViewportView(textDescripcion);
 
         labelDescripcion.setFont(new java.awt.Font("Tahoma", 0, 12));
@@ -348,7 +348,7 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(botonAceptar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         pack();
@@ -370,12 +370,16 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
         DescriptorFichero f = new DescriptorFichero(textNomFich.getText(),
                                                     textFormato.getText(),
                                                     textURIFich.getText());
-        if (!ficheros.contains(f))
-            ficheros.add(f);
-        textNomFich.setText("");
-        textFormato.setText("");
-        textURIFich.setText("");
-        actualizaTablaFicheros();
+        if (textNomFich.getText().length()>0 && textFormato.getText().length()>0 &&
+        textURIFich.getText().length()>0){
+            if (!ficheros.contains(f))
+                ficheros.add(f);
+            textNomFich.setText("");
+            textFormato.setText("");
+            textURIFich.setText("");
+            actualizaTablaFicheros();
+        } else
+            JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos del fichero", "Aviso", 2);
 }//GEN-LAST:event_botonAddFichActionPerformed
 
     private void textNomFichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textNomFichActionPerformed
@@ -383,45 +387,48 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
 }//GEN-LAST:event_textNomFichActionPerformed
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
-        try {
-            // Introducimos el Acontecimiento en la BBDD
-            manejador.getBBDDManager().consultaInsetar("INSERT INTO acontecimiento "
-                    + "(nombreAcont,descrip,fechaC,fechaF) VALUES"
-                    + "('"+textNombre.getText()+"','"+textDescripcion.getText()+"',"
-                    + "'"+AnoIni.getText()+"-"+MesIni.getText()+"-"+DiaIni.getText()+"'"
-                    + ",'"+AnoFin.getText()+"-"+MesFin.getText()+"-"+DiaFin.getText()+"');");
-            // Asociamos el Acontecimiento al Documento
-            int idDocumento = Integer.parseInt(manejador.getBBDDManager().consultaPeticion(
-                    "SELECT max(id) as id FROM documento;", "id"));
-            manejador.getBBDDManager().consultaInsetar("INSERT INTO acontecimientosDocumento"
-                    + " (idDocumento,acontecimiento) VALUES"
-                    + "("+idDocumento+",'"+textNombre.getText()+"');");
-            // Creamos y asociamos sus ficheros
-            Iterator<DescriptorFichero> itF = ficheros.iterator();
-            while (itF.hasNext()) {
-                // Creamos el fichero en la BBDD
-                DescriptorFichero f = itF.next();
-                manejador.getBBDDManager().creaFicheroAcont(f.getNombre(),
-                        f.getFormato(), f.getURI());
-                // Lo relacionamos con el documento
-                manejador.getBBDDManager().consultaInsetar("INSERT INTO "
-                        + "acontsFichero(acontecimiento,ficheroAcont) VALUES "
-                        + "('"+textNombre.getText()+"','"+f.getNombre()+"');");
+        if (camposRellenos()){
+            try {
+                // Introducimos el Acontecimiento en la BBDD
+                manejador.getBBDDManager().consultaInsetar("INSERT INTO acontecimiento "
+                        + "(nombreAcont,descrip,fechaC,fechaF) VALUES"
+                        + "('"+textNombre.getText()+"','"+textDescripcion.getText()+"',"
+                        + "'"+AnoIni.getText()+"-"+MesIni.getText()+"-"+DiaIni.getText()+"'"
+                        + ",'"+AnoFin.getText()+"-"+MesFin.getText()+"-"+DiaFin.getText()+"');");
+                // Asociamos el Acontecimiento al Documento
+                int idDocumento = Integer.parseInt(manejador.getBBDDManager().consultaPeticion(
+                        "SELECT max(id) as id FROM documento;", "id"));
+                manejador.getBBDDManager().consultaInsetar("INSERT INTO acontecimientosDocumento"
+                        + " (idDocumento,acontecimiento) VALUES"
+                        + "("+idDocumento+",'"+textNombre.getText()+"');");
+                // Creamos y asociamos sus ficheros
+                Iterator<DescriptorFichero> itF = ficheros.iterator();
+                while (itF.hasNext()) {
+                    // Creamos el fichero en la BBDD
+                    DescriptorFichero f = itF.next();
+                    manejador.getBBDDManager().creaFicheroAcont(f.getNombre(),
+                            f.getFormato(), f.getURI());
+                    // Lo relacionamos con el documento
+                    manejador.getBBDDManager().consultaInsetar("INSERT INTO "
+                            + "acontsFichero(acontecimiento,ficheroAcont) VALUES "
+                            + "('"+textNombre.getText()+"','"+f.getNombre()+"');");
+                }
+                // Introducidos los ficheros, los borramos de memoria
+                ficheros.clear();
+                actualizaTablaFicheros();
+                textNombre.setText("");
+                textDescripcion.setText("");
+                textFormato.setText("");
+                textNomFich.setText("");
+                textURIFich.setText("");
+                AnoIni.setText(""); MesIni.setText(""); DiaIni.setText("");
+                AnoFin.setText(""); MesFin.setText(""); DiaFin.setText("");
+                manejador.cambiaEstado(estados.VENTANA3);
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, ex, "Aviso", 2);
             }
-            // Introducidos los ficheros, los borramos de memoria
-            ficheros.clear();
-            actualizaTablaFicheros();
-            textNombre.setText("");
-            textDescripcion.setText("");
-            textFormato.setText("");
-            textNomFich.setText("");
-            textURIFich.setText("");
-            AnoIni.setText(""); MesIni.setText(""); DiaIni.setText("");
-            AnoFin.setText(""); MesFin.setText(""); DiaFin.setText("");
-            manejador.cambiaEstado(estados.VENTANA3);
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex, "Aviso", 2);
-        }
+        } else
+            JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos", "Aviso", 2);
 }//GEN-LAST:event_botonAceptarActionPerformed
 
     private void MesIniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MesIniActionPerformed
@@ -480,5 +487,17 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
     private javax.swing.JTextField textNombre;
     private javax.swing.JTextField textURIFich;
     // End of variables declaration//GEN-END:variables
+
+    private boolean camposRellenos() {
+        return (textNombre.getText().length()>0 &&
+                textDescripcion.getText().length()>0 &&
+                AnoIni.getText().length()>0 &&
+                MesIni.getText().length()>0 &&
+                DiaIni.getText().length()>0 &&
+                AnoFin.getText().length()>0 &&
+                MesFin.getText().length()>0 &&
+                DiaFin.getText().length()>0 &&
+                !ficheros.isEmpty());
+    }
 
 }

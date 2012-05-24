@@ -1,6 +1,5 @@
 package Ventanas;
 import Descriptores.DescriptorCatalogo;
-import Descriptores.DescriptorDocumento;
 import Descriptores.DescriptorFichero;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -456,17 +455,22 @@ public class Ventana2 extends javax.swing.JFrame {
     }//GEN-LAST:event_textURICatActionPerformed
 
     private void botonAccionCatalogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAccionCatalogoActionPerformed
-        DescriptorCatalogo catalogo = new DescriptorCatalogo(
-                textNombreCat.getText(),
-                comboTipo.getSelectedItem().toString(), textFuenteCat.getText(),
-                textFormatoCat.getText(), textURICat.getText());
-        if (!catalogaciones.contains(catalogo))      
-            catalogaciones.add(catalogo);
-        textNombreCat.setText("");
-        textFuenteCat.setText("");
-        textFormatoCat.setText("");
-        textURICat.setText("");
-        actualizaTablaCatalogo();
+       if (textNombreCat.getText().length()>0 && textFormatoCat.getText().length()>0 &&
+               textURICat.getText().length()>0 && textFuenteCat.getText().length()>0){
+           DescriptorCatalogo catalogo = new DescriptorCatalogo(
+                   textNombreCat.getText(),
+                   comboTipo.getSelectedItem().toString(), textFuenteCat.getText(),
+                   textFormatoCat.getText(), textURICat.getText());
+           if (!catalogaciones.contains(catalogo)) {
+               catalogaciones.add(catalogo);
+           }
+           textNombreCat.setText("");
+           textFuenteCat.setText("");
+           textFormatoCat.setText("");
+           textURICat.setText("");
+           actualizaTablaCatalogo();
+        } else
+            JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos de la catalogacion", "Aviso", 2);
     }//GEN-LAST:event_botonAccionCatalogoActionPerformed
 
     private void textNombreCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textNombreCatActionPerformed
@@ -485,12 +489,16 @@ public class Ventana2 extends javax.swing.JFrame {
         DescriptorFichero f = new DescriptorFichero(textNomFich.getText(),
                                                     textFormato.getText(),
                                                     textURIFich.getText());
-        if (!ficheros.contains(f))
-            ficheros.add(f);
-        textNomFich.setText("");
-        textFormato.setText("");
-        textURIFich.setText("");
-        actualizaTablaFicheros();
+        if (textNomFich.getText().length()>0 && textFormato.getText().length()>0 &&
+        textURIFich.getText().length()>0){
+            if (!ficheros.contains(f))
+                ficheros.add(f);
+            textNomFich.setText("");
+            textFormato.setText("");
+            textURIFich.setText("");
+            actualizaTablaFicheros();
+        } else
+            JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos del fichero", "Aviso", 2);
 }//GEN-LAST:event_botonAddFichActionPerformed
 
     private void textNomFichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textNomFichActionPerformed
@@ -520,15 +528,10 @@ public class Ventana2 extends javax.swing.JFrame {
     }
 
     private boolean camposRellenos() {
-        return textTitulo.getText().length()>0 &&
+        return (textTitulo.getText().length()>0 &&
                textDescripcion.getText().length()>0 &&
-               catalogaciones.size()>0 &&
-               ficheros.size()>0;
-    }
-
-    private void rellenaDocumento(DescriptorDocumento documento) {
-        documento.setTitulo(textTitulo.getText());
-        documento.setDescContenido(textDescripcion.getText());
+               !catalogaciones.isEmpty() &&
+               !ficheros.isEmpty());
     }
 
     /**

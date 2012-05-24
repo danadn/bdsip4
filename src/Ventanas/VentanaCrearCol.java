@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -251,41 +252,44 @@ public class VentanaCrearCol extends javax.swing.JFrame {
 }//GEN-LAST:event_textNombreActionPerformed
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
-        try {
-            // Creamos el colectivo
-            manejador.getBBDDManager().consultaInsetar("INSERT INTO colectivo "
-                    + "(nombre ,descColec) VALUES('"+textNombre.getText() +"',"
-                    + "'"+textDescripcion.getText()+"');");
-            // Asociamos el Colectivo al Documento
-            int idDocumento = Integer.parseInt(manejador.getBBDDManager().consultaPeticion(
-                    "SELECT max(id) as id FROM documento;", "id"));
-            manejador.getBBDDManager().consultaInsetar("INSERT INTO "
-                    + "colectivosDocumento (idDocumento,colectivo) VALUES"
-                    + "("+idDocumento+",'"+textNombre.getText()+"');");
-            // Creamos y asociamos sus ficheros
-            Iterator<DescriptorFichero> itF = ficheros.iterator();
-            while (itF.hasNext()) {
-                // Creamos el fichero en la BBDD
-                DescriptorFichero f = itF.next();
-                manejador.getBBDDManager().creaFicheroCol(f.getNombre(),
-                        f.getFormato(), f.getURI());
-                // Lo relacionamos con el documento
+        if (camposRellenos()){
+            try {
+                // Creamos el colectivo
+                manejador.getBBDDManager().consultaInsetar("INSERT INTO colectivo "
+                        + "(nombre ,descColec) VALUES('" + textNombre.getText() + "',"
+                        + "'" + textDescripcion.getText() + "');");
+                // Asociamos el Colectivo al Documento
+                int idDocumento = Integer.parseInt(manejador.getBBDDManager().consultaPeticion(
+                        "SELECT max(id) as id FROM documento;", "id"));
                 manejador.getBBDDManager().consultaInsetar("INSERT INTO "
-                        + "colectivosFichero(colectivo,ficheroCol) VALUES "
-                        + "('"+textNombre.getText()+"','"+f.getNombre()+"');");
-            }            
-            // Introducidos los ficheros, los borramos de memoria
-            textDescripcion.setText("");
-            textFormato.setText("");
-            textNomFich.setText("");
-            textNombre.setText("");
-            textURIFich.setText("");
-            ficheros.clear();
-            actualizaTablaFicheros();
-            manejador.cambiaEstado(estados.VENTANA3);
-        } catch (SQLException ex) {
-            System.out.print(ex);
-        }
+                        + "colectivosDocumento (idDocumento,colectivo) VALUES"
+                        + "(" + idDocumento + ",'" + textNombre.getText() + "');");
+                // Creamos y asociamos sus ficheros
+                Iterator<DescriptorFichero> itF = ficheros.iterator();
+                while (itF.hasNext()) {
+                    // Creamos el fichero en la BBDD
+                    DescriptorFichero f = itF.next();
+                    manejador.getBBDDManager().creaFicheroCol(f.getNombre(),
+                            f.getFormato(), f.getURI());
+                    // Lo relacionamos con el documento
+                    manejador.getBBDDManager().consultaInsetar("INSERT INTO "
+                            + "colectivosFichero(colectivo,ficheroCol) VALUES "
+                            + "('" + textNombre.getText() + "','" + f.getNombre() + "');");
+                }
+                // Introducidos los ficheros, los borramos de memoria
+                textDescripcion.setText("");
+                textFormato.setText("");
+                textNomFich.setText("");
+                textNombre.setText("");
+                textURIFich.setText("");
+                ficheros.clear();
+                actualizaTablaFicheros();
+                manejador.cambiaEstado(estados.VENTANA3);
+            } catch (SQLException ex) {
+                System.out.print(ex);
+            }
+        } else
+            JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos", "Aviso", 2);
     }//GEN-LAST:event_botonAceptarActionPerformed
 
     private void textFormatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFormatoActionPerformed
@@ -300,12 +304,16 @@ public class VentanaCrearCol extends javax.swing.JFrame {
         DescriptorFichero f = new DescriptorFichero(textNomFich.getText(),
                                                     textFormato.getText(),
                                                     textURIFich.getText());
-        if (!ficheros.contains(f))
-            ficheros.add(f);
-        textNomFich.setText("");
-        textFormato.setText("");
-        textURIFich.setText("");
-        actualizaTablaFicheros();
+        if (textNomFich.getText().length()>0 && textFormato.getText().length()>0 &&
+        textURIFich.getText().length()>0){
+            if (!ficheros.contains(f))
+                ficheros.add(f);
+            textNomFich.setText("");
+            textFormato.setText("");
+            textURIFich.setText("");
+            actualizaTablaFicheros();
+        } else
+            JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos del fichero", "Aviso", 2);
 }//GEN-LAST:event_botonAddFichActionPerformed
 
     private void textNomFichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textNomFichActionPerformed
@@ -357,5 +365,11 @@ public class VentanaCrearCol extends javax.swing.JFrame {
     private javax.swing.JTextField textNombre;
     private javax.swing.JTextField textURIFich;
     // End of variables declaration//GEN-END:variables
+
+    private boolean camposRellenos() {
+        return (textDescripcion.getText().length()>0 &&
+                textDescripcion.getText().length()>0 &&
+                !ficheros.isEmpty());
+    }
 
 }
