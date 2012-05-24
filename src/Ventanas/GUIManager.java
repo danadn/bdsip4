@@ -19,7 +19,7 @@ public class GUIManager {
     private Ventana4 v4;
     private VentanaMuestra vM;
     private VentanaCrearPj vCrearPj;
-    private VentanaCrearCol vCearCol;
+    private VentanaCrearCol vCrearCol;
     private VentanaCrearAcont vCrearAcont;
     private VentanaBusqSimple vBusqSimple;
     private estados estado;
@@ -35,7 +35,7 @@ public class GUIManager {
         v4 = new Ventana4(this);
         vM = new VentanaMuestra(this);
         vCrearPj = new VentanaCrearPj(this);
-        vCearCol = new VentanaCrearCol(this);
+        vCrearCol = new VentanaCrearCol(this);
         vCrearAcont = new VentanaCrearAcont(this);
         vBusqSimple = new VentanaBusqSimple(this);
         v1.setEnabled(true);
@@ -51,7 +51,7 @@ public class GUIManager {
         v4.dispose();
         vM.dispose();
         vCrearPj.dispose();
-        vCearCol.dispose();
+        vCrearCol.dispose();
         vCrearAcont.dispose();
         vBusqSimple.dispose();
         bd.close();
@@ -68,6 +68,14 @@ public class GUIManager {
     public VentanaCrearPj getVentanaPj(){
         return vCrearPj;
     };
+    
+    public VentanaCrearAcont getVentanaAcont(){
+        return vCrearAcont;
+    };
+    
+    public VentanaCrearCol getVentanaCol(){
+        return vCrearCol;
+    };
 
     public void cambiaEstado(estados s){
         estado = s;
@@ -79,7 +87,7 @@ public class GUIManager {
                 v4.setVisible(false);
                 vM.setVisible(false);
                 vCrearPj.setVisible(false);
-                vCearCol.setVisible(false);
+                vCrearCol.setVisible(false);
                 vCrearAcont.setVisible(false);
                 vBusqSimple.setVisible(false);
                 mod=false;
@@ -91,7 +99,7 @@ public class GUIManager {
                 v4.setVisible(false);
                 vM.setVisible(false);
                 vCrearPj.setVisible(false);
-                vCearCol.setVisible(false);
+                vCrearCol.setVisible(false);
                 vCrearAcont.setVisible(false);
                 vBusqSimple.setVisible(false);
                 mod=false;
@@ -103,7 +111,7 @@ public class GUIManager {
                 v4.setVisible(false);
                 vM.setVisible(false);
                 vCrearPj.setVisible(false);
-                vCearCol.setVisible(false);
+                vCrearCol.setVisible(false);
                 vCrearAcont.setVisible(false);
                 vBusqSimple.setVisible(false);
                 mod=false;
@@ -116,7 +124,7 @@ public class GUIManager {
                 vM.setVisible(false);
                 vCrearPj.mandaEstadoV1(v1.getEstado());
                 vCrearPj.setVisible(true);
-                vCearCol.setVisible(false);
+                vCrearCol.setVisible(false);
                 vCrearAcont.setVisible(false);
                 vBusqSimple.setVisible(false);
                 mod=false;
@@ -128,7 +136,8 @@ public class GUIManager {
                 v4.setVisible(false);
                 vM.setVisible(false);
                 vCrearPj.setVisible(false);
-                vCearCol.setVisible(false);
+                vCrearCol.setVisible(false);
+                vCrearAcont.mandaEstadoV1(v1.getEstado());
                 vCrearAcont.setVisible(true);
                 vBusqSimple.setVisible(false);
                 mod=false;
@@ -140,7 +149,7 @@ public class GUIManager {
                 v4.setVisible(false);
                 vM.setVisible(false);
                 vCrearPj.setVisible(false);
-                vCearCol.setVisible(true);
+                vCrearCol.setVisible(true);
                 vCrearAcont.setVisible(false);
                 vBusqSimple.setVisible(false);
                 mod=false;
@@ -154,7 +163,7 @@ public class GUIManager {
                 vM.mandaEstadoV1(v1.getEstado());
                 vM.setVisible(true);
                 vCrearPj.setVisible(false);
-                vCearCol.setVisible(false);
+                vCrearCol.setVisible(false);
                 vCrearAcont.setVisible(false);
                 vBusqSimple.setVisible(false);
                 break;
@@ -167,7 +176,7 @@ public class GUIManager {
                 vM.mandaEstadoV1(v1.getEstado());
                 vM.setVisible(true);
                 vCrearPj.setVisible(false);
-                vCearCol.setVisible(false);
+                vCrearCol.setVisible(false);
                 vCrearAcont.setVisible(false);
                 vBusqSimple.setVisible(false);
                 break;
@@ -180,7 +189,7 @@ public class GUIManager {
                 vM.mandaEstadoV1(v1.getEstado());
                 vM.setVisible(true);
                 vCrearPj.setVisible(false);
-                vCearCol.setVisible(false);
+                vCrearCol.setVisible(false);
                 vCrearAcont.setVisible(false);
                 vBusqSimple.setVisible(false);
                 break;
@@ -191,7 +200,7 @@ public class GUIManager {
                 v4.setVisible(true);
                 vM.setVisible(false);
                 vCrearPj.setVisible(false);
-                vCearCol.setVisible(false);
+                vCrearCol.setVisible(false);
                 vCrearAcont.setVisible(false);
                 vBusqSimple.setVisible(false);
                 mod=true;
@@ -203,7 +212,7 @@ public class GUIManager {
                 v4.setVisible(false);
                 vM.setVisible(false);
                 vCrearPj.setVisible(false);
-                vCearCol.setVisible(false);
+                vCrearCol.setVisible(false);
                 vCrearAcont.setVisible(false);
                 vBusqSimple.setVisible(true);
                 break;

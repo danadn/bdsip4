@@ -18,6 +18,7 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
     private GUIManager manejador;
     private ArrayList<DescriptorFichero> ficheros;
     private boolean mod;
+    private String acontBase;
     /** Creates new form VentanaCrearAcont */
     public VentanaCrearAcont(GUIManager m) {
         manejador = m;
@@ -155,6 +156,11 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
                 "Ficheros"
             }
         ));
+        tablaFicheros.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaFicherosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaFicheros);
 
         jButton6.setText("Desligar");
@@ -437,19 +443,25 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
 }//GEN-LAST:event_textURIFichActionPerformed
 
     private void botonAddFichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAddFichActionPerformed
-        DescriptorFichero f = new DescriptorFichero(textNomFich.getText(),
-                                                    textFormato.getText(),
-                                                    textURIFich.getText());
-        if (textNomFich.getText().length()>0 && textFormato.getText().length()>0 &&
-        textURIFich.getText().length()>0){
-            if (!ficheros.contains(f))
-                ficheros.add(f);
-            textNomFich.setText("");
-            textFormato.setText("");
-            textURIFich.setText("");
-            actualizaTablaFicheros();
-        } else
-            JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos del fichero", "Aviso", 2);
+        if (mod) {
+            
+        } else {
+            DescriptorFichero f = new DescriptorFichero(textNomFich.getText(),
+                    textFormato.getText(),
+                    textURIFich.getText());
+            if (textNomFich.getText().length() > 0 && textFormato.getText().length() > 0
+                    && textURIFich.getText().length() > 0) {
+                if (!ficheros.contains(f)) {
+                    ficheros.add(f);
+                }
+                textNomFich.setText("");
+                textFormato.setText("");
+                textURIFich.setText("");
+                actualizaTablaFicheros();
+            } else {
+                JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos del fichero", "Aviso", 2);
+            }
+        }
 }//GEN-LAST:event_botonAddFichActionPerformed
 
     private void textNomFichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textNomFichActionPerformed
@@ -457,48 +469,58 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
 }//GEN-LAST:event_textNomFichActionPerformed
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
-        if (camposRellenos()){
-            try {
-                // Introducimos el Acontecimiento en la BBDD
-                manejador.getBBDDManager().consultaInsetar("INSERT INTO acontecimiento "
-                        + "(nombreAcont,descrip,fechaC,fechaF) VALUES"
-                        + "('"+textNombre.getText()+"','"+textDescripcion.getText()+"',"
-                        + "'"+AnoIni.getText()+"-"+MesIni.getText()+"-"+DiaIni.getText()+"'"
-                        + ",'"+AnoFin.getText()+"-"+MesFin.getText()+"-"+DiaFin.getText()+"');");
-                // Asociamos el Acontecimiento al Documento
-                int idDocumento = Integer.parseInt(manejador.getBBDDManager().consultaPeticion(
-                        "SELECT max(id) as id FROM documento;", "id"));
-                manejador.getBBDDManager().consultaInsetar("INSERT INTO acontecimientosDocumento"
-                        + " (idDocumento,acontecimiento) VALUES"
-                        + "("+idDocumento+",'"+textNombre.getText()+"');");
-                // Creamos y asociamos sus ficheros
-                Iterator<DescriptorFichero> itF = ficheros.iterator();
-                while (itF.hasNext()) {
-                    // Creamos el fichero en la BBDD
-                    DescriptorFichero f = itF.next();
-                    manejador.getBBDDManager().creaFicheroAcont(f.getNombre(),
-                            f.getFormato(), f.getURI());
-                    // Lo relacionamos con el documento
-                    manejador.getBBDDManager().consultaInsetar("INSERT INTO "
-                            + "acontsFichero(acontecimiento,ficheroAcont) VALUES "
-                            + "('"+textNombre.getText()+"','"+f.getNombre()+"');");
+        if (mod) {
+            manejador.cambiaEstado(estados.MODIFICAR);
+        } else {
+
+            if (camposRellenos()) {
+                try {
+                    // Introducimos el Acontecimiento en la BBDD
+                    manejador.getBBDDManager().consultaInsetar("INSERT INTO acontecimiento "
+                            + "(nombreAcont,descrip,fechaC,fechaF) VALUES"
+                            + "('" + textNombre.getText() + "','" + textDescripcion.getText() + "',"
+                            + "'" + AnoIni.getText() + "-" + MesIni.getText() + "-" + DiaIni.getText() + "'"
+                            + ",'" + AnoFin.getText() + "-" + MesFin.getText() + "-" + DiaFin.getText() + "');");
+                    // Asociamos el Acontecimiento al Documento
+                    int idDocumento = Integer.parseInt(manejador.getBBDDManager().consultaPeticion(
+                            "SELECT max(id) as id FROM documento;", "id"));
+                    manejador.getBBDDManager().consultaInsetar("INSERT INTO acontecimientosDocumento"
+                            + " (idDocumento,acontecimiento) VALUES"
+                            + "(" + idDocumento + ",'" + textNombre.getText() + "');");
+                    // Creamos y asociamos sus ficheros
+                    Iterator<DescriptorFichero> itF = ficheros.iterator();
+                    while (itF.hasNext()) {
+                        // Creamos el fichero en la BBDD
+                        DescriptorFichero f = itF.next();
+                        manejador.getBBDDManager().creaFicheroAcont(f.getNombre(),
+                                f.getFormato(), f.getURI());
+                        // Lo relacionamos con el documento
+                        manejador.getBBDDManager().consultaInsetar("INSERT INTO "
+                                + "acontsFichero(acontecimiento,ficheroAcont) VALUES "
+                                + "('" + textNombre.getText() + "','" + f.getNombre() + "');");
+                    }
+                    // Introducidos los ficheros, los borramos de memoria
+                    ficheros.clear();
+                    actualizaTablaFicheros();
+                    textNombre.setText("");
+                    textDescripcion.setText("");
+                    textFormato.setText("");
+                    textNomFich.setText("");
+                    textURIFich.setText("");
+                    AnoIni.setText("");
+                    MesIni.setText("");
+                    DiaIni.setText("");
+                    AnoFin.setText("");
+                    MesFin.setText("");
+                    DiaFin.setText("");
+                    manejador.cambiaEstado(estados.VENTANA3);
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, ex, "Aviso", 2);
                 }
-                // Introducidos los ficheros, los borramos de memoria
-                ficheros.clear();
-                actualizaTablaFicheros();
-                textNombre.setText("");
-                textDescripcion.setText("");
-                textFormato.setText("");
-                textNomFich.setText("");
-                textURIFich.setText("");
-                AnoIni.setText(""); MesIni.setText(""); DiaIni.setText("");
-                AnoFin.setText(""); MesFin.setText(""); DiaFin.setText("");
-                manejador.cambiaEstado(estados.VENTANA3);
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, ex, "Aviso", 2);
+            } else {
+                JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos", "Aviso", 2);
             }
-        } else
-            JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos", "Aviso", 2);
+        }
 }//GEN-LAST:event_botonAceptarActionPerformed
 
     private void MesIniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MesIniActionPerformed
@@ -515,15 +537,43 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
 private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 // TODO add your handling code here:
+    try {
+        manejador.getBBDDManager().consultaInsetar("UPDATE `dochistoria`.`acontecimiento` SET `descrip` = '" + textDescripcion.getText() + "' WHERE `acontecimiento`.`nombreAcont` = '" + acontBase + "';");
+        // TODO add your handling code here:
+    } catch (SQLException ex) {
+        Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
+    }
 }//GEN-LAST:event_jButton2ActionPerformed
 
 private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
 // TODO add your handling code here:
+    try {
+        String fecha = AnoIni.getText() + "-" + MesIni.getText() + "-" + DiaIni.getText();
+        manejador.getBBDDManager().consultaInsetar("UPDATE `dochistoria`.`acontecimiento` SET `FechaC` = '" + fecha + "' WHERE `acontecimiento`.`nombreAcont` = '" + acontBase + "';");
+    } catch (SQLException ex) {
+        Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
+    }
 }//GEN-LAST:event_jButton3ActionPerformed
 
 private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 // TODO add your handling code here:
+    try {
+        String fecha = AnoFin.getText() + "-" + MesFin.getText() + "-" + DiaFin.getText();
+        manejador.getBBDDManager().consultaInsetar("UPDATE `dochistoria`.`acontecimiento` SET `FechaF` = '" + fecha + "' WHERE `acontecimiento`.`nombreAcont` = '" + acontBase + "';");
+    } catch (SQLException ex) {
+        Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
+    }
 }//GEN-LAST:event_jButton4ActionPerformed
+
+private void tablaFicherosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaFicherosMouseClicked
+// TODO add your handling code here:
+    String fichero = tablaFicheros.getValueAt(tablaFicheros.getSelectedRow(), 0).toString();
+    try {
+        rellenaDatosFichero(fichero);
+    } catch (SQLException ex) {
+        Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_tablaFicherosMouseClicked
 
     /**
     * @param args the command line arguments
@@ -593,7 +643,7 @@ private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                 !ficheros.isEmpty());
     }
     
-    void mandaEstadoV1(estados s) {
+    public void mandaEstadoV1(estados s) {
         if (s == estados.CREAR) {
             jButton1.setVisible(false);
             jButton2.setVisible(false);
@@ -612,6 +662,58 @@ private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             jButton6.setVisible(true);
             jButton7.setVisible(true);
             mod = true;
+        }
+    }
+    
+    public void cargaAcontecimiento(String acontecimiento){
+        try {
+            acontBase=acontecimiento;
+            textNombre.setText(acontecimiento);
+            String consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM acontecimiento WHERE `acontecimiento`.`nombreAcont` = '" + acontecimiento + "'", "descrip");
+            textDescripcion.setText(consulta);
+            consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM acontecimiento WHERE `acontecimiento`.`nombreAcont` = '" + acontecimiento + "'", "fechaC");
+            String[] fecha = consulta.split("-");
+            AnoIni.setText(fecha[0]);
+            MesIni.setText(fecha[1]);
+            DiaIni.setText(fecha[2]);
+            consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM acontecimiento WHERE `acontecimiento`.`nombreAcont` = '" + acontecimiento + "'", "fechaF");
+            fecha = consulta.split("-");
+            AnoFin.setText(fecha[0]);
+            MesFin.setText(fecha[1]);
+            DiaFin.setText(fecha[2]);
+            cargaTablaFicheros(acontecimiento);
+        } catch (SQLException ex) {
+            Logger.getLogger(VentanaCrearAcont.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+    private void cargaTablaFicheros(String acontecimiento) throws SQLException{
+        String consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM acontsfichero WHERE `acontsfichero`.`acontecimiento`='" + acontecimiento + "';", "ficheroAcont");
+        tablaFicheros.removeAll();
+        if (consulta != null) {
+            DefaultTableModel m;
+            m = new DefaultTableModel(new Object[]{"Ficheros"}, 0);
+            String[] ficheros = consulta.split(",");
+            System.out.println(ficheros);
+
+            for (int k = 0; k < ficheros.length; k++) {
+                m.addRow(new Object[]{ficheros[k]});
+            }
+            tablaFicheros.setModel(m);
+        } else {
+            DefaultTableModel m = new DefaultTableModel(new Object[]{"Ficheros"}, 0);
+            tablaFicheros.setModel(m);
+        }
+    };
+    
+    private void rellenaDatosFichero(String fichero) throws SQLException {
+        if(mod){
+        textNomFich.setText(fichero);
+        String consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM `dochistoria`.`fichero_acontecimiento` WHERE `fichero_acontecimiento`.`nombreFichAcont`='" + fichero + "';", "formatoFichAcont");
+        textFormato.setText(consulta);
+        consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM `dochistoria`.`fichero_acontecimiento` WHERE `fichero_acontecimiento`.`nombreFichAcont`='" + fichero + "';", "uriFichAcont");
+        textURIFich.setText(consulta);
         }
     }
 
