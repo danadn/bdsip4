@@ -6,7 +6,8 @@ import java.sql.SQLException;
 
 enum estados{CREAR,MODIFICAR,CONSULTAR,VENTANA1,VENTANA2,VENTANA3,
             CREAR_PERSONAJE,CREAR_ACONTECIMIENTO,CREAR_COLECTIVO,BBDD_PERSONAJE,
-             BBDD_COLECTIVO,BBDD_ACONTECIMIENTO,BBDD_DOCUMENTO};
+             BBDD_COLECTIVO,BBDD_ACONTECIMIENTO,BBDD_DOCUMENTO,
+            BUSQUEDA_SIMPLE,BUSQUEDA_AVANZADA};
 /**
  *
  * @author Daniel
@@ -20,6 +21,7 @@ public class GUIManager {
     private VentanaCrearPj vCrearPj;
     private VentanaCrearCol vCearCol;
     private VentanaCrearAcont vCrearAcont;
+    private VentanaBusqSimple vBusqSimple;
     private estados estado;
     private BBDDManager bd;
     
@@ -35,6 +37,7 @@ public class GUIManager {
         vCrearPj = new VentanaCrearPj(this);
         vCearCol = new VentanaCrearCol(this);
         vCrearAcont = new VentanaCrearAcont(this);
+        vBusqSimple = new VentanaBusqSimple(this);
         v1.setEnabled(true);
         v1.setVisible(true);
         estado = estados.VENTANA1;
@@ -49,6 +52,8 @@ public class GUIManager {
         vM.dispose();
         vCrearPj.dispose();
         vCearCol.dispose();
+        vCrearAcont.dispose();
+        vBusqSimple.dispose();
         bd.close();
     }
 
@@ -76,6 +81,7 @@ public class GUIManager {
                 vCrearPj.setVisible(false);
                 vCearCol.setVisible(false);
                 vCrearAcont.setVisible(false);
+                vBusqSimple.setVisible(false);
                 mod=false;
                 break;
             case VENTANA2:
@@ -87,6 +93,7 @@ public class GUIManager {
                 vCrearPj.setVisible(false);
                 vCearCol.setVisible(false);
                 vCrearAcont.setVisible(false);
+                vBusqSimple.setVisible(false);
                 mod=false;
                 break;
             case VENTANA3:
@@ -98,6 +105,7 @@ public class GUIManager {
                 vCrearPj.setVisible(false);
                 vCearCol.setVisible(false);
                 vCrearAcont.setVisible(false);
+                vBusqSimple.setVisible(false);
                 mod=false;
                 break;
             case CREAR_PERSONAJE:
@@ -110,6 +118,7 @@ public class GUIManager {
                 vCrearPj.setVisible(true);
                 vCearCol.setVisible(false);
                 vCrearAcont.setVisible(false);
+                vBusqSimple.setVisible(false);
                 mod=false;
                 break;
             case CREAR_ACONTECIMIENTO:
@@ -121,6 +130,7 @@ public class GUIManager {
                 vCrearPj.setVisible(false);
                 vCearCol.setVisible(false);
                 vCrearAcont.setVisible(true);
+                vBusqSimple.setVisible(false);
                 mod=false;
                 break;
             case CREAR_COLECTIVO:
@@ -132,6 +142,7 @@ public class GUIManager {
                 vCrearPj.setVisible(false);
                 vCearCol.setVisible(true);
                 vCrearAcont.setVisible(false);
+                vBusqSimple.setVisible(false);
                 mod=false;
                 break;
             case BBDD_COLECTIVO:
@@ -145,6 +156,7 @@ public class GUIManager {
                 vCrearPj.setVisible(false);
                 vCearCol.setVisible(false);
                 vCrearAcont.setVisible(false);
+                vBusqSimple.setVisible(false);
                 break;
             case BBDD_PERSONAJE:
                 v1.setVisible(false);
@@ -157,6 +169,7 @@ public class GUIManager {
                 vCrearPj.setVisible(false);
                 vCearCol.setVisible(false);
                 vCrearAcont.setVisible(false);
+                vBusqSimple.setVisible(false);
                 break;
             case BBDD_ACONTECIMIENTO:
                 v1.setVisible(false);
@@ -169,6 +182,7 @@ public class GUIManager {
                 vCrearPj.setVisible(false);
                 vCearCol.setVisible(false);
                 vCrearAcont.setVisible(false);
+                vBusqSimple.setVisible(false);
                 break;
             case MODIFICAR:
                 v1.setVisible(false);
@@ -179,7 +193,21 @@ public class GUIManager {
                 vCrearPj.setVisible(false);
                 vCearCol.setVisible(false);
                 vCrearAcont.setVisible(false);
+                vBusqSimple.setVisible(false);
                 mod=true;
+                break;
+            case BUSQUEDA_SIMPLE:
+                v1.setVisible(false);
+                v2.setVisible(false);
+                v3.setVisible(false);
+                v4.setVisible(false);
+                vM.setVisible(false);
+                vCrearPj.setVisible(false);
+                vCearCol.setVisible(false);
+                vCrearAcont.setVisible(false);
+                vBusqSimple.setVisible(true);
+                break;
+            case BUSQUEDA_AVANZADA:
                 break;
             default:
                 estado = estados.VENTANA1;
