@@ -1,4 +1,5 @@
 package Ventanas;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
@@ -20,11 +21,13 @@ public final class Ventana1 extends JFrame {
     private JButton botonConsultar;
     private JButton botonSalir;
     private GUIManager manejador;
+    private JFrame ventanaEleccion;
 
     public Ventana1(GUIManager m) throws HeadlessException {
         super();
         manejador = m;
         crearInterfaz();
+        construyeVentanaEleccion();
     }
 
     public void crearInterfaz(){
@@ -75,6 +78,33 @@ public final class Ventana1 extends JFrame {
         return panelVentana1;
     }
 
+    private void construyeVentanaEleccion() {
+        ventanaEleccion = new JFrame("Elige opción");
+        JPanel panel = new JPanel(new GridLayout(2, 1));
+        JButton botonSimple = new JButton("Busqueda Simple");
+        JButton botonAvanzada = new JButton("Busqueda Avanzada");
+        panel.add(botonSimple);
+        panel.add(botonAvanzada);
+        ventanaEleccion.setContentPane(panel);
+        ventanaEleccion.validate();
+        ventanaEleccion.setVisible(false);
+        ventanaEleccion.setMinimumSize(new Dimension(250,100));
+        ventanaEleccion.setLocationRelativeTo(null);
+        ventanaEleccion.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        botonSimple.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manejador.cambiaEstado(estados.BUSQUEDA_SIMPLE);
+                ventanaEleccion.dispose();
+            }
+        });
+        botonAvanzada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manejador.cambiaEstado(estados.BUSQUEDA_AVANZADA);
+                ventanaEleccion.dispose();
+            }
+        });
+    }
+
     ///////////////////////////////////////////////////////////////////////////
     ////// Eventos de Boton
 
@@ -89,8 +119,8 @@ public final class Ventana1 extends JFrame {
     }
 
     private void botonConsultarActionPerformed(ActionEvent evt) {
-        this.estado = estados.CONSULTAR;
-        manejador.cambiaEstado(estados.CONSULTAR);
+        ventanaEleccion.setVisible(true);
+        this.dispose();
     }
 
     private void botonSalirActionPerformed(ActionEvent evt) {
