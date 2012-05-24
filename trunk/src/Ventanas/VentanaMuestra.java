@@ -208,10 +208,16 @@ public class VentanaMuestra extends javax.swing.JFrame {
                         break;
                     case BBDD_ACONTECIMIENTO:
                         manejador.cambiaEstado(estados.CREAR_ACONTECIMIENTO);
+                        row = tablaEncontrados.getSelectedRow();
+                        String acontecimiento=tablaEncontrados.getValueAt(row, 0).toString();
+                        manejador.getVentanaAcont().cargaAcontecimiento(acontecimiento);
                         //manejador.getVentanaAcon().
                         break;
                     case BBDD_COLECTIVO:
                         manejador.cambiaEstado(estados.CREAR_COLECTIVO);
+                        row = tablaEncontrados.getSelectedRow();
+                        String colectivo=tablaEncontrados.getValueAt(row, 0).toString();
+                        //manejador.getVentanaCol().cargaColectivo(colectivo);
                         break;
                     case BBDD_DOCUMENTO:
                         manejador.cambiaEstado(estados.CREAR);
