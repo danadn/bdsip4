@@ -61,7 +61,7 @@ public class VentanaBusqSimple extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaPj = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
-        TablaAcont = new javax.swing.JTable();
+        tablaAcont = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tablaCol = new javax.swing.JTable();
@@ -84,7 +84,7 @@ public class VentanaBusqSimple extends javax.swing.JFrame {
 
             },
             new String [] {
-
+                "Documentos"
             }
         ));
         jScrollPane1.setViewportView(tablaDocs);
@@ -98,20 +98,20 @@ public class VentanaBusqSimple extends javax.swing.JFrame {
 
             },
             new String [] {
-
+                "Personajes"
             }
         ));
         jScrollPane2.setViewportView(tablaPj);
 
-        TablaAcont.setModel(new javax.swing.table.DefaultTableModel(
+        tablaAcont.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-
+                "Acontecimientos"
             }
         ));
-        jScrollPane3.setViewportView(TablaAcont);
+        jScrollPane3.setViewportView(tablaAcont);
 
         jLabel4.setText("Acontecimientos encontrados");
 
@@ -120,14 +120,19 @@ public class VentanaBusqSimple extends javax.swing.JFrame {
 
             },
             new String [] {
-
+                "Colectivos"
             }
         ));
         jScrollPane4.setViewportView(tablaCol);
 
-        jLabel5.setText("Personajes encontrados");
+        jLabel5.setText("Colectivos encontrados");
 
         jButton1.setText("Terminar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -221,6 +226,15 @@ public class VentanaBusqSimple extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botonBuscarActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        tablaCol.removeAll();
+        tablaAcont.removeAll();
+        tablaDocs.removeAll();
+        tablaPj.removeAll();
+        textBusqueda.setText("");
+        manejador.cambiaEstado(estados.VENTANA1);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     private void encuentraDocumentos(String[] busqueda) throws SQLException {
         // Cogemos los nombres de las columnas para buscar informacion
         String columnas = "select COLUMN_NAME from information_schema.COLUMNS"
@@ -229,24 +243,32 @@ public class VentanaBusqSimple extends javax.swing.JFrame {
         String[] camposBusqueda = columnas.split(",");
         for (int i=0;i<camposBusqueda.length;i++){
             for (int j = 0; j < busqueda.length; j++){
-                String consulta = "SELECT * FROM documento WHERE "+camposBusqueda[i]+"='"+busqueda[j]+"';";
-                String resultado = manejador.getBBDDManager().consultaPeticion(consulta, camposBusqueda[i]);
-                if (resultado != null)
-                    imprimeResultado(tablaDocs,resultado);
+                String busq = busqueda[j];
+                String consulta = "SELECT * FROM documento";
+                String resultado[] = manejador.getBBDDManager().consultaPeticion(consulta, camposBusqueda[i]).split(",");
+                if (resultado.length != 0){
+                    for (int k = 0; k<resultado.length; k++){
+                        String result = resultado[k];
+                        if (result.contains(busq)){
+                            if (camposBusqueda[i].equals("id")){
+                                result = manejador.getBBDDManager().consultaPeticion("SELECT * FROM "
+                                        + "documento WHERE id="+result+";", "descripcion");
+                            }
+                            imprimeResultado(tablaDocs,result);
+                        }
+                    }
+                }
             }
         }
     }
 
     private void encuentraPersonajes(String[] busqueda) {
-        throw new UnsupportedOperationException("Not yet implemented");
     }
 
     private void encuentraAconts(String[] busqueda) {
-        throw new UnsupportedOperationException("Not yet implemented");
     }
 
     private void encuentraColect(String[] busqueda) {
-        throw new UnsupportedOperationException("Not yet implemented");
     }
 
     private void imprimeResultado(JTable tabla, String resultado){
@@ -272,7 +294,6 @@ public class VentanaBusqSimple extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable TablaAcont;
     private javax.swing.JButton botonBuscar;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
@@ -285,6 +306,7 @@ public class VentanaBusqSimple extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel labelGif;
+    private javax.swing.JTable tablaAcont;
     private javax.swing.JTable tablaCol;
     private javax.swing.JTable tablaDocs;
     private javax.swing.JTable tablaPj;
