@@ -1066,12 +1066,17 @@ public class VentanaCrearPj extends javax.swing.JFrame {
 
 private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
     try {
+        if(textoNomYApe.getText().length()>0){
         manejador.getBBDDManager().consultaInsetar("UPDATE `dochistoria`.`personaje` SET `nombreYApe` = '" + textoNomYApe.getText() + "' WHERE `personaje`.`nombreYApe` = '" + personaje.getNombreYApe() + "';");
         manejador.getBBDDManager().consultaInsetar("UPDATE `dochistoria`.`alias` SET `personaje` = '" + textoNomYApe.getText() + "' WHERE `alias`.`personaje` = '" + personaje.getNombreYApe() + "';");
         manejador.getBBDDManager().consultaInsetar("UPDATE `dochistoria`.`desempenia` SET `personaje` = '" + textoNomYApe.getText() + "' WHERE `desempenia`.`personaje` = '" + personaje.getNombreYApe() + "';");
         manejador.getBBDDManager().consultaInsetar("UPDATE `dochistoria`.`personajesdocumento` SET `personaje` = '" + textoNomYApe.getText() + "' WHERE `personajesdocumento`.`personaje` = '" + personaje.getNombreYApe() + "';");
 
         rellenaPersonaje(personaje);
+        } else {
+            JOptionPane.showMessageDialog(null, "No puede modificarse si el campo está en blanco.", "Aviso", 2);
+            textoNomYApe.setText(personaje.getNombreYApe());
+        }
         // TODO add your handling code here:
     } catch (SQLException ex) {
         Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);

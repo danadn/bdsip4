@@ -570,8 +570,13 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
 private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 // TODO add your handling code here:
     try {
-        manejador.getBBDDManager().consultaInsetar("UPDATE `dochistoria`.`acontecimiento` SET `nombreAcont` = '" + textNombre.getText() + "' WHERE `acontecimiento`.`nombreAcont` = '" + acontBase + "';");
-        acontBase = textNombre.getText();
+        if (textNombre.getText().length() > 0) {
+            manejador.getBBDDManager().consultaInsetar("UPDATE `dochistoria`.`acontecimiento` SET `nombreAcont` = '" + textNombre.getText() + "' WHERE `acontecimiento`.`nombreAcont` = '" + acontBase + "';");
+            acontBase = textNombre.getText();
+        }else{
+            JOptionPane.showMessageDialog(null, "No puede modificarse si el campo está en blanco.", "Aviso", 2);
+            textNombre.setText(acontBase);
+        }
         // TODO add your handling code here:
     } catch (SQLException ex) {
         Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
