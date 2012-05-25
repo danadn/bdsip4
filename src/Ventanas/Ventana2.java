@@ -12,11 +12,6 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-enum estadosDoc {
-
-    CREAR, CONSULTA
-};
-
 /**
  *
  * @author Daniel
@@ -26,7 +21,7 @@ public class Ventana2 extends javax.swing.JFrame {
     private ArrayList<DescriptorCatalogo> catalogaciones;
     private ArrayList<DescriptorFichero> ficheros;
     private GUIManager manejador;
-    private estadosDoc estado;
+    private estados estado;
 
     /** Creates new form Ventana2 */
     public Ventana2(GUIManager m) {
@@ -38,37 +33,6 @@ public class Ventana2 extends javax.swing.JFrame {
         initComponents();
         this.setTitle("Ventana 2");
         this.setDefaultCloseOperation(0);
-    }
-
-    public void cambiaEstados(estadosDoc s) {
-        estado = s;
-        if (s == estadosDoc.CREAR) {
-            botonAddFich.setVisible(true);
-            botonAccionCatalogo.setVisible(true);
-            botonSiguiente.setText("Siguiente");
-            textDescripcion.setEditable(true);
-            textFormato.setEditable(true);
-            textFormatoCat.setEditable(true);
-            textFuenteCat.setEditable(true);
-            textNomFich.setEditable(true);
-            textNombreCat.setEditable(true);
-            textTitulo.setEditable(true);
-            textURICat.setEditable(true);
-            textURIFich.setEditable(true);
-        } else {
-            botonAddFich.setVisible(false);
-            botonAccionCatalogo.setVisible(false);
-            botonSiguiente.setText("Volver");
-            textDescripcion.setEditable(false);
-            textFormato.setEditable(false);
-            textFormatoCat.setEditable(false);
-            textFuenteCat.setEditable(false);
-            textNomFich.setEditable(false);
-            textNombreCat.setEditable(false);
-            textTitulo.setEditable(false);
-            textURICat.setEditable(false);
-            textURIFich.setEditable(false);
-        }
     }
 
     /** This method is called from within the constructor to
@@ -431,7 +395,7 @@ public class Ventana2 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSiguienteActionPerformed
-        if (estado == estadosDoc.CREAR) {
+        if (estado == estados.CREAR) {
             if (camposRellenos()) {
                 try {
                     // Insertamos la descripcion en la BBDD
@@ -473,9 +437,12 @@ public class Ventana2 extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Debes rellnar todos los campos", "Aviso", 2);
             }
-        } else {
+        } else if (estado == estados.CONSULTAR) {
             manejador.cambiaEstado(estados.VENTANA1);
+        } else {
+            // TODO Modificar
         }
+
     }//GEN-LAST:event_botonSiguienteActionPerformed
 
     private void textTituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textTituloActionPerformed
@@ -604,6 +571,52 @@ public class Ventana2 extends javax.swing.JFrame {
             mCat.addRow(cs);
         } catch (SQLException ex) {
             System.out.print(ex);
+        }
+    }
+
+
+    void mandaEstadoV1(estados s) {
+        estado = s;
+        if (s == estados.CREAR) {
+            botonAddFich.setVisible(true);
+            botonAccionCatalogo.setVisible(true);
+            botonSiguiente.setText("Siguiente");
+            textDescripcion.setEditable(true);
+            textFormato.setEditable(true);
+            textFormatoCat.setEditable(true);
+            textFuenteCat.setEditable(true);
+            textNomFich.setEditable(true);
+            textNombreCat.setEditable(true);
+            textTitulo.setEditable(true);
+            textURICat.setEditable(true);
+            textURIFich.setEditable(true);
+        } else if (s == estados.CONSULTAR) {
+            botonAddFich.setVisible(false);
+            botonAccionCatalogo.setVisible(false);
+            botonSiguiente.setText("Volver");
+            textDescripcion.setEditable(false);
+            textFormato.setEditable(false);
+            textFormatoCat.setEditable(false);
+            textFuenteCat.setEditable(false);
+            textNomFich.setEditable(false);
+            textNombreCat.setEditable(false);
+            textTitulo.setEditable(false);
+            textURICat.setEditable(false);
+            textURIFich.setEditable(false);
+        } else {
+            // TODO
+            botonSiguiente.setText("Aceptar");
+            botonAddFich.setVisible(true);
+            botonAccionCatalogo.setVisible(true);
+            textDescripcion.setEditable(true);
+            textFormato.setEditable(true);
+            textFormatoCat.setEditable(true);
+            textFuenteCat.setEditable(true);
+            textNomFich.setEditable(true);
+            textNombreCat.setEditable(true);
+            textTitulo.setEditable(true);
+            textURICat.setEditable(true);
+            textURIFich.setEditable(true);
         }
     }
 
