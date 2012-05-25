@@ -24,7 +24,7 @@ public class GUIManager {
     private estados estado;
     private BBDDManager bd;
     
-    private boolean mod;
+    //private boolean mod;
 
     public GUIManager() throws SQLException{
         bd = new BBDDManager(this);
@@ -41,7 +41,7 @@ public class GUIManager {
         v1.setVisible(true);
         estado = estados.VENTANA1;
         
-        mod=false;
+        //mod=false;
     }
 
     public void cierraVentanas(){
@@ -89,7 +89,7 @@ public class GUIManager {
                 vCrearCol.setVisible(false);
                 vCrearAcont.setVisible(false);
                 vBusqSimple.setVisible(false);
-                mod=false;
+                //mod=false;
                 break;
             case VENTANA2:
                 v1.setVisible(false);
@@ -102,7 +102,7 @@ public class GUIManager {
                 vCrearCol.setVisible(false);
                 vCrearAcont.setVisible(false);
                 vBusqSimple.setVisible(false);
-                mod=false;
+                //mod=false;
                 break;
             case VENTANA3:
                 v1.setVisible(false);
@@ -114,7 +114,7 @@ public class GUIManager {
                 vCrearCol.setVisible(false);
                 vCrearAcont.setVisible(false);
                 vBusqSimple.setVisible(false);
-                mod=false;
+                //mod=false;
                 break;
             case CREAR_PERSONAJE:
                 v1.setVisible(false);
@@ -127,7 +127,7 @@ public class GUIManager {
                 vCrearCol.setVisible(false);
                 vCrearAcont.setVisible(false);
                 vBusqSimple.setVisible(false);
-                mod=false;
+                //mod=false;
                 break;
             case CREAR_ACONTECIMIENTO:
                 v1.setVisible(false);
@@ -140,7 +140,7 @@ public class GUIManager {
                 vCrearAcont.mandaEstadoV1(v1.getEstado());
                 vCrearAcont.setVisible(true);
                 vBusqSimple.setVisible(false);
-                mod=false;
+                //mod=false;
                 break;
             case CREAR_COLECTIVO:
                 v1.setVisible(false);
@@ -152,14 +152,13 @@ public class GUIManager {
                 vCrearCol.setVisible(true);
                 vCrearAcont.setVisible(false);
                 vBusqSimple.setVisible(false);
-                mod=false;
+                //mod=false;
                 break;
             case BBDD_COLECTIVO:
                 v1.setVisible(false);
                 v2.setVisible(false);
                 v3.setVisible(false);
                 v4.setVisible(false);
-                vM.setMod(mod);
                 vM.mandaEstadoV1(v1.getEstado());
                 vM.setVisible(true);
                 vCrearPj.setVisible(false);
@@ -172,7 +171,6 @@ public class GUIManager {
                 v2.setVisible(false);
                 v3.setVisible(false);
                 v4.setVisible(false);
-                vM.setMod(mod);
                 vM.mandaEstadoV1(v1.getEstado());
                 vM.setVisible(true);
                 vCrearPj.setVisible(false);
@@ -185,7 +183,6 @@ public class GUIManager {
                 v2.setVisible(false);
                 v3.setVisible(false);
                 v4.setVisible(false);
-                vM.setMod(mod);
                 vM.mandaEstadoV1(v1.getEstado());
                 vM.setVisible(true);
                 vCrearPj.setVisible(false);
@@ -203,7 +200,6 @@ public class GUIManager {
                 vCrearCol.setVisible(false);
                 vCrearAcont.setVisible(false);
                 vBusqSimple.setVisible(false);
-                mod=true;
                 break;
             case BUSQUEDA_SIMPLE:
                 v1.setVisible(false);
@@ -237,10 +233,6 @@ public class GUIManager {
 
     public BBDDManager getBd() {
         return bd;
-    }
-
-    public boolean isMod() {
-        return mod;
     }
 
     public Ventana1 getV1() {

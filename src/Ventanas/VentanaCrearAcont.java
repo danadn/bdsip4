@@ -17,7 +17,8 @@ import javax.swing.table.DefaultTableModel;
 public class VentanaCrearAcont extends javax.swing.JFrame {
     private GUIManager manejador;
     private ArrayList<DescriptorFichero> ficheros;
-    private boolean mod;
+    //private boolean mod;
+    private estados estado;
     private String acontBase;
     /** Creates new form VentanaCrearAcont */
     public VentanaCrearAcont(GUIManager m) {
@@ -443,9 +444,9 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
 }//GEN-LAST:event_textURIFichActionPerformed
 
     private void botonAddFichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAddFichActionPerformed
-        if (mod) {
+        if (estado==estados.MODIFICAR) {
             
-        } else {
+        } else if(estado==estados.CREAR){
             DescriptorFichero f = new DescriptorFichero(textNomFich.getText(),
                     textFormato.getText(),
                     textURIFich.getText());
@@ -469,9 +470,9 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
 }//GEN-LAST:event_textNomFichActionPerformed
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
-        if (mod) {
+        if (estado==estados.MODIFICAR) {
             manejador.cambiaEstado(estados.MODIFICAR);
-        } else {
+        } else if(estado==estados.CREAR){
 
             if (camposRellenos()) {
                 try {
@@ -644,6 +645,7 @@ private void tablaFicherosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIR
     }
     
     public void mandaEstadoV1(estados s) {
+        estado=s;
         if (s == estados.CREAR) {
             jButton1.setVisible(false);
             jButton2.setVisible(false);
@@ -652,7 +654,7 @@ private void tablaFicherosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIR
             jButton5.setVisible(false);
             jButton6.setVisible(false);
             jButton7.setVisible(false);
-            mod = false;
+            //mod = false;
         } else if (s == estados.MODIFICAR) {
             jButton1.setVisible(false);
             jButton2.setVisible(true);
@@ -661,7 +663,7 @@ private void tablaFicherosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIR
             jButton5.setVisible(true);
             jButton6.setVisible(true);
             jButton7.setVisible(true);
-            mod = true;
+            //mod = true;
         }
     }
     
@@ -708,12 +710,12 @@ private void tablaFicherosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIR
     };
     
     private void rellenaDatosFichero(String fichero) throws SQLException {
-        if(mod){
-        textNomFich.setText(fichero);
-        String consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM `dochistoria`.`fichero_acontecimiento` WHERE `fichero_acontecimiento`.`nombreFichAcont`='" + fichero + "';", "formatoFichAcont");
-        textFormato.setText(consulta);
-        consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM `dochistoria`.`fichero_acontecimiento` WHERE `fichero_acontecimiento`.`nombreFichAcont`='" + fichero + "';", "uriFichAcont");
-        textURIFich.setText(consulta);
+        if(estado==estados.MODIFICAR){
+            textNomFich.setText(fichero);
+            String consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM `dochistoria`.`fichero_acontecimiento` WHERE `fichero_acontecimiento`.`nombreFichAcont`='" + fichero + "';", "formatoFichAcont");
+            textFormato.setText(consulta);
+            consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM `dochistoria`.`fichero_acontecimiento` WHERE `fichero_acontecimiento`.`nombreFichAcont`='" + fichero + "';", "uriFichAcont");
+            textURIFich.setText(consulta);
         }
     }
 
