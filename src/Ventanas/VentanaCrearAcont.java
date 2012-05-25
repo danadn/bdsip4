@@ -165,8 +165,18 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tablaFicheros);
 
         jButton6.setText("Desligar");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jButton7.setText("Eliminar");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -308,6 +318,11 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
         });
 
         jButton5.setText("Eliminar");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -445,7 +460,23 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
 
     private void botonAddFichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAddFichActionPerformed
         if (estado==estados.MODIFICAR) {
-            
+            try {
+                String consulta;
+                    consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM fichero_acontecimiento WHERE `fichero_acontecimiento`.`nombreFichAcont`='" + textNomFich.getText() + "';", "nombreFichAcont");
+                    if (consulta == null) {
+                        if (textNomFich.getText().length() > 0 && textFormato.getText().length() > 0 && textURIFich.getText().length() > 0) {
+                            manejador.getBBDDManager().consultaInsetar("INSERT INTO `dochistoria`.`fichero_acontecimiento` (`nombreFichAcont`,`formatoFichAcont`,`uriFichAcont`) VALUES ('" + textNomFich.getText() + "','" + textFormato.getText() + "','" + textURIFich.getText() + "');");
+                            manejador.getBBDDManager().consultaInsetar("INSERT INTO `dochistoria`.`acontsfichero` (`acontecimiento`,`ficheroAcont`) VALUES ('" + acontBase + "','" + textNomFich.getText() + "');");
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Si el fichero no existe en la base de datos, se deben rellenar todos los campos.", "Aviso", 2);
+                        }
+                    } else {
+                        manejador.getBBDDManager().consultaInsetar("INSERT INTO `dochistoria`.`acontsfichero` (`acontecimiento`,`ficheroAcont`) VALUES ('" + acontBase + "','" + textNomFich.getText() + "');");
+                    }
+                    cargaTablaFicheros(acontBase);
+            } catch (SQLException ex) {
+                Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else if(estado==estados.CREAR){
             DescriptorFichero f = new DescriptorFichero(textNomFich.getText(),
                     textFormato.getText(),
@@ -534,6 +565,13 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
 
 private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 // TODO add your handling code here:
+    try {
+        manejador.getBBDDManager().consultaInsetar("UPDATE `dochistoria`.`acontecimiento` SET `nombreAcont` = '" + textNombre.getText() + "' WHERE `acontecimiento`.`nombreAcont` = '" + acontBase + "';");
+        acontBase=textNombre.getText();
+        // TODO add your handling code here:
+    } catch (SQLException ex) {
+        Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
+    }
 }//GEN-LAST:event_jButton1ActionPerformed
 
 private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -575,6 +613,36 @@ private void tablaFicherosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIR
         Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
     }
 }//GEN-LAST:event_tablaFicherosMouseClicked
+
+private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+// TODO add your handling code here:  
+    try {
+        manejador.getBBDDManager().consultaInsetar("DELETE FROM `dochistoria`.`acontecimiento` WHERE `acontecimiento`.`nombreAcont`='" + acontBase + "';");
+        manejador.cambiaEstado(estados.MODIFICAR);
+    } catch (SQLException ex) {
+        Logger.getLogger(VentanaCrearAcont.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_jButton5ActionPerformed
+
+private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+// TODO add your handling code here:
+    try {
+        manejador.getBBDDManager().consultaInsetar("DELETE FROM `dochistoria`.`fichero_acontecimiento` WHERE `fichero_acontecimiento`.`nombreFichAcont`='" + textNomFich.getText() + "';");
+        cargaTablaFicheros(acontBase);
+    } catch (SQLException ex) {
+        Logger.getLogger(VentanaCrearAcont.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_jButton7ActionPerformed
+
+private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+// TODO add your handling code here:
+    try {
+        manejador.getBBDDManager().consultaInsetar("DELETE FROM `dochistoria`.`acontsfichero` WHERE `acontsfichero`.`acontecimiento`='"+ acontBase +"' AND `acontsfichero`.`ficheroAcont`='" + textNomFich.getText() + "';");
+        cargaTablaFicheros(acontBase);
+    } catch (SQLException ex) {
+        Logger.getLogger(VentanaCrearAcont.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_jButton6ActionPerformed
 
     /**
     * @param args the command line arguments
@@ -656,7 +724,7 @@ private void tablaFicherosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIR
             jButton7.setVisible(false);
             //mod = false;
         } else if (s == estados.MODIFICAR) {
-            jButton1.setVisible(false);
+            jButton1.setVisible(true);
             jButton2.setVisible(true);
             jButton3.setVisible(true);
             jButton4.setVisible(true);
