@@ -88,6 +88,11 @@ public class VentanaBusqSimple extends javax.swing.JFrame {
             }
         ));
         tablaDocs.setFocusable(false);
+        tablaDocs.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaDocsMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaDocs);
 
         jLabel2.setText("Documentos encontrados");
@@ -103,6 +108,11 @@ public class VentanaBusqSimple extends javax.swing.JFrame {
             }
         ));
         tablaPj.setFocusable(false);
+        tablaPj.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaPjMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tablaPj);
 
         tablaAcont.setModel(new javax.swing.table.DefaultTableModel(
@@ -239,6 +249,22 @@ public class VentanaBusqSimple extends javax.swing.JFrame {
         manejador.cambiaEstado(estados.VENTANA1);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void tablaPjMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPjMouseClicked
+        try {
+            int row = tablaPj.rowAtPoint(evt.getPoint());
+            manejador.getVentanaPj().cargaPersonaje(tablaPj.getValueAt(row, 0).toString());
+            manejador.cambiaEstado(estados.CREAR_PERSONAJE);
+        } catch (SQLException ex) {
+            System.out.print(ex);
+        }
+    }//GEN-LAST:event_tablaPjMouseClicked
+
+    private void tablaDocsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaDocsMouseClicked
+        int row = tablaDocs.rowAtPoint(evt.getPoint());
+        manejador.getV2().rellena("'"+tablaDocs.getValueAt(row, 1).toString()+"'");
+        manejador.cambiaEstado(estados.CONSULTA_DOC);
+    }//GEN-LAST:event_tablaDocsMouseClicked
+
     private void encuentraDocumentos(String[] busqueda) throws SQLException {
         tablaDocs.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{}, new String[]{"id", "Documentos"}) {
@@ -289,7 +315,7 @@ public class VentanaBusqSimple extends javax.swing.JFrame {
             }
         }
     }
-    
+
     private void encuentraPersonajes(String[] busqueda) throws SQLException {
         tablaPj.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{},
