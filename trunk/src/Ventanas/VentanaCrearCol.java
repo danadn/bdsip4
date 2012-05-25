@@ -365,18 +365,18 @@ public class VentanaCrearCol extends javax.swing.JFrame {
         if (estado == estado.MODIFICAR) {
             try {
                 String consulta;
-                    consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM fichero_colectivo WHERE `fichero_colectivo`.`nombreFichCol`='" + textNomFich.getText() + "';", "nombreFichCol");
-                    if (consulta == null) {
-                        if (textNomFich.getText().length() > 0 && textFormato.getText().length() > 0 && textURIFich.getText().length() > 0) {
-                            manejador.getBBDDManager().consultaInsetar("INSERT INTO `dochistoria`.`fichero_colectivo` (`nombreFichCol`,`formatoFichCol`,`uriFichCol`) VALUES ('" + textNomFich.getText() + "','" + textFormato.getText() + "','" + textURIFich.getText() + "');");
-                            manejador.getBBDDManager().consultaInsetar("INSERT INTO `dochistoria`.`colectivosfichero` (`colectivo`,`ficheroCol`) VALUES ('" + colBase + "','" + textNomFich.getText() + "');");
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Si el fichero no existe en la base de datos, se deben rellenar todos los campos.", "Aviso", 2);
-                        }
-                    } else {
+                consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM fichero_colectivo WHERE `fichero_colectivo`.`nombreFichCol`='" + textNomFich.getText() + "';", "nombreFichCol");
+                if (consulta == null) {
+                    if (textNomFich.getText().length() > 0 && textFormato.getText().length() > 0 && textURIFich.getText().length() > 0) {
+                        manejador.getBBDDManager().consultaInsetar("INSERT INTO `dochistoria`.`fichero_colectivo` (`nombreFichCol`,`formatoFichCol`,`uriFichCol`) VALUES ('" + textNomFich.getText() + "','" + textFormato.getText() + "','" + textURIFich.getText() + "');");
                         manejador.getBBDDManager().consultaInsetar("INSERT INTO `dochistoria`.`colectivosfichero` (`colectivo`,`ficheroCol`) VALUES ('" + colBase + "','" + textNomFich.getText() + "');");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Si el fichero no existe en la base de datos, se deben rellenar todos los campos.", "Aviso", 2);
                     }
-                    cargaTablaFicheros(colBase);
+                } else {
+                    manejador.getBBDDManager().consultaInsetar("INSERT INTO `dochistoria`.`colectivosfichero` (`colectivo`,`ficheroCol`) VALUES ('" + colBase + "','" + textNomFich.getText() + "');");
+                }
+                cargaTablaFicheros(colBase);
             } catch (SQLException ex) {
                 Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -416,7 +416,7 @@ private void tablaFicherosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIR
 private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 // TODO add your handling code here:
     try {
-        manejador.getBBDDManager().consultaInsetar("DELETE FROM `dochistoria`.`colectivosfichero` WHERE `colectivosfichero`.`colectivo`='"+ colBase +"' AND `colectivosfichero`.`ficheroCol`='" + textNomFich.getText() + "';");
+        manejador.getBBDDManager().consultaInsetar("DELETE FROM `dochistoria`.`colectivosfichero` WHERE `colectivosfichero`.`colectivo`='" + colBase + "' AND `colectivosfichero`.`ficheroCol`='" + textNomFich.getText() + "';");
         cargaTablaFicheros(colBase);
         vaciaDatosFichero();
     } catch (SQLException ex) {
@@ -427,8 +427,13 @@ private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 // TODO add your handling code here:
     try {
-        manejador.getBBDDManager().consultaInsetar("UPDATE `dochistoria`.`colectivo` SET `nombre` = '" + textNombre.getText() + "' WHERE `colectivo`.`nombre` = '" + colBase + "';");
-        colBase=textNombre.getText();
+        if (textNombre.getText().length() > 0) {
+            manejador.getBBDDManager().consultaInsetar("UPDATE `dochistoria`.`colectivo` SET `nombre` = '" + textNombre.getText() + "' WHERE `colectivo`.`nombre` = '" + colBase + "';");
+            colBase = textNombre.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "No puede modificarse si el campo está en blanco.", "Aviso", 2);
+            textNombre.setText(colBase);
+        }
         // TODO add your handling code here:
     } catch (SQLException ex) {
         Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
@@ -540,10 +545,10 @@ private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             //mod = true;
         }
     }
-    
-    public void cargaColectivo(String colectivo){
-                try {
-            colBase=colectivo;
+
+    public void cargaColectivo(String colectivo) {
+        try {
+            colBase = colectivo;
             textNombre.setText(colectivo);
             String consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM colectivo WHERE `colectivo`.`nombre` = '" + colectivo + "'", "descColec");
             textDescripcion.setText(consulta);
@@ -551,9 +556,11 @@ private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         } catch (SQLException ex) {
             Logger.getLogger(VentanaCrearAcont.class.getName()).log(Level.SEVERE, null, ex);
         }
-    };
+    }
+
+    ;
     
-    private void cargaTablaFicheros(String colectivo) throws SQLException{
+    private void cargaTablaFicheros(String colectivo) throws SQLException {
         String consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM colectivosfichero WHERE `colectivosfichero`.`colectivo`='" + colectivo + "';", "ficheroCol");
         tablaFicheros.removeAll();
         if (consulta != null) {
@@ -570,16 +577,18 @@ private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             DefaultTableModel m = new DefaultTableModel(new Object[]{"Ficheros"}, 0);
             tablaFicheros.setModel(m);
         }
-    };
+    }
+
+    ;
     
     private void rellenaDatosFichero(String fichero) throws SQLException {
-            textNomFich.setText(fichero);
-            String consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM `dochistoria`.`fichero_colectivo` WHERE `fichero_colectivo`.`nombreFichCol`='" + fichero + "';", "formatoFichCol");
-            textFormato.setText(consulta);
-            consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM `dochistoria`.`fichero_colectivo` WHERE `fichero_colectivo`.`nombreFichCol`='" + fichero + "';", "uriFichCol");
-            textURIFich.setText(consulta);
+        textNomFich.setText(fichero);
+        String consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM `dochistoria`.`fichero_colectivo` WHERE `fichero_colectivo`.`nombreFichCol`='" + fichero + "';", "formatoFichCol");
+        textFormato.setText(consulta);
+        consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM `dochistoria`.`fichero_colectivo` WHERE `fichero_colectivo`.`nombreFichCol`='" + fichero + "';", "uriFichCol");
+        textURIFich.setText(consulta);
     }
-    
+
     private void vaciaDatosFichero() {
         textNomFich.setText("");
         textFormato.setText("");
