@@ -196,6 +196,19 @@ public class GUIManager {
                 vBusqSimple.setVisible(false);
                 vBusqAdv.setVisible(false);
                 break;
+            case BBDD_DOCUMENTO:
+                v1.setVisible(false);
+                v2.setVisible(false);
+                v3.setVisible(false);
+                v4.setVisible(false);
+                vM.mandaEstadoV1(v1.getEstado());
+                vM.setVisible(true);
+                vCrearPj.setVisible(false);
+                vCrearCol.setVisible(false);
+                vCrearAcont.setVisible(false);
+                vBusqSimple.setVisible(false);
+                vBusqAdv.setVisible(false);
+                break;    
             case MODIFICAR:
                 v1.setVisible(false);
                 v2.setVisible(false);
