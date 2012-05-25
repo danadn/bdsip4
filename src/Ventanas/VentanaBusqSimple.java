@@ -124,6 +124,11 @@ public class VentanaBusqSimple extends javax.swing.JFrame {
             }
         ));
         tablaAcont.setFocusable(false);
+        tablaAcont.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaAcontMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tablaAcont);
 
         jLabel4.setText("Acontecimientos encontrados");
@@ -137,6 +142,11 @@ public class VentanaBusqSimple extends javax.swing.JFrame {
             }
         ));
         tablaCol.setFocusable(false);
+        tablaCol.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaColMouseClicked(evt);
+            }
+        });
         jScrollPane4.setViewportView(tablaCol);
 
         jLabel5.setText("Colectivos encontrados");
@@ -252,8 +262,8 @@ public class VentanaBusqSimple extends javax.swing.JFrame {
     private void tablaPjMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPjMouseClicked
         try {
             int row = tablaPj.rowAtPoint(evt.getPoint());
-            manejador.getVentanaPj().cargaPersonaje(tablaPj.getValueAt(row, 0).toString());
             manejador.cambiaEstado(estados.CREAR_PERSONAJE);
+            manejador.getVentanaPj().cargaPersonaje(tablaPj.getValueAt(row, 0).toString());
         } catch (SQLException ex) {
             System.out.print(ex);
         }
@@ -262,9 +272,20 @@ public class VentanaBusqSimple extends javax.swing.JFrame {
     private void tablaDocsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaDocsMouseClicked
         int row = tablaDocs.rowAtPoint(evt.getPoint());
         manejador.getV2().rellena("'"+tablaDocs.getValueAt(row, 1).toString()+"'");
-        
         manejador.cambiaEstado(estados.VENTANA2);
     }//GEN-LAST:event_tablaDocsMouseClicked
+
+    private void tablaAcontMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaAcontMouseClicked
+        int row = tablaAcont.rowAtPoint(evt.getPoint());
+        manejador.getVentanaAcont().cargaAcontecimiento(tablaAcont.getValueAt(row, 0).toString());
+        manejador.cambiaEstado(estados.CREAR_ACONTECIMIENTO);
+    }//GEN-LAST:event_tablaAcontMouseClicked
+
+    private void tablaColMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaColMouseClicked
+        int row = tablaCol.rowAtPoint(evt.getPoint());
+       // manejador.getVentanaAcont().cargaColectivo(tablaCol.getValueAt(row, 0).toString());
+        manejador.cambiaEstado(estados.CREAR_COLECTIVO);
+    }//GEN-LAST:event_tablaColMouseClicked
 
     private void encuentraDocumentos(String[] busqueda) throws SQLException {
         tablaDocs.setModel(new javax.swing.table.DefaultTableModel(

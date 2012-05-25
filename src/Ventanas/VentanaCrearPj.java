@@ -23,13 +23,12 @@ public class VentanaCrearPj extends javax.swing.JFrame {
     private DescriptorPersonaje personaje;
     private ArrayList<DescriptorFichero> fichCargo;
     private estados estado;
-    //private boolean mod;
     private ArrayList<DescriptorCargo> cargos;
     private ArrayList<String> alias;
 
     /** Creates new form VentanaCrearPj */
     public VentanaCrearPj(GUIManager m) {
-        estado=null;
+        estado = null;
         manejador = m;
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(d.width / 4, 20);
@@ -618,7 +617,7 @@ public class VentanaCrearPj extends javax.swing.JFrame {
 
         textBiografia.setColumns(20);
         textBiografia.setRows(5);
-        textBiografia.setText("Actor de películas de acción,\nculturista y gobernador del\nestado de California");
+        textBiografia.setText("Actor de películas de acción\nculturista y gobernador del\nestado de California");
         jScrollPane3.setViewportView(textBiografia);
 
         tablaCargos.setModel(new javax.swing.table.DefaultTableModel(
@@ -828,20 +827,20 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                             .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(textoLugarDef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane2, 0, 0, Short.MAX_VALUE)
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)))
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 617, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel25)
                             .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                         .addComponent(jLabel26)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(panelCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -864,86 +863,90 @@ public class VentanaCrearPj extends javax.swing.JFrame {
     }//GEN-LAST:event_MesDefActionPerformed
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
-        if(estado==estados.MODIFICAR){
+        if (estado == estados.MODIFICAR) {
             manejador.cambiaEstado(estados.MODIFICAR);
-        } else if(estado==estados.CREAR) if (camposRellenos()) {
-            try {
-                // Creamos el Personaje
-                manejador.getBBDDManager().consultaInsetar("INSERT INTO personaje "
-                        + "(nombreYApe,fechaNac,lugarNac,fechaMuerte,lugarMuerte,biografia) VALUES"
-                        + "('" + textoNomYApe.getText() + "',"
-                        + "'" + AnoNac.getText() + "-" + MesNac.getText() + "-" + DiaNac.getText() + "'"
-                        + ",'" + textoLugarNac.getText() + "',"
-                        + "'" + AnoDef.getText() + "-" + MesDef.getText() + "-" + DiaDef.getText() + "',"
-                        + "'" + textoLugarDef.getText() + "',"
-                        + "'" + textBiografia.getText() + "');");
-                // Asociamos el Personaje al Documento
-                int idDocumento = Integer.parseInt(manejador.getBBDDManager().consultaPeticion(
-                        "SELECT max(id) as id FROM documento;", "id"));
-                manejador.getBBDDManager().consultaInsetar("INSERT INTO "
-                        + "personajesDocumento (idDocumento,personaje) VALUES"
-                        + "(" + idDocumento + ",'" + textoNomYApe.getText() + "');");
-                // Añadimos sus alias
-                Iterator<String> itAlias = alias.iterator();
-                while (itAlias.hasNext()) {
-                    String a = itAlias.next();
-                    manejador.getBBDDManager().consultaInsetar("INSERT INTO alias "
-                            + "(personaje,nomAlias) VALUES('" + textoNomYApe.getText() + "',"
-                            + "'" + a + "');");
-                }
-                // Borramos informacion de la memoria
-                alias.clear();
-                actualizaTablaAlias();
-                // Añadimos sus cargos
-                Iterator<DescriptorCargo> itCargo = cargos.iterator();
-                while (itCargo.hasNext()) {
-                    DescriptorCargo cargo = (DescriptorCargo) itCargo.next();
-                    // Creamos el cargo en la BBDD, si ya existe no se introducirá
-                    manejador.getBBDDManager().consultaInsetar("INSERT INTO "
-                            + "cargo(nombreCargo) VALUES('" + cargo.getCargo() + "');");
-                    // Creamos y asociamos los ficheros al cargo
-                    Iterator<DescriptorFichero> it = cargo.getFichero().iterator();
-                    while (it.hasNext()) {
-                        // Creamos el fichero
-                        DescriptorFichero f = (DescriptorFichero) it.next();
-                        manejador.getBBDDManager().creaFicheroCargo(f.getNombre(),
-                                f.getFormato(), f.getURI());
-                        // Asociamos el fichero al cargo
-                        manejador.getBBDDManager().consultaInsetar("INSERT INTO "
-                                + "cargosFichero(cargo,ficheroCargo) VALUES "
-                                + "('" + cargo.getCargo() + "','" + f.getNombre() + "');");
-                    }
-                    // Asociamos el cargo al personaje
-                    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
-                    manejador.getBBDDManager().consultaInsetar("INSERT INTO "
-                            + "desempenia(personaje, cargo, descCargo, FechaIni, FechaFin) VALUES"
+        } else if (estado == estados.CREAR) {
+            if (camposRellenos()) {
+                try {
+                    // Creamos el Personaje
+                    manejador.getBBDDManager().consultaInsetar("INSERT INTO personaje "
+                            + "(nombreYApe,fechaNac,lugarNac,fechaMuerte,lugarMuerte,biografia) VALUES"
                             + "('" + textoNomYApe.getText() + "',"
-                            + "'" + cargo.getCargo() + "',"
-                            + "'" + cargo.getDescCargo() + "',"
-                            + "'" + sdf.format(cargo.getFechaIni()) + "',"
-                            + "'" + sdf.format(cargo.getFechaFin()) + "');");
+                            + "'" + AnoNac.getText() + "-" + MesNac.getText() + "-" + DiaNac.getText() + "'"
+                            + ",'" + textoLugarNac.getText() + "',"
+                            + "'" + AnoDef.getText() + "-" + MesDef.getText() + "-" + DiaDef.getText() + "',"
+                            + "'" + textoLugarDef.getText() + "',"
+                            + "'" + textBiografia.getText() + "');");
+                    // Asociamos el Personaje al Documento
+                    int idDocumento = Integer.parseInt(manejador.getBBDDManager().consultaPeticion(
+                            "SELECT max(id) as id FROM documento;", "id"));
+                    manejador.getBBDDManager().consultaInsetar("INSERT INTO "
+                            + "personajesDocumento (idDocumento,personaje) VALUES"
+                            + "(" + idDocumento + ",'" + textoNomYApe.getText() + "');");
+                    // Añadimos sus alias
+                    Iterator<String> itAlias = alias.iterator();
+                    while (itAlias.hasNext()) {
+                        String a = itAlias.next();
+                        manejador.getBBDDManager().consultaInsetar("INSERT INTO alias "
+                                + "(personaje,nomAlias) VALUES('" + textoNomYApe.getText() + "',"
+                                + "'" + a + "');");
+                    }
+                    // Borramos informacion de la memoria
+                    alias.clear();
+                    actualizaTablaAlias();
+                    // Añadimos sus cargos
+                    Iterator<DescriptorCargo> itCargo = cargos.iterator();
+                    while (itCargo.hasNext()) {
+                        DescriptorCargo cargo = (DescriptorCargo) itCargo.next();
+                        // Creamos el cargo en la BBDD, si ya existe no se introducirá
+                        manejador.getBBDDManager().consultaInsetar("INSERT INTO "
+                                + "cargo(nombreCargo) VALUES('" + cargo.getCargo() + "');");
+                        // Creamos y asociamos los ficheros al cargo
+                        Iterator<DescriptorFichero> it = cargo.getFichero().iterator();
+                        while (it.hasNext()) {
+                            // Creamos el fichero
+                            DescriptorFichero f = (DescriptorFichero) it.next();
+                            manejador.getBBDDManager().creaFicheroCargo(f.getNombre(),
+                                    f.getFormato(), f.getURI());
+                            // Asociamos el fichero al cargo
+                            manejador.getBBDDManager().consultaInsetar("INSERT INTO "
+                                    + "cargosFichero(cargo,ficheroCargo) VALUES "
+                                    + "('" + cargo.getCargo() + "','" + f.getNombre() + "');");
+                        }
+                        // Asociamos el cargo al personaje
+                        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+                        manejador.getBBDDManager().consultaInsetar("INSERT INTO "
+                                + "desempenia(personaje, cargo, descCargo, FechaIni, FechaFin) VALUES"
+                                + "('" + textoNomYApe.getText() + "',"
+                                + "'" + cargo.getCargo() + "',"
+                                + "'" + cargo.getDescCargo() + "',"
+                                + "'" + sdf.format(cargo.getFechaIni()) + "',"
+                                + "'" + sdf.format(cargo.getFechaFin()) + "');");
+                    }
+                    // Borramos informacion de la memoria
+                    cargos.clear();
+                    actualizaTablaCargos();
+                    manejador.cambiaEstado(estados.VENTANA3);
+                } catch (SQLException ex) {
+                    System.out.print(ex);
                 }
-                // Borramos informacion de la memoria
-                cargos.clear();
-                actualizaTablaCargos();
-                manejador.cambiaEstado(estados.VENTANA3);
-            } catch (SQLException ex) {
-                System.out.print(ex);
+            } else {
+                JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos", "Aviso", 2);
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos", "Aviso", 2);
+        } else if (estado == estados.CONSULTAR) {
+            manejador.cambiaEstado(estados.VENTANA1);
         }
     }//GEN-LAST:event_botonAceptarActionPerformed
 
     private void botonAliasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAliasActionPerformed
-        if(estado==estados.MODIFICAR){
+        if (estado == estados.MODIFICAR) {
             try {
                 manejador.getBBDDManager().consultaInsetar("INSERT INTO `dochistoria`.`alias` (`personaje`, `nomAlias`) VALUES ('" + personaje.getNombreYApe() + "', '" + textAlias.getText() + "');");
                 cargaTablaAlias(personaje.getNombreYApe());
             } catch (SQLException ex) {
                 Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else if(estado==estados.CREAR){
+        } else if (estado == estados.CREAR) {
             if (!alias.contains(textAlias.getText())) {
                 alias.add(textAlias.getText());
             }
@@ -954,10 +957,10 @@ public class VentanaCrearPj extends javax.swing.JFrame {
 
     private void botonCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCargoActionPerformed
         // Añadimos el cargo a la lista de cargos
-        if (estado==estados.MODIFICAR) {
+        if (estado == estados.MODIFICAR) {
             try {
                 if (datosCargoLleno()) {
-                    String consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM `dochistoria`.`cargo` WHERE `cargo`.`nombreCargo`='" + textCargo.getText() + "';","nombreCargo");
+                    String consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM `dochistoria`.`cargo` WHERE `cargo`.`nombreCargo`='" + textCargo.getText() + "';", "nombreCargo");
                     if (consulta == null) {
                         manejador.getBBDDManager().consultaInsetar("INSERT INTO `dochistoria`.`cargo` (`nombreCargo`) VALUES ('" + textCargo.getText() + "');");
                         manejador.getBBDDManager().consultaInsetar("INSERT INTO `dochistoria`.`desempenia` (`personaje`,`cargo`,`descCargo`,`FechaIni`,`FechaFin`) VALUES ('" + personaje.getNombreYApe() + "','" + textCargo.getText() + "','" + textDescCargo.getText() + "','" + AnoIni.getText() + "-" + MesIni.getText() + "-" + DiaIni.getText() + "','" + AnoFin.getText() + "-" + MesFin.getText() + "-" + DiaFin.getText() + "');");
@@ -969,7 +972,7 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(null, "Este personaje ya tiene asociado el cargo " + textCargo.getText() + ". Solo puede modificarlo, desligarlo o eliminarlo.", "Aviso", 2);
                         }
                     }
-                } else if(estado==estados.CREAR){
+                } else if (estado == estados.CREAR) {
                     JOptionPane.showMessageDialog(null, "Debe rellenar todos los campos pertinentes para introducir un nuevo cargo al personaje.", "Aviso", 2);
                 }
                 //manejador.getBBDDManager().consultaInsetar("INSERT INTO `dochistoria`.`cargo` (`nombreCargo`) VALUES ('"+textCargo.getText()+"');");
@@ -1015,7 +1018,7 @@ public class VentanaCrearPj extends javax.swing.JFrame {
 }//GEN-LAST:event_textURIFichActionPerformed
 
     private void botonAddFichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAddFichActionPerformed
-        if (estado==estados.MODIFICAR) {
+        if (estado == estados.MODIFICAR) {
             try {
                 String consulta;
                 consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM cargo WHERE `cargo`.`nombreCargo`='" + textCargo.getText() + "';", "nombreCargo");
@@ -1038,7 +1041,7 @@ public class VentanaCrearPj extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else if(estado==estados.CREAR){
+        } else if (estado == estados.CREAR) {
             DescriptorFichero f = new DescriptorFichero(textNomFich.getText(),
                     textFormato.getText(),
                     textURIFich.getText());
@@ -1368,7 +1371,7 @@ private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     }
 
     ;
-    
+
     private boolean datosCargoLleno() {
         return textCargo.getText().length() > 0
                 && AnoIni.getText().length() > 0
@@ -1452,7 +1455,7 @@ private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     }
 
     ;
-    
+
     void cargaTablaCargos(String personaje) throws SQLException {
         String consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM desempenia WHERE `desempenia`.`personaje` = '" + personaje + "'", "cargo");
         tablaCargos.removeAll();
@@ -1473,7 +1476,7 @@ private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     }
 
     ;
-    
+
     void cargaTablaCargosFichero(String cargo) throws SQLException {
         String consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM cargosfichero WHERE `cargosfichero`.`cargo`='" + cargo + "';", "ficheroCargo");
         tablaFicheros.removeAll();
@@ -1510,7 +1513,29 @@ private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     }
 
     void mandaEstadoV1(estados s) {
-        estado=s;
+        estado = s;
+        textAlias.setEditable(true);
+        textBiografia.setEditable(true);
+        textCargo.setEditable(true);
+        textDescCargo.setEditable(true);
+        textFormato.setEditable(true);
+        textNomFich.setEditable(true);
+        textURIFich.setEditable(true);
+        textoLugarDef.setEditable(true);
+        textoLugarNac.setEditable(true);
+        textoNomYApe.setEditable(true);
+        AnoIni.setEditable(true);
+        MesIni.setEditable(true);
+        DiaIni.setEditable(true);
+        AnoFin.setEditable(true);
+        MesFin.setEditable(true);
+        DiaFin.setEditable(true);
+        AnoNac.setEditable(true);
+        MesNac.setEditable(true);
+        DiaNac.setEditable(true);
+        AnoDef.setEditable(true);
+        MesDef.setEditable(true);
+        DiaDef.setEditable(true);
         if (s == estados.CREAR) {
             jButton1.setVisible(false);
             jButton2.setVisible(false);
@@ -1528,7 +1553,6 @@ private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
             jButton13.setVisible(false);
             jButton14.setVisible(false);
             jButton15.setVisible(false);
-            //mod = false;
         } else if (s == estados.MODIFICAR) {
             jButton1.setVisible(true);
             jButton2.setVisible(true);
@@ -1547,7 +1571,51 @@ private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
             jButton15.setVisible(true);
             vaciaDatosFichero();
             vaciaDatosCargo();
-            //mod = true;
+        } else if (s == estados.CONSULTAR) {
+            textAlias.setText("");
+            textAlias.setEditable(false);
+            textBiografia.setEditable(false);
+            textCargo.setEditable(false);
+            textDescCargo.setEditable(false);
+            textFormato.setEditable(false);
+            textNomFich.setEditable(false);
+            textURIFich.setEditable(false);
+            textoLugarDef.setEditable(false);
+            textoLugarNac.setEditable(false);
+            textoNomYApe.setEditable(false);
+            jButton1.setVisible(false);
+            jButton2.setVisible(false);
+            jButton3.setVisible(false);
+            jButton4.setVisible(false);
+            jButton5.setVisible(false);
+            jButton6.setVisible(false);
+            jButton7.setVisible(false);
+            jButton8.setVisible(false);
+            jButton9.setVisible(false);
+            jButton10.setVisible(false);
+            jButton11.setVisible(false);
+            jButton12.setVisible(false);
+            jButton13.setVisible(false);
+            jButton14.setVisible(false);
+            jButton15.setVisible(false);
+            botonAceptar.setText("Terminar");
+            botonAddFich.setVisible(false);
+            botonAlias.setVisible(false);
+            botonCargo.setVisible(false);
+            AnoIni.setEditable(false);
+            MesIni.setEditable(false);
+            DiaIni.setEditable(false);
+            AnoFin.setEditable(false);
+            MesFin.setEditable(false);
+            DiaFin.setEditable(false);
+            AnoNac.setEditable(false);
+            MesNac.setEditable(false);
+            DiaNac.setEditable(false);
+            AnoDef.setEditable(false);
+            MesDef.setEditable(false);
+            DiaDef.setEditable(false);
+            vaciaDatosFichero();
+            vaciaDatosCargo();
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

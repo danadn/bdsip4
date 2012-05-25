@@ -1,4 +1,5 @@
 package Ventanas;
+
 import Descriptores.DescriptorFichero;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -15,16 +16,18 @@ import javax.swing.table.DefaultTableModel;
  * @author usuario_local
  */
 public class VentanaCrearAcont extends javax.swing.JFrame {
+
     private GUIManager manejador;
     private ArrayList<DescriptorFichero> ficheros;
     //private boolean mod;
     private estados estado;
     private String acontBase;
+
     /** Creates new form VentanaCrearAcont */
     public VentanaCrearAcont(GUIManager m) {
         manejador = m;
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(d.width/4, 20);
+        this.setLocation(d.width / 4, 20);
         initComponents();
         this.setTitle("Crear Personaje");
         this.setDefaultCloseOperation(0);
@@ -33,15 +36,15 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
 
     private void actualizaTablaFicheros() {
         DefaultTableModel m;
-        m = new DefaultTableModel(new Object[] {"Catalogaciones"}, 0);
+        m = new DefaultTableModel(new Object[]{"Catalogaciones"}, 0);
         Iterator<DescriptorFichero> it = ficheros.iterator();
         while (it.hasNext()) {
-            DescriptorFichero fich = (DescriptorFichero)it.next();
+            DescriptorFichero fich = (DescriptorFichero) it.next();
             m.addRow(new Object[]{fich.getNombre()});
         }
         tablaFicheros.setModel(m);
     }
-    
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -459,25 +462,25 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
 }//GEN-LAST:event_textURIFichActionPerformed
 
     private void botonAddFichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAddFichActionPerformed
-        if (estado==estados.MODIFICAR) {
+        if (estado == estados.MODIFICAR) {
             try {
                 String consulta;
-                    consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM fichero_acontecimiento WHERE `fichero_acontecimiento`.`nombreFichAcont`='" + textNomFich.getText() + "';", "nombreFichAcont");
-                    if (consulta == null) {
-                        if (textNomFich.getText().length() > 0 && textFormato.getText().length() > 0 && textURIFich.getText().length() > 0) {
-                            manejador.getBBDDManager().consultaInsetar("INSERT INTO `dochistoria`.`fichero_acontecimiento` (`nombreFichAcont`,`formatoFichAcont`,`uriFichAcont`) VALUES ('" + textNomFich.getText() + "','" + textFormato.getText() + "','" + textURIFich.getText() + "');");
-                            manejador.getBBDDManager().consultaInsetar("INSERT INTO `dochistoria`.`acontsfichero` (`acontecimiento`,`ficheroAcont`) VALUES ('" + acontBase + "','" + textNomFich.getText() + "');");
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Si el fichero no existe en la base de datos, se deben rellenar todos los campos.", "Aviso", 2);
-                        }
-                    } else {
+                consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM fichero_acontecimiento WHERE `fichero_acontecimiento`.`nombreFichAcont`='" + textNomFich.getText() + "';", "nombreFichAcont");
+                if (consulta == null) {
+                    if (textNomFich.getText().length() > 0 && textFormato.getText().length() > 0 && textURIFich.getText().length() > 0) {
+                        manejador.getBBDDManager().consultaInsetar("INSERT INTO `dochistoria`.`fichero_acontecimiento` (`nombreFichAcont`,`formatoFichAcont`,`uriFichAcont`) VALUES ('" + textNomFich.getText() + "','" + textFormato.getText() + "','" + textURIFich.getText() + "');");
                         manejador.getBBDDManager().consultaInsetar("INSERT INTO `dochistoria`.`acontsfichero` (`acontecimiento`,`ficheroAcont`) VALUES ('" + acontBase + "','" + textNomFich.getText() + "');");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Si el fichero no existe en la base de datos, se deben rellenar todos los campos.", "Aviso", 2);
                     }
-                    cargaTablaFicheros(acontBase);
+                } else {
+                    manejador.getBBDDManager().consultaInsetar("INSERT INTO `dochistoria`.`acontsfichero` (`acontecimiento`,`ficheroAcont`) VALUES ('" + acontBase + "','" + textNomFich.getText() + "');");
+                }
+                cargaTablaFicheros(acontBase);
             } catch (SQLException ex) {
                 Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else if(estado==estados.CREAR){
+        } else if (estado == estados.CREAR) {
             DescriptorFichero f = new DescriptorFichero(textNomFich.getText(),
                     textFormato.getText(),
                     textURIFich.getText());
@@ -501,10 +504,9 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
 }//GEN-LAST:event_textNomFichActionPerformed
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
-        if (estado==estados.MODIFICAR) {
+        if (estado == estados.MODIFICAR) {
             manejador.cambiaEstado(estados.MODIFICAR);
-        } else if(estado==estados.CREAR){
-
+        } else if (estado == estados.CREAR) {
             if (camposRellenos()) {
                 try {
                     // Introducimos el Acontecimiento en la BBDD
@@ -552,6 +554,8 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos", "Aviso", 2);
             }
+        } else if (estado == estados.CONSULTAR) {
+            manejador.cambiaEstado(estados.VENTANA1);
         }
 }//GEN-LAST:event_botonAceptarActionPerformed
 
@@ -567,7 +571,7 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 // TODO add your handling code here:
     try {
         manejador.getBBDDManager().consultaInsetar("UPDATE `dochistoria`.`acontecimiento` SET `nombreAcont` = '" + textNombre.getText() + "' WHERE `acontecimiento`.`nombreAcont` = '" + acontBase + "';");
-        acontBase=textNombre.getText();
+        acontBase = textNombre.getText();
         // TODO add your handling code here:
     } catch (SQLException ex) {
         Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
@@ -637,7 +641,7 @@ private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
 // TODO add your handling code here:
     try {
-        manejador.getBBDDManager().consultaInsetar("DELETE FROM `dochistoria`.`acontsfichero` WHERE `acontsfichero`.`acontecimiento`='"+ acontBase +"' AND `acontsfichero`.`ficheroAcont`='" + textNomFich.getText() + "';");
+        manejador.getBBDDManager().consultaInsetar("DELETE FROM `dochistoria`.`acontsfichero` WHERE `acontsfichero`.`acontecimiento`='" + acontBase + "' AND `acontsfichero`.`ficheroAcont`='" + textNomFich.getText() + "';");
         cargaTablaFicheros(acontBase);
     } catch (SQLException ex) {
         Logger.getLogger(VentanaCrearAcont.class.getName()).log(Level.SEVERE, null, ex);
@@ -645,10 +649,11 @@ private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 try {
                     new VentanaCrearAcont(new GUIManager()).setVisible(true);
@@ -658,7 +663,6 @@ private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField AnoFin;
     private javax.swing.JTextField AnoIni;
@@ -701,19 +705,32 @@ private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     // End of variables declaration//GEN-END:variables
 
     private boolean camposRellenos() {
-        return (textNombre.getText().length()>0 &&
-                textDescripcion.getText().length()>0 &&
-                AnoIni.getText().length()>0 &&
-                MesIni.getText().length()>0 &&
-                DiaIni.getText().length()>0 &&
-                AnoFin.getText().length()>0 &&
-                MesFin.getText().length()>0 &&
-                DiaFin.getText().length()>0 &&
-                !ficheros.isEmpty());
+        return (textNombre.getText().length() > 0
+                && textDescripcion.getText().length() > 0
+                && AnoIni.getText().length() > 0
+                && MesIni.getText().length() > 0
+                && DiaIni.getText().length() > 0
+                && AnoFin.getText().length() > 0
+                && MesFin.getText().length() > 0
+                && DiaFin.getText().length() > 0
+                && !ficheros.isEmpty());
     }
-    
+
     public void mandaEstadoV1(estados s) {
-        estado=s;
+        estado = s;
+        botonAceptar.setVisible(true);
+        botonAddFich.setVisible(true);
+        textDescripcion.setEditable(true);
+        textFormato.setEditable(true);
+        textNomFich.setEditable(true);
+        textNombre.setEditable(true);
+        textURIFich.setEditable(true);
+        AnoIni.setEditable(true);
+        MesIni.setEditable(true);
+        DiaIni.setEditable(true);
+        AnoFin.setEditable(true);
+        MesFin.setEditable(true);
+        DiaFin.setEditable(true);
         if (s == estados.CREAR) {
             jButton1.setVisible(false);
             jButton2.setVisible(false);
@@ -722,7 +739,7 @@ private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             jButton5.setVisible(false);
             jButton6.setVisible(false);
             jButton7.setVisible(false);
-            //mod = false;
+            botonAceptar.setText("Crear");
         } else if (s == estados.MODIFICAR) {
             jButton1.setVisible(true);
             jButton2.setVisible(true);
@@ -731,13 +748,37 @@ private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             jButton5.setVisible(true);
             jButton6.setVisible(true);
             jButton7.setVisible(true);
-            //mod = true;
+            botonAceptar.setText("Aceptar");
+        } else if (s == estados.CONSULTAR) {
+            jButton1.setVisible(false);
+            jButton2.setVisible(false);
+            jButton3.setVisible(false);
+            jButton4.setVisible(false);
+            jButton5.setVisible(false);
+            jButton6.setVisible(false);
+            jButton7.setVisible(false);
+            AnoIni.setEditable(false);
+            MesIni.setEditable(false);
+            DiaIni.setEditable(false);
+            AnoFin.setEditable(false);
+            MesFin.setEditable(false);
+            DiaFin.setEditable(false);
+            botonAceptar.setText("Volver");
+            botonAddFich.setVisible(false);
+            textURIFich.setText("");
+            textNomFich.setText("");
+            textFormato.setText("");
+            textDescripcion.setEditable(false);
+            textFormato.setEditable(false);
+            textNomFich.setEditable(false);
+            textNombre.setEditable(false);
+            textURIFich.setEditable(false);
         }
     }
-    
-    public void cargaAcontecimiento(String acontecimiento){
+
+    public void cargaAcontecimiento(String acontecimiento) {
         try {
-            acontBase=acontecimiento;
+            acontBase = acontecimiento;
             textNombre.setText(acontecimiento);
             String consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM acontecimiento WHERE `acontecimiento`.`nombreAcont` = '" + acontecimiento + "'", "descrip");
             textDescripcion.setText(consulta);
@@ -755,10 +796,10 @@ private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         } catch (SQLException ex) {
             Logger.getLogger(VentanaCrearAcont.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-    
-    private void cargaTablaFicheros(String acontecimiento) throws SQLException{
+
+    private void cargaTablaFicheros(String acontecimiento) throws SQLException {
         String consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM acontsfichero WHERE `acontsfichero`.`acontecimiento`='" + acontecimiento + "';", "ficheroAcont");
         tablaFicheros.removeAll();
         if (consulta != null) {
@@ -775,16 +816,15 @@ private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             DefaultTableModel m = new DefaultTableModel(new Object[]{"Ficheros"}, 0);
             tablaFicheros.setModel(m);
         }
-    };
-    
-    private void rellenaDatosFichero(String fichero) throws SQLException {
-        if(estado==estados.MODIFICAR){
-            textNomFich.setText(fichero);
-            String consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM `dochistoria`.`fichero_acontecimiento` WHERE `fichero_acontecimiento`.`nombreFichAcont`='" + fichero + "';", "formatoFichAcont");
-            textFormato.setText(consulta);
-            consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM `dochistoria`.`fichero_acontecimiento` WHERE `fichero_acontecimiento`.`nombreFichAcont`='" + fichero + "';", "uriFichAcont");
-            textURIFich.setText(consulta);
-        }
     }
 
+    ;
+
+    private void rellenaDatosFichero(String fichero) throws SQLException {
+        textNomFich.setText(fichero);
+        String consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM `dochistoria`.`fichero_acontecimiento` WHERE `fichero_acontecimiento`.`nombreFichAcont`='" + fichero + "';", "formatoFichAcont");
+        textFormato.setText(consulta);
+        consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM `dochistoria`.`fichero_acontecimiento` WHERE `fichero_acontecimiento`.`nombreFichAcont`='" + fichero + "';", "uriFichAcont");
+        textURIFich.setText(consulta);
+    }
 }
