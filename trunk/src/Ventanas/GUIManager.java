@@ -151,6 +151,7 @@ public class GUIManager {
                 v4.setVisible(false);
                 vM.setVisible(false);
                 vCrearPj.setVisible(false);
+                vCrearCol.mandaEstadoV1(v1.getEstado());
                 vCrearCol.setVisible(true);
                 vCrearAcont.setVisible(false);
                 vBusqSimple.setVisible(false);
