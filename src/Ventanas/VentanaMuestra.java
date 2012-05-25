@@ -222,7 +222,10 @@ public class VentanaMuestra extends javax.swing.JFrame {
                         //manejador.getVentanaCol().cargaColectivo(colectivo);
                         break;
                     case BBDD_DOCUMENTO:
-                        manejador.cambiaEstado(estados.CREAR);
+                        manejador.cambiaEstado(estados.VENTANA2);
+                        row = tablaEncontrados.getSelectedRow();
+                        String documento=tablaEncontrados.getValueAt(row, 0).toString();
+                        manejador.getV2().cargaDocumento(documento);
                         break;
                     default:
                         break;
@@ -333,7 +336,7 @@ public class VentanaMuestra extends javax.swing.JFrame {
                 case BBDD_DOCUMENTO:
                     labelTitulo.setText("Elija un documento de la lista:");
                     consulta += "descripcion";
-                    consulta += "titulo";
+                    campo += "titulo";
                     break;
                 default:
                     break;

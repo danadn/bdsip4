@@ -22,6 +22,8 @@ public class Ventana2 extends javax.swing.JFrame {
     private ArrayList<DescriptorFichero> ficheros;
     private GUIManager manejador;
     private estados estado;
+    private String docBase;
+    private String id;
 
     /** Creates new form Ventana2 */
     public Ventana2(GUIManager m) {
@@ -64,6 +66,8 @@ public class Ventana2 extends javax.swing.JFrame {
         textNombreCat = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaCat = new javax.swing.JTable();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
         panelFicheros = new javax.swing.JPanel();
         labelTitulo5 = new javax.swing.JLabel();
         textFormato = new javax.swing.JTextField();
@@ -74,8 +78,13 @@ public class Ventana2 extends javax.swing.JFrame {
         textNomFich = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaFicheros = new javax.swing.JTable();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
         labelDescripcion4 = new javax.swing.JLabel();
         labelDescripcion6 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -171,7 +180,27 @@ public class Ventana2 extends javax.swing.JFrame {
                 "Catalogaciones"
             }
         ));
+        tablaCat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaCatMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tablaCat);
+
+        jButton5.setText("Desligar");
+        jButton5.setActionCommand("Desligar");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        jButton6.setText("Eliminar");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelCatLayout = new javax.swing.GroupLayout(panelCat);
         panelCat.setLayout(panelCatLayout);
@@ -185,27 +214,32 @@ public class Ventana2 extends javax.swing.JFrame {
                             .addGroup(panelCatLayout.createSequentialGroup()
                                 .addComponent(labelTitulo2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textFormatoCat, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE))
+                                .addComponent(textFormatoCat, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE))
                             .addGroup(panelCatLayout.createSequentialGroup()
                                 .addComponent(labelTitulo1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textFuenteCat, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE))
+                                .addComponent(textFuenteCat, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE))
                             .addGroup(panelCatLayout.createSequentialGroup()
                                 .addComponent(labelDescripcion5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textNombreCat, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
+                                .addComponent(textNombreCat, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE))
                             .addGroup(panelCatLayout.createSequentialGroup()
                                 .addComponent(labelDescripcion3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(comboTipo, 0, 163, Short.MAX_VALUE)))
+                                .addComponent(comboTipo, 0, 183, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCatLayout.createSequentialGroup()
+                    .addGroup(panelCatLayout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(jButton5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton6)
+                        .addGap(89, 89, 89)
+                        .addComponent(botonAccionCatalogo))
+                    .addGroup(panelCatLayout.createSequentialGroup()
                         .addComponent(labelTitulo3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textURICat, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(botonAccionCatalogo)))
+                        .addComponent(textURICat, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelCatLayout.setVerticalGroup(
@@ -231,12 +265,14 @@ public class Ventana2 extends javax.swing.JFrame {
                             .addComponent(labelTitulo2)
                             .addComponent(textFormatoCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelCatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelCatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelTitulo3)
+                    .addComponent(textURICat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addGroup(panelCatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonAccionCatalogo)
-                    .addGroup(panelCatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(labelTitulo3)
-                        .addComponent(textURICat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                    .addComponent(jButton5)
+                    .addComponent(jButton6)))
         );
 
         panelFicheros.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -251,7 +287,7 @@ public class Ventana2 extends javax.swing.JFrame {
             }
         });
 
-        labelTitulo6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelTitulo6.setFont(new java.awt.Font("Tahoma", 0, 12));
         labelTitulo6.setText("URI Fichero");
 
         textURIFich.setText("/docPolitica/");
@@ -286,7 +322,26 @@ public class Ventana2 extends javax.swing.JFrame {
                 "Ficheros"
             }
         ));
+        tablaFicheros.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaFicherosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaFicheros);
+
+        jButton3.setText("Desligar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("Eliminar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelFicherosLayout = new javax.swing.GroupLayout(panelFicheros);
         panelFicheros.setLayout(panelFicherosLayout);
@@ -300,16 +355,21 @@ public class Ventana2 extends javax.swing.JFrame {
                             .addGroup(panelFicherosLayout.createSequentialGroup()
                                 .addComponent(labelTitulo7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textNomFich, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE))
+                                .addComponent(textNomFich, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelFicherosLayout.createSequentialGroup()
                                 .addComponent(labelTitulo5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textFormato, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))
+                                .addComponent(textFormato, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE))
                             .addComponent(labelTitulo6, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textURIFich, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE))
+                            .addComponent(textURIFich, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(botonAddFich, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelFicherosLayout.createSequentialGroup()
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
+                        .addComponent(botonAddFich)))
                 .addContainerGap())
         );
         panelFicherosLayout.setVerticalGroup(
@@ -330,9 +390,13 @@ public class Ventana2 extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(textURIFich, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(5, 5, 5))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botonAddFich)
+                .addGroup(panelFicherosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botonAddFich)
+                    .addGroup(panelFicherosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton3)
+                        .addComponent(jButton4)))
                 .addContainerGap())
         );
 
@@ -341,6 +405,27 @@ public class Ventana2 extends javax.swing.JFrame {
 
         labelDescripcion6.setFont(new java.awt.Font("Tahoma", 0, 12));
         labelDescripcion6.setText("Catalogaciones:");
+
+        jButton1.setText("Cambiar...");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Cambiar...");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton7.setText("Eliminar");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -352,30 +437,40 @@ public class Ventana2 extends javax.swing.JFrame {
                     .addComponent(panelFicheros, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(scrollDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE))
+                        .addComponent(scrollDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 190, Short.MAX_VALUE)
+                        .addComponent(botonSiguiente))
+                    .addComponent(panelCat, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(textTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(labelTitulo)
-                            .addComponent(labelDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(96, 96, 96))
+                        .addGap(10, 10, 10)
+                        .addComponent(textTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(labelTitulo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 218, Short.MAX_VALUE)
+                        .addComponent(jButton1))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(labelDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 176, Short.MAX_VALUE)
+                        .addComponent(jButton2))
                     .addComponent(labelDescripcion4, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botonSiguiente)
-                    .addComponent(labelDescripcion6, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelCat, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(labelDescripcion6, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelTitulo)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelTitulo)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelDescripcion)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelDescripcion)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scrollDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(7, 7, 7)
@@ -386,8 +481,10 @@ public class Ventana2 extends javax.swing.JFrame {
                 .addComponent(labelDescripcion6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(botonSiguiente)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonSiguiente)
+                    .addComponent(jButton7))
                 .addContainerGap())
         );
 
@@ -439,8 +536,9 @@ public class Ventana2 extends javax.swing.JFrame {
             }
         } else if (estado == estados.CONSULTAR) {
             manejador.cambiaEstado(estados.VENTANA1);
-        } else {
-            // TODO Modificar
+        } else if (estado == estados.MODIFICAR){
+            manejador.getV3().mandaEstadoV1(estados.MODIFICAR);
+            manejador.cambiaEstado(estados.VENTANA3);
         }
 
     }//GEN-LAST:event_botonSiguienteActionPerformed
@@ -466,22 +564,42 @@ public class Ventana2 extends javax.swing.JFrame {
     }//GEN-LAST:event_textURICatActionPerformed
 
     private void botonAccionCatalogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAccionCatalogoActionPerformed
-        if (textNombreCat.getText().length() > 0 && textFormatoCat.getText().length() > 0
-                && textURICat.getText().length() > 0 && textFuenteCat.getText().length() > 0) {
-            DescriptorCatalogo catalogo = new DescriptorCatalogo(
-                    textNombreCat.getText(),
-                    comboTipo.getSelectedItem().toString(), textFuenteCat.getText(),
-                    textFormatoCat.getText(), textURICat.getText());
-            if (!catalogaciones.contains(catalogo)) {
-                catalogaciones.add(catalogo);
+        if (estado == estado.MODIFICAR) {
+            try {
+                String consulta;
+                consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM catalogacion WHERE `catalogacion`.`nombreCat`='" + textNombreCat.getText() + "';", "nombreCat");
+                if (consulta == null) {
+                    if (textNomFich.getText().length() > 0 && textFormato.getText().length() > 0 && textURIFich.getText().length() > 0) {
+                        manejador.getBBDDManager().consultaInsetar("INSERT INTO `dochistoria`.`catalogacion` (`nombreCat`,`tipo`,`fuente`,`formato`,`uri`) VALUES ('"  + textNombreCat.getText() + "','" + comboTipo.getSelectedItem().toString() + "','" + textFuenteCat.getText() + "','" + textFormatoCat.getText() + "','" + textURICat.getText() + "');");
+                        manejador.getBBDDManager().consultaInsetar("INSERT INTO `dochistoria`.`catalogacionesdoc` (`descripcion`,`catalogacion`) VALUES ('" + docBase + "','" + textNombreCat.getText() + "');");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Si la catalogacion no existe en la base de datos, se deben rellenar todos los campos.", "Aviso", 2);
+                    }
+                } else {
+                    manejador.getBBDDManager().consultaInsetar("INSERT INTO `dochistoria`.`catalogacionesdoc` (`descripcion`,`catalogacion`) VALUES ('" + docBase + "','" + textNombreCat.getText() + "');");
+                }
+                cargaTablaCatalogaciones(docBase);
+            } catch (SQLException ex) {
+                Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
             }
-            textNombreCat.setText("");
-            textFuenteCat.setText("");
-            textFormatoCat.setText("");
-            textURICat.setText("");
-            actualizaTablaCatalogo();
-        } else {
-            JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos de la catalogacion", "Aviso", 2);
+        } else {//if (estado == estados.CREAR) {
+            if (textNombreCat.getText().length() > 0 && textFormatoCat.getText().length() > 0
+                    && textURICat.getText().length() > 0 && textFuenteCat.getText().length() > 0) {
+                DescriptorCatalogo catalogo = new DescriptorCatalogo(
+                        textNombreCat.getText(),
+                        comboTipo.getSelectedItem().toString(), textFuenteCat.getText(),
+                        textFormatoCat.getText(), textURICat.getText());
+                if (!catalogaciones.contains(catalogo)) {
+                    catalogaciones.add(catalogo);
+                }
+                textNombreCat.setText("");
+                textFuenteCat.setText("");
+                textFormatoCat.setText("");
+                textURICat.setText("");
+                actualizaTablaCatalogo();
+            } else {
+                JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos de la catalogacion", "Aviso", 2);
+            }
         }
     }//GEN-LAST:event_botonAccionCatalogoActionPerformed
 
@@ -498,26 +616,144 @@ public class Ventana2 extends javax.swing.JFrame {
 }//GEN-LAST:event_textURIFichActionPerformed
 
     private void botonAddFichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAddFichActionPerformed
-        DescriptorFichero f = new DescriptorFichero(textNomFich.getText(),
-                textFormato.getText(),
-                textURIFich.getText());
-        if (textNomFich.getText().length() > 0 && textFormato.getText().length() > 0
-                && textURIFich.getText().length() > 0) {
-            if (!ficheros.contains(f)) {
-                ficheros.add(f);
+        if (estado == estado.MODIFICAR) {
+            try {
+                String consulta;
+                consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM fichero_descripcion WHERE `fichero_descripcion`.`nombreFichDoc`='" + textNomFich.getText() + "';", "nombreFichDoc");
+                if (consulta == null) {
+                    if (textNomFich.getText().length() > 0 && textFormato.getText().length() > 0 && textURIFich.getText().length() > 0) {
+                        manejador.getBBDDManager().consultaInsetar("INSERT INTO `dochistoria`.`fichero_descripcion` (`nombreFichDoc`,`formatoFichDoc`,`uriFichDoc`) VALUES ('" + textNomFich.getText() + "','" + textFormato.getText() + "','" + textURIFich.getText() + "');");
+                        manejador.getBBDDManager().consultaInsetar("INSERT INTO `dochistoria`.`descripcionesfichero` (`descripcion`,`ficheroDesc`) VALUES ('" + docBase + "','" + textNomFich.getText() + "');");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Si el fichero no existe en la base de datos, se deben rellenar todos los campos.", "Aviso", 2);
+                    }
+                } else {
+                    manejador.getBBDDManager().consultaInsetar("INSERT INTO `dochistoria`.`descripcionesfichero` (`descripcion`,`ficheroDesc`) VALUES ('" + docBase + "','" + textNomFich.getText() + "');");
+                }
+                cargaTablaFicheros(docBase);
+            } catch (SQLException ex) {
+                Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
             }
-            textNomFich.setText("");
-            textFormato.setText("");
-            textURIFich.setText("");
-            actualizaTablaFicheros();
-        } else {
-            JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos del fichero", "Aviso", 2);
+        } else {//if (estado == estados.CREAR) {
+
+            DescriptorFichero f = new DescriptorFichero(textNomFich.getText(),
+                    textFormato.getText(),
+                    textURIFich.getText());
+            if (textNomFich.getText().length() > 0 && textFormato.getText().length() > 0
+                    && textURIFich.getText().length() > 0) {
+                if (!ficheros.contains(f)) {
+                    ficheros.add(f);
+                }
+                textNomFich.setText("");
+                textFormato.setText("");
+                textURIFich.setText("");
+                actualizaTablaFicheros();
+            } else {
+                JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos del fichero", "Aviso", 2);
+            }
         }
 }//GEN-LAST:event_botonAddFichActionPerformed
 
     private void textNomFichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textNomFichActionPerformed
         // TODO add your handling code here:
 }//GEN-LAST:event_textNomFichActionPerformed
+
+private void tablaFicherosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaFicherosMouseClicked
+// TODO add your handling code here:
+    String fichero = tablaFicheros.getValueAt(tablaFicheros.getSelectedRow(), 0).toString();
+    try {
+        rellenaDatosFichero(fichero);
+    } catch (SQLException ex) {
+        Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_tablaFicherosMouseClicked
+
+private void tablaCatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaCatMouseClicked
+// TODO add your handling code here:
+    String catalogacion = tablaCat.getValueAt(tablaCat.getSelectedRow(), 0).toString();
+    try {
+        rellenaDatosCatalogacion(catalogacion);
+    } catch (SQLException ex) {
+        Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_tablaCatMouseClicked
+
+private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+// TODO add your handling code here:
+    try {
+        if (textTitulo.getText().length() > 0) {
+            manejador.getBBDDManager().consultaInsetar("UPDATE `dochistoria`.`descripcion` SET `titulo` = '" + textTitulo.getText() + "' WHERE `descripcion`.`titulo` = '" + docBase + "';");
+            docBase = textTitulo.getText();
+        } else {
+            JOptionPane.showMessageDialog(null, "No puede modificarse si el campo está en blanco.", "Aviso", 2);
+            textTitulo.setText(docBase);
+        }
+        // TODO add your handling code here:
+    } catch (SQLException ex) {
+        Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_jButton1ActionPerformed
+
+private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+// TODO add your handling code here:
+    try {
+        manejador.getBBDDManager().consultaInsetar("UPDATE `dochistoria`.`descripcion` SET `descContenido` = '" + textDescripcion.getText() + "' WHERE `descripcion`.`titulo` = '" + docBase + "';");
+        // TODO add your handling code here:
+    } catch (SQLException ex) {
+        Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_jButton2ActionPerformed
+
+private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+// TODO add your handling code here:
+    try {
+        manejador.getBBDDManager().consultaInsetar("DELETE FROM `dochistoria`.`fichero_descripcion` WHERE `fichero_descripcion`.`nombreFichDoc`='" + textNomFich.getText() + "';");
+        cargaTablaFicheros(docBase);
+    } catch (SQLException ex) {
+        Logger.getLogger(VentanaCrearAcont.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_jButton4ActionPerformed
+
+private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+// TODO add your handling code here:
+    try {
+        manejador.getBBDDManager().consultaInsetar("DELETE FROM `dochistoria`.`descripcionesfichero` WHERE `descripcionesfichero`.`descripcion`='" + docBase + "' AND `descripcionesfichero`.`ficheroDesc`='" + textNomFich.getText() + "';");
+        cargaTablaFicheros(docBase);
+        vaciaDatosFichero();
+    } catch (SQLException ex) {
+        Logger.getLogger(VentanaCrearAcont.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_jButton3ActionPerformed
+
+private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+// TODO add your handling code here:
+    try {
+        manejador.getBBDDManager().consultaInsetar("DELETE FROM `dochistoria`.`documento` WHERE `documento`.`id`='" + id + "';");
+        manejador.cambiaEstado(estados.MODIFICAR);
+    } catch (SQLException ex) {
+        Logger.getLogger(VentanaCrearAcont.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_jButton7ActionPerformed
+
+private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+// TODO add your handling code here:
+    try {
+        manejador.getBBDDManager().consultaInsetar("DELETE FROM `dochistoria`.`catalogacionesdoc` WHERE `catalogacionesdoc`.`descripcion`='" + docBase + "' AND `catalogacionesdoc`.`catalogacion`='" + textNombreCat.getText() + "';");
+        cargaTablaCatalogaciones(docBase);
+    } catch (SQLException ex) {
+        Logger.getLogger(VentanaCrearAcont.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_jButton5ActionPerformed
+
+private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+// TODO add your handling code here:
+    try {
+        manejador.getBBDDManager().consultaInsetar("DELETE FROM `dochistoria`.`catalogacion` WHERE `catalogacion`.`nombreCat`='" + textNombreCat.getText() + "';");
+        cargaTablaCatalogaciones(docBase);
+    } catch (SQLException ex) {
+        Logger.getLogger(VentanaCrearAcont.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}//GEN-LAST:event_jButton6ActionPerformed
 
     private void actualizaTablaCatalogo() {
         DefaultTableModel m;
@@ -558,22 +794,21 @@ public class Ventana2 extends javax.swing.JFrame {
             textFormato.setText("");
             textURIFich.setText("");
             textTitulo.setText(manejador.getBBDDManager().consultaPeticion(
-            "SELECT descripcion FROM documento WHERE descripcion = " + doc+";", "descripcion"));
+                    "SELECT descripcion FROM documento WHERE descripcion = " + doc + ";", "descripcion"));
             textDescripcion.setText(manejador.getBBDDManager().consultaPeticion(
-            "SELECT descContenido FROM descripcion WHERE titulo="+doc+";","descContenido"));
+                    "SELECT descContenido FROM descripcion WHERE titulo=" + doc + ";", "descContenido"));
             DefaultTableModel mFich = (DefaultTableModel) tablaFicheros.getModel();
             String[] fs = manejador.getBBDDManager().consultaPeticion("SELECT ficheroDesc FROM "
-                        + "descripcionesFichero WHERE descripcion="+ doc+";","ficheroDesc").split(",");
+                    + "descripcionesFichero WHERE descripcion=" + doc + ";", "ficheroDesc").split(",");
             mFich.addRow(fs);
             DefaultTableModel mCat = (DefaultTableModel) tablaCat.getModel();
             String[] cs = manejador.getBBDDManager().consultaPeticion("SELECT catalogacion FROM "
-                        + "catalogacionesDoc WHERE descripcion="+ doc+";","catalogacion").split(",");
+                    + "catalogacionesDoc WHERE descripcion=" + doc + ";", "catalogacion").split(",");
             mCat.addRow(cs);
         } catch (SQLException ex) {
             System.out.print(ex);
         }
     }
-
 
     void mandaEstadoV1(estados s) {
         estado = s;
@@ -590,6 +825,13 @@ public class Ventana2 extends javax.swing.JFrame {
             textTitulo.setEditable(true);
             textURICat.setEditable(true);
             textURIFich.setEditable(true);
+            jButton1.setVisible(false);
+            jButton2.setVisible(false);
+            jButton3.setVisible(false);
+            jButton4.setVisible(false);
+            jButton5.setVisible(false);
+            jButton6.setVisible(false);
+            jButton7.setVisible(false);
         } else if (s == estados.CONSULTAR) {
             botonAddFich.setVisible(false);
             botonAccionCatalogo.setVisible(false);
@@ -603,9 +845,16 @@ public class Ventana2 extends javax.swing.JFrame {
             textTitulo.setEditable(false);
             textURICat.setEditable(false);
             textURIFich.setEditable(false);
+            jButton1.setVisible(false);
+            jButton2.setVisible(false);
+            jButton3.setVisible(false);
+            jButton4.setVisible(false);
+            jButton5.setVisible(false);
+            jButton6.setVisible(false);
+            jButton7.setVisible(false);
         } else {
             // TODO
-            botonSiguiente.setText("Aceptar");
+            botonSiguiente.setText("Siguiente");
             botonAddFich.setVisible(true);
             botonAccionCatalogo.setVisible(true);
             textDescripcion.setEditable(true);
@@ -617,6 +866,13 @@ public class Ventana2 extends javax.swing.JFrame {
             textTitulo.setEditable(true);
             textURICat.setEditable(true);
             textURIFich.setEditable(true);
+            jButton1.setVisible(true);
+            jButton2.setVisible(true);
+            jButton3.setVisible(true);
+            jButton4.setVisible(true);
+            jButton5.setVisible(true);
+            jButton6.setVisible(true);
+            jButton7.setVisible(true);
         }
     }
 
@@ -640,6 +896,13 @@ public class Ventana2 extends javax.swing.JFrame {
     private javax.swing.JButton botonAddFich;
     private javax.swing.JButton botonSiguiente;
     private javax.swing.JComboBox comboTipo;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel labelDescripcion;
@@ -669,4 +932,92 @@ public class Ventana2 extends javax.swing.JFrame {
     private javax.swing.JTextField textURICat;
     private javax.swing.JTextField textURIFich;
     // End of variables declaration//GEN-END:variables
+
+    public void cargaDocumento(String documento) {
+        try {
+            docBase = documento;
+            id = manejador.getBBDDManager().consultaPeticion("SELECT * FROM documento WHERE `documento`.`descripcion` = '" + documento + "'", "id");
+            textTitulo.setText(documento);
+            String consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM descripcion WHERE `descripcion`.`titulo` = '" + documento + "'", "descContenido");
+            textDescripcion.setText(consulta);
+            cargaTablaFicheros(documento);
+            cargaTablaCatalogaciones(documento);
+        } catch (SQLException ex) {
+            Logger.getLogger(VentanaCrearAcont.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void cargaTablaFicheros(String documento) throws SQLException {
+        String consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM descripcionesfichero WHERE `descripcionesfichero`.`descripcion`='" + documento + "';", "ficheroDesc");
+        tablaFicheros.removeAll();
+        if (consulta != null) {
+            DefaultTableModel m;
+            m = new DefaultTableModel(new Object[]{"Ficheros"}, 0);
+            String[] ficheros = consulta.split(",");
+            System.out.println(ficheros);
+
+            for (int k = 0; k < ficheros.length; k++) {
+                m.addRow(new Object[]{ficheros[k]});
+            }
+            tablaFicheros.setModel(m);
+        } else {
+            DefaultTableModel m = new DefaultTableModel(new Object[]{"Ficheros"}, 0);
+            tablaFicheros.setModel(m);
+        }
+    }
+
+    ;
+    
+    private void cargaTablaCatalogaciones(String documento) throws SQLException {
+        String consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM catalogacionesdoc WHERE `catalogacionesdoc`.`descripcion`='" + documento + "';", "catalogacion");
+        tablaCat.removeAll();
+        if (consulta != null) {
+            DefaultTableModel m;
+            m = new DefaultTableModel(new Object[]{"Catalogaciones"}, 0);
+            String[] catalogaciones = consulta.split(",");
+            System.out.println(catalogaciones);
+
+            for (int k = 0; k < catalogaciones.length; k++) {
+                m.addRow(new Object[]{catalogaciones[k]});
+            }
+            tablaCat.setModel(m);
+        } else {
+            DefaultTableModel m = new DefaultTableModel(new Object[]{"Catalogaciones"}, 0);
+            tablaCat.setModel(m);
+        }
+    }
+
+    ;
+    
+    private void rellenaDatosFichero(String fichero) throws SQLException {
+        textNomFich.setText(fichero);
+        String consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM `dochistoria`.`fichero_descripcion` WHERE `fichero_descripcion`.`nombreFichDoc`='" + fichero + "';", "formatoFichDoc");
+        textFormato.setText(consulta);
+        consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM `dochistoria`.`fichero_descripcion` WHERE `fichero_descripcion`.`nombreFichDoc`='" + fichero + "';", "uriFichDoc");
+        textURIFich.setText(consulta);
+    }
+
+    private void rellenaDatosCatalogacion(String catalogacion) throws SQLException {
+        textNombreCat.setText(catalogacion);
+        String consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM `dochistoria`.`catalogacion` WHERE `catalogacion`.`nombreCat`='" + catalogacion + "';", "tipo");
+        if (consulta == "lista_valores") {
+            comboTipo.setSelectedIndex(0);
+        } else if (consulta == "taxonomia") {
+            comboTipo.setSelectedIndex(1);
+        } else if (consulta == "tesauro") {
+            comboTipo.setSelectedIndex(2);
+        }
+        consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM `dochistoria`.`catalogacion` WHERE `catalogacion`.`nombreCat`='" + catalogacion + "';", "fuente");
+        textFuenteCat.setText(consulta);
+        consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM `dochistoria`.`catalogacion` WHERE `catalogacion`.`nombreCat`='" + catalogacion + "';", "formato");
+        textFormatoCat.setText(consulta);
+        consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM `dochistoria`.`catalogacion` WHERE `catalogacion`.`nombreCat`='" + catalogacion + "';", "uri");
+        textURICat.setText(consulta);
+    }
+
+    private void vaciaDatosFichero() {
+        textNomFich.setText("");
+        textFormato.setText("");
+        textURIFich.setText("");
+    }
 }

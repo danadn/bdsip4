@@ -556,9 +556,7 @@ private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         } catch (SQLException ex) {
             Logger.getLogger(VentanaCrearAcont.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    ;
+    };
     
     private void cargaTablaFicheros(String colectivo) throws SQLException {
         String consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM colectivosfichero WHERE `colectivosfichero`.`colectivo`='" + colectivo + "';", "ficheroCol");
@@ -577,9 +575,7 @@ private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             DefaultTableModel m = new DefaultTableModel(new Object[]{"Ficheros"}, 0);
             tablaFicheros.setModel(m);
         }
-    }
-
-    ;
+    };
     
     private void rellenaDatosFichero(String fichero) throws SQLException {
         textNomFich.setText(fichero);
