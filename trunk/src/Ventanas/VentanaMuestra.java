@@ -18,10 +18,9 @@ import javax.swing.table.DefaultTableModel;
 public class VentanaMuestra extends javax.swing.JFrame {
     GUIManager manejador;
     private Icon loading;
-    private boolean mod;
+    private estados estado;
     /** Creates new form VentanaMuestra */
     public VentanaMuestra(GUIManager m) {
-        mod=false;
         manejador = m;
         loading = new ImageIcon("./img/loading.gif");
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
@@ -153,10 +152,12 @@ public class VentanaMuestra extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonTerminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonTerminarActionPerformed
-        if(mod)
+        if(estado==estados.MODIFICAR)
             manejador.cambiaEstado(estados.MODIFICAR);
-        else
+        else if(estado==estados.CREAR)
             manejador.cambiaEstado(estados.VENTANA3);
+        else
+            manejador.cambiaEstado(estados.VENTANA1);
     }//GEN-LAST:event_botonTerminarActionPerformed
 
     private void comboEleccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboEleccionActionPerformed
@@ -198,7 +199,7 @@ public class VentanaMuestra extends javax.swing.JFrame {
 
     private void botonAccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAccionActionPerformed
         try {
-            if(mod)
+            if(estado==estados.MODIFICAR)
                 switch (manejador.getEstado()) {
                     case BBDD_PERSONAJE:
                         manejador.cambiaEstado(estados.CREAR_PERSONAJE);
@@ -225,7 +226,7 @@ public class VentanaMuestra extends javax.swing.JFrame {
                     default:
                         break;
                 }
-            else {
+            else if(estado==estados.CREAR){
                 int row = tablaEncontrados.getSelectedRow();
                 String elemento = tablaEncontrados.getValueAt(row, 0).toString();
                 int idDocumento = Integer.parseInt(manejador.getBBDDManager().consultaPeticion(
@@ -256,7 +257,8 @@ public class VentanaMuestra extends javax.swing.JFrame {
                         break;
                 }
                 System.out.print(elemento+" añadido con exito al documento con id "+idDocumento+"\n");
-            }
+            }else{}
+            
             //this.setVisible(false);
             this.dispose();
         } catch (SQLException ex) {
@@ -292,6 +294,7 @@ public class VentanaMuestra extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     void mandaEstadoV1(estados s) {
+        estado=s;
         try {
             rellenaComboEleccion(s);
             if (s == estados.CREAR) {
@@ -347,6 +350,4 @@ public class VentanaMuestra extends javax.swing.JFrame {
                 comboEleccion.addItem(res[i]);*/
         }
     }
-    
-    public void setMod(boolean b){mod=b;};
 }

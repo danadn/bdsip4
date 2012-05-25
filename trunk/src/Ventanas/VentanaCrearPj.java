@@ -22,13 +22,14 @@ public class VentanaCrearPj extends javax.swing.JFrame {
     private GUIManager manejador;
     private DescriptorPersonaje personaje;
     private ArrayList<DescriptorFichero> fichCargo;
-    private boolean mod;
+    private estados estado;
+    //private boolean mod;
     private ArrayList<DescriptorCargo> cargos;
     private ArrayList<String> alias;
 
     /** Creates new form VentanaCrearPj */
     public VentanaCrearPj(GUIManager m) {
-        mod = false;
+        estado=null;
         manejador = m;
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(d.width / 4, 20);
@@ -863,9 +864,9 @@ public class VentanaCrearPj extends javax.swing.JFrame {
     }//GEN-LAST:event_MesDefActionPerformed
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
-        if (mod) {
+        if(estado==estados.MODIFICAR){
             manejador.cambiaEstado(estados.MODIFICAR);
-        } else if (camposRellenos()) {
+        } else if(estado==estados.CREAR) if (camposRellenos()) {
             try {
                 // Creamos el Personaje
                 manejador.getBBDDManager().consultaInsetar("INSERT INTO personaje "
@@ -935,14 +936,14 @@ public class VentanaCrearPj extends javax.swing.JFrame {
     }//GEN-LAST:event_botonAceptarActionPerformed
 
     private void botonAliasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAliasActionPerformed
-        if (mod) {
+        if(estado==estados.MODIFICAR){
             try {
                 manejador.getBBDDManager().consultaInsetar("INSERT INTO `dochistoria`.`alias` (`personaje`, `nomAlias`) VALUES ('" + personaje.getNombreYApe() + "', '" + textAlias.getText() + "');");
                 cargaTablaAlias(personaje.getNombreYApe());
             } catch (SQLException ex) {
                 Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else {
+        } else if(estado==estados.CREAR){
             if (!alias.contains(textAlias.getText())) {
                 alias.add(textAlias.getText());
             }
@@ -953,7 +954,7 @@ public class VentanaCrearPj extends javax.swing.JFrame {
 
     private void botonCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCargoActionPerformed
         // Añadimos el cargo a la lista de cargos
-        if (mod) {
+        if (estado==estados.MODIFICAR) {
             try {
                 if (datosCargoLleno()) {
                     String consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM `dochistoria`.`cargo` WHERE `cargo`.`nombreCargo`='" + textCargo.getText() + "';","nombreCargo");
@@ -968,7 +969,7 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(null, "Este personaje ya tiene asociado el cargo " + textCargo.getText() + ". Solo puede modificarlo, desligarlo o eliminarlo.", "Aviso", 2);
                         }
                     }
-                } else {
+                } else if(estado==estados.CREAR){
                     JOptionPane.showMessageDialog(null, "Debe rellenar todos los campos pertinentes para introducir un nuevo cargo al personaje.", "Aviso", 2);
                 }
                 //manejador.getBBDDManager().consultaInsetar("INSERT INTO `dochistoria`.`cargo` (`nombreCargo`) VALUES ('"+textCargo.getText()+"');");
@@ -1014,7 +1015,7 @@ public class VentanaCrearPj extends javax.swing.JFrame {
 }//GEN-LAST:event_textURIFichActionPerformed
 
     private void botonAddFichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAddFichActionPerformed
-        if (mod) {
+        if (estado==estados.MODIFICAR) {
             try {
                 String consulta;
                 consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM cargo WHERE `cargo`.`nombreCargo`='" + textCargo.getText() + "';", "nombreCargo");
@@ -1037,7 +1038,7 @@ public class VentanaCrearPj extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else {
+        } else if(estado==estados.CREAR){
             DescriptorFichero f = new DescriptorFichero(textNomFich.getText(),
                     textFormato.getText(),
                     textURIFich.getText());
@@ -1509,6 +1510,7 @@ private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     }
 
     void mandaEstadoV1(estados s) {
+        estado=s;
         if (s == estados.CREAR) {
             jButton1.setVisible(false);
             jButton2.setVisible(false);
@@ -1519,7 +1521,14 @@ private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
             jButton7.setVisible(false);
             jButton8.setVisible(false);
             jButton9.setVisible(false);
-            mod = false;
+            jButton9.setVisible(false);
+            jButton10.setVisible(false);
+            jButton11.setVisible(false);
+            jButton12.setVisible(false);
+            jButton13.setVisible(false);
+            jButton14.setVisible(false);
+            jButton15.setVisible(false);
+            //mod = false;
         } else if (s == estados.MODIFICAR) {
             jButton1.setVisible(true);
             jButton2.setVisible(true);
@@ -1530,9 +1539,15 @@ private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
             jButton7.setVisible(true);
             jButton8.setVisible(true);
             jButton9.setVisible(true);
+            jButton10.setVisible(true);
+            jButton11.setVisible(true);
+            jButton12.setVisible(true);
+            jButton13.setVisible(true);
+            jButton14.setVisible(true);
+            jButton15.setVisible(true);
             vaciaDatosFichero();
             vaciaDatosCargo();
-            mod = true;
+            //mod = true;
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
