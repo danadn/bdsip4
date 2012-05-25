@@ -11,14 +11,20 @@
 
 package Ventanas;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Daniel
  */
 public class VentanaBusqAdv extends javax.swing.JFrame {
+    GUIManager manejador;
 
     /** Creates new form VentanaBusqAdv */
-    public VentanaBusqAdv() {
+    public VentanaBusqAdv(GUIManager m) {
+        manejador = m;
         initComponents();
     }
 
@@ -262,7 +268,11 @@ public class VentanaBusqAdv extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaBusqAdv().setVisible(true);
+                try {
+                    new VentanaBusqAdv(new GUIManager()).setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(VentanaBusqAdv.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
