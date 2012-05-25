@@ -1,13 +1,12 @@
 package Ventanas;
 
 import BBDD.BBDDManager;
-import Descriptores.DescriptorDocumento;
 import java.sql.SQLException;
 
 enum estados{CREAR,MODIFICAR,CONSULTAR,VENTANA1,VENTANA2,VENTANA3,
             CREAR_PERSONAJE,CREAR_ACONTECIMIENTO,CREAR_COLECTIVO,BBDD_PERSONAJE,
-             BBDD_COLECTIVO,BBDD_ACONTECIMIENTO,BBDD_DOCUMENTO,
-            BUSQUEDA_SIMPLE,BUSQUEDA_AVANZADA};
+            BBDD_COLECTIVO,BBDD_ACONTECIMIENTO,BBDD_DOCUMENTO,
+            BUSQUEDA_SIMPLE,BUSQUEDA_AVANZADA,CONSULTA_DOC};
 /**
  *
  * @author Daniel
@@ -94,6 +93,7 @@ public class GUIManager {
                 break;
             case VENTANA2:
                 v1.setVisible(false);
+                v2.cambiaEstados(estadosDoc.CREAR);
                 v2.setVisible(true);
                 v3.setVisible(false);
                 v4.setVisible(false);
@@ -218,9 +218,66 @@ public class GUIManager {
                 break;
             case BUSQUEDA_AVANZADA:
                 break;
+            case CONSULTA_DOC:
+                v1.setVisible(false);
+                v2.cambiaEstados(estadosDoc.CONSULTA);
+                v2.setVisible(true);
+                v3.setVisible(false);
+                v4.setVisible(false);
+                vM.setVisible(false);
+                vCrearPj.setVisible(false);
+                vCrearCol.setVisible(false);
+                vCrearAcont.setVisible(false);
+                vBusqSimple.setVisible(false);
+                mod=false;
+                break;
             default:
                 estado = estados.VENTANA1;
                 break;
         }
+    }
+
+    public BBDDManager getBd() {
+        return bd;
+    }
+
+    public boolean isMod() {
+        return mod;
+    }
+
+    public Ventana1 getV1() {
+        return v1;
+    }
+
+    public Ventana2 getV2() {
+        return v2;
+    }
+
+    public Ventana3 getV3() {
+        return v3;
+    }
+
+    public Ventana4 getV4() {
+        return v4;
+    }
+
+    public VentanaBusqSimple getvBusqSimple() {
+        return vBusqSimple;
+    }
+
+    public VentanaCrearAcont getvCrearAcont() {
+        return vCrearAcont;
+    }
+
+    public VentanaCrearCol getvCrearCol() {
+        return vCrearCol;
+    }
+
+    public VentanaCrearPj getvCrearPj() {
+        return vCrearPj;
+    }
+
+    public VentanaMuestra getvM() {
+        return vM;
     }
 }

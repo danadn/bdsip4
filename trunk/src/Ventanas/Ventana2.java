@@ -1,4 +1,5 @@
 package Ventanas;
+
 import Descriptores.DescriptorCatalogo;
 import Descriptores.DescriptorFichero;
 import java.awt.Dimension;
@@ -11,24 +12,63 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+enum estadosDoc {
+
+    CREAR, CONSULTA
+};
+
 /**
  *
  * @author Daniel
  */
 public class Ventana2 extends javax.swing.JFrame {
+
     private ArrayList<DescriptorCatalogo> catalogaciones;
     private ArrayList<DescriptorFichero> ficheros;
     private GUIManager manejador;
+    private estadosDoc estado;
+
     /** Creates new form Ventana2 */
     public Ventana2(GUIManager m) {
         manejador = m;
         catalogaciones = new ArrayList<DescriptorCatalogo>();
         ficheros = new ArrayList<DescriptorFichero>();
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(d.width/3, 20);
+        this.setLocation(d.width / 3, 20);
         initComponents();
         this.setTitle("Ventana 2");
         this.setDefaultCloseOperation(0);
+    }
+
+    public void cambiaEstados(estadosDoc s) {
+        estado = s;
+        if (s == estadosDoc.CREAR) {
+            botonAddFich.setVisible(true);
+            botonAccionCatalogo.setVisible(true);
+            botonSiguiente.setText("Siguiente");
+            textDescripcion.setEditable(true);
+            textFormato.setEditable(true);
+            textFormatoCat.setEditable(true);
+            textFuenteCat.setEditable(true);
+            textNomFich.setEditable(true);
+            textNombreCat.setEditable(true);
+            textTitulo.setEditable(true);
+            textURICat.setEditable(true);
+            textURIFich.setEditable(true);
+        } else {
+            botonAddFich.setVisible(false);
+            botonAccionCatalogo.setVisible(false);
+            botonSiguiente.setText("Volver");
+            textDescripcion.setEditable(false);
+            textFormato.setEditable(false);
+            textFormatoCat.setEditable(false);
+            textFuenteCat.setEditable(false);
+            textNomFich.setEditable(false);
+            textNombreCat.setEditable(false);
+            textTitulo.setEditable(false);
+            textURICat.setEditable(false);
+            textURIFich.setEditable(false);
+        }
     }
 
     /** This method is called from within the constructor to
@@ -391,46 +431,50 @@ public class Ventana2 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSiguienteActionPerformed
-        if (camposRellenos()){
-            try {
-                // Insertamos la descripcion en la BBDD
-                manejador.getBBDDManager().creaDescripcion(textTitulo.getText(), textDescripcion.getText());
-                manejador.getBBDDManager().creaDocumento(textTitulo.getText());
-                // Creamos y asociamos sus catalogaciones y ficheros
-                Iterator<DescriptorFichero> itF = ficheros.iterator();
-                while (itF.hasNext()) {
-                    // Creamos el fichero en la BBDD
-                    DescriptorFichero f = itF.next();
-                    manejador.getBBDDManager().creaFicheroDesc(f.getNombre(),
-                                    f.getFormato(),f.getURI());
-                    // Lo relacionamos con el documento
-                    manejador.getBBDDManager().consultaInsetar("INSERT INTO "
-                            + "descripcionesFichero(descripcion,ficheroDesc) VALUES "
-                            + "('"+textTitulo.getText()+"','"+f.getNombre()+"');");
+        if (estado == estadosDoc.CREAR) {
+            if (camposRellenos()) {
+                try {
+                    // Insertamos la descripcion en la BBDD
+                    manejador.getBBDDManager().creaDescripcion(textTitulo.getText(), textDescripcion.getText());
+                    manejador.getBBDDManager().creaDocumento(textTitulo.getText());
+                    // Creamos y asociamos sus catalogaciones y ficheros
+                    Iterator<DescriptorFichero> itF = ficheros.iterator();
+                    while (itF.hasNext()) {
+                        // Creamos el fichero en la BBDD
+                        DescriptorFichero f = itF.next();
+                        manejador.getBBDDManager().creaFicheroDesc(f.getNombre(),
+                                f.getFormato(), f.getURI());
+                        // Lo relacionamos con el documento
+                        manejador.getBBDDManager().consultaInsetar("INSERT INTO "
+                                + "descripcionesFichero(descripcion,ficheroDesc) VALUES "
+                                + "('" + textTitulo.getText() + "','" + f.getNombre() + "');");
+                    }
+                    Iterator<DescriptorCatalogo> it = catalogaciones.iterator();
+                    while (it.hasNext()) {
+                        DescriptorCatalogo cat = it.next();
+                        // Creamos la catalogacion en la BBDD
+                        manejador.getBBDDManager().creaCatalogacion(cat.getNombre(),
+                                cat.getTipo(), cat.getFuente(), cat.getFormato(),
+                                cat.getURI());
+                        // La relacionamos con el documento
+                        manejador.getBBDDManager().consultaInsetar("INSERT INTO "
+                                + "catalogacionesDoc(descripcion,catalogacion) VALUES "
+                                + "('" + textTitulo.getText() + "','" + cat.getNombre() + "');");
+                    }
+                    // Borramos listas
+                    catalogaciones.clear();
+                    actualizaTablaCatalogo();
+                    ficheros.clear();
+                    actualizaTablaFicheros();
+                    manejador.cambiaEstado(estados.VENTANA3);
+                } catch (SQLException ex) {
+                    System.out.println(ex.toString());
                 }
-                Iterator<DescriptorCatalogo> it = catalogaciones.iterator();
-                while (it.hasNext()) {
-                    DescriptorCatalogo cat = it.next();
-                    // Creamos la catalogacion en la BBDD
-                    manejador.getBBDDManager().creaCatalogacion(cat.getNombre(),
-                            cat.getTipo(), cat.getFuente(),cat.getFormato(),
-                            cat.getURI());
-                    // La relacionamos con el documento
-                    manejador.getBBDDManager().consultaInsetar("INSERT INTO "
-                            + "catalogacionesDoc(descripcion,catalogacion) VALUES "
-                            + "('"+textTitulo.getText()+"','"+cat.getNombre()+"');");
-                }
-                // Borramos listas
-                catalogaciones.clear();
-                actualizaTablaCatalogo();
-                ficheros.clear();
-                actualizaTablaFicheros();
-                manejador.cambiaEstado(estados.VENTANA3);
-            } catch (SQLException ex) {
-                System.out.println(ex.toString());
+            } else {
+                JOptionPane.showMessageDialog(null, "Debes rellnar todos los campos", "Aviso", 2);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Debes rellnar todos los campos", "Aviso", 2);
+            manejador.cambiaEstado(estados.VENTANA1);
         }
     }//GEN-LAST:event_botonSiguienteActionPerformed
 
@@ -455,22 +499,23 @@ public class Ventana2 extends javax.swing.JFrame {
     }//GEN-LAST:event_textURICatActionPerformed
 
     private void botonAccionCatalogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAccionCatalogoActionPerformed
-       if (textNombreCat.getText().length()>0 && textFormatoCat.getText().length()>0 &&
-               textURICat.getText().length()>0 && textFuenteCat.getText().length()>0){
-           DescriptorCatalogo catalogo = new DescriptorCatalogo(
-                   textNombreCat.getText(),
-                   comboTipo.getSelectedItem().toString(), textFuenteCat.getText(),
-                   textFormatoCat.getText(), textURICat.getText());
-           if (!catalogaciones.contains(catalogo)) {
-               catalogaciones.add(catalogo);
-           }
-           textNombreCat.setText("");
-           textFuenteCat.setText("");
-           textFormatoCat.setText("");
-           textURICat.setText("");
-           actualizaTablaCatalogo();
-        } else
+        if (textNombreCat.getText().length() > 0 && textFormatoCat.getText().length() > 0
+                && textURICat.getText().length() > 0 && textFuenteCat.getText().length() > 0) {
+            DescriptorCatalogo catalogo = new DescriptorCatalogo(
+                    textNombreCat.getText(),
+                    comboTipo.getSelectedItem().toString(), textFuenteCat.getText(),
+                    textFormatoCat.getText(), textURICat.getText());
+            if (!catalogaciones.contains(catalogo)) {
+                catalogaciones.add(catalogo);
+            }
+            textNombreCat.setText("");
+            textFuenteCat.setText("");
+            textFormatoCat.setText("");
+            textURICat.setText("");
+            actualizaTablaCatalogo();
+        } else {
             JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos de la catalogacion", "Aviso", 2);
+        }
     }//GEN-LAST:event_botonAccionCatalogoActionPerformed
 
     private void textNombreCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textNombreCatActionPerformed
@@ -487,18 +532,20 @@ public class Ventana2 extends javax.swing.JFrame {
 
     private void botonAddFichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAddFichActionPerformed
         DescriptorFichero f = new DescriptorFichero(textNomFich.getText(),
-                                                    textFormato.getText(),
-                                                    textURIFich.getText());
-        if (textNomFich.getText().length()>0 && textFormato.getText().length()>0 &&
-        textURIFich.getText().length()>0){
-            if (!ficheros.contains(f))
+                textFormato.getText(),
+                textURIFich.getText());
+        if (textNomFich.getText().length() > 0 && textFormato.getText().length() > 0
+                && textURIFich.getText().length() > 0) {
+            if (!ficheros.contains(f)) {
                 ficheros.add(f);
+            }
             textNomFich.setText("");
             textFormato.setText("");
             textURIFich.setText("");
             actualizaTablaFicheros();
-        } else
+        } else {
             JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos del fichero", "Aviso", 2);
+        }
 }//GEN-LAST:event_botonAddFichActionPerformed
 
     private void textNomFichActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textNomFichActionPerformed
@@ -507,10 +554,10 @@ public class Ventana2 extends javax.swing.JFrame {
 
     private void actualizaTablaCatalogo() {
         DefaultTableModel m;
-        m = new DefaultTableModel(new Object[] {"Catalogaciones"}, 0);
+        m = new DefaultTableModel(new Object[]{"Catalogaciones"}, 0);
         Iterator<DescriptorCatalogo> it = catalogaciones.iterator();
         while (it.hasNext()) {
-            DescriptorCatalogo cat = (DescriptorCatalogo)it.next();
+            DescriptorCatalogo cat = (DescriptorCatalogo) it.next();
             m.addRow(new Object[]{cat.getNombre()});
         }
         tablaCat.setModel(m);
@@ -518,27 +565,54 @@ public class Ventana2 extends javax.swing.JFrame {
 
     private void actualizaTablaFicheros() {
         DefaultTableModel m;
-        m = new DefaultTableModel(new Object[] {"Ficheros"}, 0);
+        m = new DefaultTableModel(new Object[]{"Ficheros"}, 0);
         Iterator<DescriptorFichero> it = ficheros.iterator();
         while (it.hasNext()) {
-            DescriptorFichero fich = (DescriptorFichero)it.next();
+            DescriptorFichero fich = (DescriptorFichero) it.next();
             m.addRow(new Object[]{fich.getNombre()});
         }
         tablaFicheros.setModel(m);
     }
 
     private boolean camposRellenos() {
-        return (textTitulo.getText().length()>0 &&
-               textDescripcion.getText().length()>0 &&
-               !catalogaciones.isEmpty() &&
-               !ficheros.isEmpty());
+        return (textTitulo.getText().length() > 0
+                && textDescripcion.getText().length() > 0
+                && !catalogaciones.isEmpty()
+                && !ficheros.isEmpty());
+    }
+
+    void rellena(String doc) {
+        try {
+            textNombreCat.setText("");
+            textFuenteCat.setText("");
+            textFormatoCat.setText("");
+            textURICat.setText("");
+            textNomFich.setText("");
+            textFormato.setText("");
+            textURIFich.setText("");
+            textTitulo.setText(manejador.getBBDDManager().consultaPeticion(
+            "SELECT descripcion FROM documento WHERE descripcion = " + doc+";", "descripcion"));
+            textDescripcion.setText(manejador.getBBDDManager().consultaPeticion(
+            "SELECT descContenido FROM descripcion WHERE titulo="+doc+";","descContenido"));
+            DefaultTableModel mFich = (DefaultTableModel) tablaFicheros.getModel();
+            String[] fs = manejador.getBBDDManager().consultaPeticion("SELECT ficheroDesc FROM "
+                        + "descripcionesFichero WHERE descripcion="+ doc+";","ficheroDesc").split(",");
+            mFich.addRow(fs);
+            DefaultTableModel mCat = (DefaultTableModel) tablaCat.getModel();
+            String[] cs = manejador.getBBDDManager().consultaPeticion("SELECT catalogacion FROM "
+                        + "catalogacionesDoc WHERE descripcion="+ doc+";","catalogacion").split(",");
+            mCat.addRow(cs);
+        } catch (SQLException ex) {
+            System.out.print(ex);
+        }
     }
 
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 try {
                     new Ventana2(new GUIManager()).setVisible(true);
@@ -548,7 +622,6 @@ public class Ventana2 extends javax.swing.JFrame {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAccionCatalogo;
     private javax.swing.JButton botonAddFich;
@@ -583,5 +656,4 @@ public class Ventana2 extends javax.swing.JFrame {
     private javax.swing.JTextField textURICat;
     private javax.swing.JTextField textURIFich;
     // End of variables declaration//GEN-END:variables
-
 }
