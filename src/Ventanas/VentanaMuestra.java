@@ -218,6 +218,7 @@ public class VentanaMuestra extends javax.swing.JFrame {
                         manejador.cambiaEstado(estados.CREAR_COLECTIVO);
                         row = tablaEncontrados.getSelectedRow();
                         String colectivo=tablaEncontrados.getValueAt(row, 0).toString();
+                        manejador.getVentanaCol().cargaColectivo(colectivo);
                         //manejador.getVentanaCol().cargaColectivo(colectivo);
                         break;
                     case BBDD_DOCUMENTO:

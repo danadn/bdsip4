@@ -643,6 +643,7 @@ private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     try {
         manejador.getBBDDManager().consultaInsetar("DELETE FROM `dochistoria`.`acontsfichero` WHERE `acontsfichero`.`acontecimiento`='" + acontBase + "' AND `acontsfichero`.`ficheroAcont`='" + textNomFich.getText() + "';");
         cargaTablaFicheros(acontBase);
+        vaciaDatosFichero();
     } catch (SQLException ex) {
         Logger.getLogger(VentanaCrearAcont.class.getName()).log(Level.SEVERE, null, ex);
     }
@@ -792,11 +793,11 @@ private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             AnoFin.setText(fecha[0]);
             MesFin.setText(fecha[1]);
             DiaFin.setText(fecha[2]);
+            vaciaDatosFichero();
             cargaTablaFicheros(acontecimiento);
         } catch (SQLException ex) {
             Logger.getLogger(VentanaCrearAcont.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     private void cargaTablaFicheros(String acontecimiento) throws SQLException {
@@ -826,5 +827,10 @@ private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         textFormato.setText(consulta);
         consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM `dochistoria`.`fichero_acontecimiento` WHERE `fichero_acontecimiento`.`nombreFichAcont`='" + fichero + "';", "uriFichAcont");
         textURIFich.setText(consulta);
+    }
+    private void vaciaDatosFichero() {
+        textNomFich.setText("");
+        textFormato.setText("");
+        textURIFich.setText("");
     }
 }
