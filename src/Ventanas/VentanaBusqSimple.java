@@ -262,6 +262,7 @@ public class VentanaBusqSimple extends javax.swing.JFrame {
     private void tablaDocsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaDocsMouseClicked
         int row = tablaDocs.rowAtPoint(evt.getPoint());
         manejador.getV2().rellena("'"+tablaDocs.getValueAt(row, 1).toString()+"'");
+        
         manejador.cambiaEstado(estados.VENTANA2);
     }//GEN-LAST:event_tablaDocsMouseClicked
 
