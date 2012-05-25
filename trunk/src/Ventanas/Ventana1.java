@@ -120,7 +120,8 @@ public final class Ventana1 extends JFrame {
 
     private void botonConsultarActionPerformed(ActionEvent evt) {
         ventanaEleccion.setVisible(true);
-        this.dispose();
+        this.estado = estados.CONSULTAR;
+        manejador.cambiaEstado(estados.CONSULTAR);
     }
 
     private void botonSalirActionPerformed(ActionEvent evt) {

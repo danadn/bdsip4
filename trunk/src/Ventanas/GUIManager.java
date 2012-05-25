@@ -6,7 +6,7 @@ import java.sql.SQLException;
 enum estados{CREAR,MODIFICAR,CONSULTAR,VENTANA1,VENTANA2,VENTANA3,
             CREAR_PERSONAJE,CREAR_ACONTECIMIENTO,CREAR_COLECTIVO,BBDD_PERSONAJE,
             BBDD_COLECTIVO,BBDD_ACONTECIMIENTO,BBDD_DOCUMENTO,
-            BUSQUEDA_SIMPLE,BUSQUEDA_AVANZADA,CONSULTA_DOC};
+            BUSQUEDA_SIMPLE,BUSQUEDA_AVANZADA};
 /**
  *
  * @author Daniel
@@ -93,7 +93,7 @@ public class GUIManager {
                 break;
             case VENTANA2:
                 v1.setVisible(false);
-                v2.cambiaEstados(estadosDoc.CREAR);
+                v2.mandaEstadoV1(v1.getEstado());
                 v2.setVisible(true);
                 v3.setVisible(false);
                 v4.setVisible(false);
@@ -216,12 +216,9 @@ public class GUIManager {
                 vCrearAcont.setVisible(false);
                 vBusqSimple.setVisible(true);
                 break;
-            case BUSQUEDA_AVANZADA:
-                break;
-            case CONSULTA_DOC:
+            case CONSULTAR:
                 v1.setVisible(false);
-                v2.cambiaEstados(estadosDoc.CONSULTA);
-                v2.setVisible(true);
+                v2.setVisible(false);
                 v3.setVisible(false);
                 v4.setVisible(false);
                 vM.setVisible(false);
@@ -229,7 +226,8 @@ public class GUIManager {
                 vCrearCol.setVisible(false);
                 vCrearAcont.setVisible(false);
                 vBusqSimple.setVisible(false);
-                mod=false;
+                break;
+            case BUSQUEDA_AVANZADA:
                 break;
             default:
                 estado = estados.VENTANA1;
