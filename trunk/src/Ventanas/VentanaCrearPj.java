@@ -864,7 +864,10 @@ public class VentanaCrearPj extends javax.swing.JFrame {
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
         if (estado == estados.MODIFICAR) {
-            manejador.cambiaEstado(estados.MODIFICAR);
+            if(manejador.getId()!=null)
+                manejador.cambiaEstado(estados.VENTANA3);
+            else
+                manejador.cambiaEstado(estados.MODIFICAR);
         } else if (estado == estados.CREAR) {
             if (camposRellenos()) {
                 try {
@@ -878,8 +881,14 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                             + "'" + textoLugarDef.getText() + "',"
                             + "'" + textBiografia.getText() + "');");
                     // Asociamos el Personaje al Documento
+                    
                     int idDocumento = Integer.parseInt(manejador.getBBDDManager().consultaPeticion(
                             "SELECT max(id) as id FROM documento;", "id"));
+                    if(manejador.getId()!=null)
+                        manejador.getBBDDManager().consultaInsetar("INSERT INTO "
+                            + "personajesDocumento (idDocumento,personaje) VALUES"
+                            + "(" + (int)Integer.valueOf(manejador.getId()) + ",'" + textoNomYApe.getText() + "');");
+                    else
                     manejador.getBBDDManager().consultaInsetar("INSERT INTO "
                             + "personajesDocumento (idDocumento,personaje) VALUES"
                             + "(" + idDocumento + ",'" + textoNomYApe.getText() + "');");
@@ -926,6 +935,8 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                     // Borramos informacion de la memoria
                     cargos.clear();
                     actualizaTablaCargos();
+                    if(manejador.getId()!=null)
+                        manejador.getV1().setEstado(estados.MODIFICAR);
                     manejador.cambiaEstado(estados.VENTANA3);
                 } catch (SQLException ex) {
                     System.out.print(ex);
@@ -1221,10 +1232,15 @@ private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 
 private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
     try {
+        if(manejador.getId()!=null){
+            manejador.getBBDDManager().consultaInsetar("DELETE FROM `dochistoria`.`personajesdocumento` WHERE `personajesdocumento`.`idDocumento`="+(int)Integer.valueOf(manejador.getId())+" AND `personajesdocumento`.`personaje`='"+ personaje.getNombreYApe() + "';");
+            manejador.cambiaEstado(estados.VENTANA3);
+        }else{
         manejador.getBBDDManager().consultaInsetar("DELETE FROM `dochistoria`.`personaje` WHERE `personaje`.`nombreYApe`='" + personaje.getNombreYApe() + "';");
         manejador.getBBDDManager().consultaInsetar("DELETE FROM `dochistoria`.`alias` WHERE `alias`.`personaje`='" + personaje.getNombreYApe() + "';");
         manejador.getBBDDManager().consultaInsetar("DELETE FROM `dochistoria`.`desempenia` WHERE `desempenia`.`personaje`='" + personaje.getNombreYApe() + "';");
         manejador.cambiaEstado(estados.MODIFICAR);
+        }
     } catch (SQLException ex) {
         Logger.getLogger(VentanaCrearPj.class.getName()).log(Level.SEVERE, null, ex);
     }
@@ -1570,6 +1586,10 @@ private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
             jButton9.setVisible(true);
             jButton10.setVisible(true);
             jButton11.setVisible(true);
+            if(manejador.getId()==null)
+                jButton11.setText("Eliminar");
+            else
+                jButton11.setText("Desligar");
             jButton12.setVisible(true);
             jButton13.setVisible(true);
             jButton14.setVisible(true);

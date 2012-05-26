@@ -505,7 +505,10 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
         if (estado == estados.MODIFICAR) {
-            manejador.cambiaEstado(estados.MODIFICAR);
+             if(manejador.getId()!=null)
+                manejador.cambiaEstado(estados.VENTANA3);
+            else
+                manejador.cambiaEstado(estados.MODIFICAR);
         } else if (estado == estados.CREAR) {
             if (camposRellenos()) {
                 try {
@@ -518,6 +521,8 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
                     // Asociamos el Acontecimiento al Documento
                     int idDocumento = Integer.parseInt(manejador.getBBDDManager().consultaPeticion(
                             "SELECT max(id) as id FROM documento;", "id"));
+                    if(manejador.getId()!=null)
+                        idDocumento=(int)Integer.valueOf(manejador.getId());
                     manejador.getBBDDManager().consultaInsetar("INSERT INTO acontecimientosDocumento"
                             + " (idDocumento,acontecimiento) VALUES"
                             + "(" + idDocumento + ",'" + textNombre.getText() + "');");
@@ -547,6 +552,8 @@ public class VentanaCrearAcont extends javax.swing.JFrame {
                     AnoFin.setText("");
                     MesFin.setText("");
                     DiaFin.setText("");
+                    if(manejador.getId()!=null)
+                        manejador.getV1().setEstado(estados.MODIFICAR);
                     manejador.cambiaEstado(estados.VENTANA3);
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(null, ex, "Aviso", 2);
@@ -626,8 +633,12 @@ private void tablaFicherosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIR
 private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
 // TODO add your handling code here:  
     try {
+         if(manejador.getId()!=null){
+            manejador.getBBDDManager().consultaInsetar("DELETE FROM `dochistoria`.`acontecimientosdocumento` WHERE `acontecimientosdocumento`.`idDocumento`="+(int)Integer.valueOf(manejador.getId())+" AND `acontecimientosdocumento`.`acontecimiento`='"+ acontBase + "';");
+            manejador.cambiaEstado(estados.VENTANA3);
+        }else{
         manejador.getBBDDManager().consultaInsetar("DELETE FROM `dochistoria`.`acontecimiento` WHERE `acontecimiento`.`nombreAcont`='" + acontBase + "';");
-        manejador.cambiaEstado(estados.MODIFICAR);
+        manejador.cambiaEstado(estados.MODIFICAR);}
     } catch (SQLException ex) {
         Logger.getLogger(VentanaCrearAcont.class.getName()).log(Level.SEVERE, null, ex);
     }
@@ -752,6 +763,10 @@ private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             jButton3.setVisible(true);
             jButton4.setVisible(true);
             jButton5.setVisible(true);
+            if(manejador.getId()==null)
+                jButton5.setText("Eliminar");
+            else
+                jButton5.setText("Desligar");
             jButton6.setVisible(true);
             jButton7.setVisible(true);
             botonAceptar.setText("Aceptar");

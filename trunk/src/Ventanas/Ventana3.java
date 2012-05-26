@@ -146,10 +146,13 @@ public final class Ventana3 extends JFrame {
     }
 
     private void botonTerminarActionPerformed(ActionEvent evt) {
+        manejador.setId(null);
         manejador.cambiaEstado(estados.VENTANA1);
     }
 
     private void botonCrearNuevoActionPerformed(ActionEvent evt) {
+        if(manejador.getId()!=null)
+            manejador.getV1().setEstado(estados.CREAR);
         switch (botonPulsado) {
             case 1:
                 manejador.cambiaEstado(estados.CREAR_PERSONAJE);
@@ -166,8 +169,30 @@ public final class Ventana3 extends JFrame {
         botonPulsado = 0;
         ventanaEleccion.setVisible(false);
     }
-
+    
     private void botonAddDeBBDDActionPerformed(ActionEvent evt) {
+         if(manejador.getId()!=null)
+            manejador.getV1().setEstado(estados.CREAR);
+        switch (botonPulsado) {
+            case 1:
+                manejador.cambiaEstado(estados.BBDD_PERSONAJE);
+                break;
+            case 2:
+                manejador.cambiaEstado(estados.BBDD_COLECTIVO);
+                break;
+            case 3:
+                manejador.cambiaEstado(estados.BBDD_ACONTECIMIENTO);
+                break;
+            default:
+                break;
+        }
+        botonPulsado = 0;
+        ventanaEleccion.setVisible(false);
+    }
+
+    private void botonModificaActionPerformed(ActionEvent evt) {
+        if(manejador.getId()!=null)
+            manejador.getV1().setEstado(estados.MODIFICAR);
         switch (botonPulsado) {
             case 1:
                 manejador.cambiaEstado(estados.BBDD_PERSONAJE);
@@ -190,17 +215,25 @@ public final class Ventana3 extends JFrame {
             ventanaEleccion = new JFrame("Elige opción");
             JPanel panel = new JPanel(new GridLayout(2, 1));
             JButton botonCrearNuevo = new JButton("Crear Nuevo");
-            JButton botonAddDeBBDD = new JButton("Modificar de la BBDD");
+            JButton botonAddDeBBDD = new JButton("Añadir de la BBDD");
+            JButton botonModifica = new JButton("Modificar de la BBDD");
             panel.add(botonCrearNuevo);
             panel.add(botonAddDeBBDD);
+            panel.add(botonModifica);
             ventanaEleccion.setContentPane(panel);
             ventanaEleccion.validate();
             ventanaEleccion.setVisible(false);
-            ventanaEleccion.setMinimumSize(new Dimension(250, 100));
+            ventanaEleccion.setMinimumSize(new Dimension(250, 200));
             ventanaEleccion.setLocationRelativeTo(null);
             ventanaEleccion.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            botonAddDeBBDD.addActionListener(new java.awt.event.ActionListener() {
+            botonModifica.addActionListener(new java.awt.event.ActionListener() {
 
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    botonModificaActionPerformed(evt);
+                    ventanaEleccion.dispose();
+                }
+            });
+            botonAddDeBBDD.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     botonAddDeBBDDActionPerformed(evt);
                     ventanaEleccion.dispose();
@@ -245,5 +278,16 @@ public final class Ventana3 extends JFrame {
 
     void mandaEstadoV1(estados s) {
         estado = s;
+        if(s==estados.MODIFICAR){
+            botonPersonaje.setText("Modificar Personaje");
+            botonColectivo.setText("Modificar Colectivo");
+            botonAcont.setText("Modificar Acontecimiento");
+            construyeVentanaEleccion();
+        }else if(s==estados.CREAR){
+            botonPersonaje.setText("Añadir Personaje");
+            botonColectivo.setText("Añadir Colectivo");
+            botonAcont.setText("Añadir Acontecimiento");
+            construyeVentanaEleccion();
+        }
     }
 }

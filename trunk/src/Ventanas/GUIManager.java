@@ -6,7 +6,9 @@ import java.sql.SQLException;
 enum estados{CREAR,MODIFICAR,CONSULTAR,VENTANA1,VENTANA2,VENTANA3,
             CREAR_PERSONAJE,CREAR_ACONTECIMIENTO,CREAR_COLECTIVO,BBDD_PERSONAJE,
             BBDD_COLECTIVO,BBDD_ACONTECIMIENTO,BBDD_DOCUMENTO,
-            BUSQUEDA_SIMPLE,BUSQUEDA_AVANZADA};
+            BUSQUEDA_SIMPLE,BUSQUEDA_AVANZADA,CREAR_PERSONAJE_DOC,
+            CREAR_ACONTECIMIENTO_DOC,CREAR_COLECTIVO_DOC,BBDD_PERSONAJE_DOC,
+            BBDD_COLECTIVO_DOC,BBDD_ACONTECIMIENTO_DOC};
 /**
  *
  * @author Daniel
@@ -24,6 +26,7 @@ public class GUIManager {
     private VentanaBusqAdv vBusqAdv;
     private estados estado;
     private BBDDManager bd;
+    private String id;
     
     //private boolean mod;
 
@@ -42,6 +45,7 @@ public class GUIManager {
         v1.setEnabled(true);
         v1.setVisible(true);
         estado = estados.VENTANA1;
+        id=null;
         
         //mod=false;
     }
@@ -109,6 +113,7 @@ public class GUIManager {
             case VENTANA3:
                 v1.setVisible(false);
                 v2.setVisible(false);
+                v3.mandaEstadoV1(v1.getEstado());
                 v3.setVisible(true);
                 v4.setVisible(false);
                 vM.setVisible(false);
@@ -257,6 +262,19 @@ public class GUIManager {
                 vBusqSimple.setVisible(false);
                 vBusqAdv.setVisible(true);
                 break;
+            case CREAR_PERSONAJE_DOC:
+                break;
+            case CREAR_ACONTECIMIENTO_DOC:
+                break;
+            case CREAR_COLECTIVO_DOC:
+                break;
+            case BBDD_PERSONAJE_DOC:
+                break;
+            case BBDD_COLECTIVO_DOC:
+                break;
+            case BBDD_ACONTECIMIENTO_DOC:
+                break;
+                
             default:
                 estado = estados.VENTANA1;
                 break;
@@ -302,4 +320,12 @@ public class GUIManager {
     public VentanaMuestra getvM() {
         return vM;
     }
+
+    public String getId() {
+        return id;
+    };
+    
+    public void setId(String i) {
+        id = i;
+    };
 }

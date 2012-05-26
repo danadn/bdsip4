@@ -537,8 +537,9 @@ public class Ventana2 extends javax.swing.JFrame {
         } else if (estado == estados.CONSULTAR) {
             manejador.cambiaEstado(estados.VENTANA1);
         } else if (estado == estados.MODIFICAR){
-            manejador.getV3().mandaEstadoV1(estados.MODIFICAR);
+            //manejador.getV3().mandaEstadoV1(estados.MODIFICAR);
             manejador.cambiaEstado(estados.VENTANA3);
+            manejador.setId(id);
         }
 
     }//GEN-LAST:event_botonSiguienteActionPerformed
