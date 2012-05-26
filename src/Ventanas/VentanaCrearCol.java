@@ -309,7 +309,10 @@ public class VentanaCrearCol extends javax.swing.JFrame {
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
         if (estado == estado.MODIFICAR) {
-            manejador.cambiaEstado(estados.MODIFICAR);
+             if(manejador.getId()!=null)
+                manejador.cambiaEstado(estados.VENTANA3);
+            else
+                manejador.cambiaEstado(estados.MODIFICAR);
         } else if (estado == estados.CREAR) {
             if (camposRellenos()) {
                 try {
@@ -320,6 +323,8 @@ public class VentanaCrearCol extends javax.swing.JFrame {
                     // Asociamos el Colectivo al Documento
                     int idDocumento = Integer.parseInt(manejador.getBBDDManager().consultaPeticion(
                             "SELECT max(id) as id FROM documento;", "id"));
+                    if(manejador.getId()!=null)
+                        idDocumento=(int)Integer.valueOf(manejador.getId());
                     manejador.getBBDDManager().consultaInsetar("INSERT INTO "
                             + "colectivosDocumento (idDocumento,colectivo) VALUES"
                             + "(" + idDocumento + ",'" + textNombre.getText() + "');");
@@ -343,6 +348,8 @@ public class VentanaCrearCol extends javax.swing.JFrame {
                     textURIFich.setText("");
                     ficheros.clear();
                     actualizaTablaFicheros();
+                    if(manejador.getId()!=null)
+                        manejador.getV1().setEstado(estados.MODIFICAR);
                     manejador.cambiaEstado(estados.VENTANA3);
                 } catch (SQLException ex) {
                     System.out.print(ex);
@@ -453,8 +460,14 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
 // TODO add your handling code here:
     try {
+                if(manejador.getId()!=null){
+            manejador.getBBDDManager().consultaInsetar("DELETE FROM `dochistoria`.`colectivosdocumento` WHERE `colectivosdocumento`.`idDocumento`="+(int)Integer.valueOf(manejador.getId())+" AND `colectivosdocumento`.`colectivo`='"+ colBase + "';");
+            manejador.cambiaEstado(estados.VENTANA3);
+        }else{
+        
+        
         manejador.getBBDDManager().consultaInsetar("DELETE FROM `dochistoria`.`colectivo` WHERE `colectivo`.`nombre`='" + colBase + "';");
-        manejador.cambiaEstado(estados.MODIFICAR);
+        manejador.cambiaEstado(estados.MODIFICAR);}
     } catch (SQLException ex) {
         Logger.getLogger(VentanaCrearAcont.class.getName()).log(Level.SEVERE, null, ex);
     }
@@ -540,6 +553,10 @@ private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             jButton1.setVisible(true);
             jButton2.setVisible(true);
             jButton3.setVisible(true);
+            if(manejador.getId()==null)
+                jButton3.setText("Eliminar");
+            else
+                jButton3.setText("Desligar");
             jButton4.setVisible(true);
             jButton5.setVisible(true);
             //mod = true;
