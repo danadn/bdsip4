@@ -72,7 +72,7 @@ public class BBDDManager {
             return resultado;
         }else{
             System.out.println("Respuesta a "+campo+": Sin resultado.");
-            return null;
+            return "";
         }
         
     }

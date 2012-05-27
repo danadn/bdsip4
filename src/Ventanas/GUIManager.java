@@ -6,9 +6,7 @@ import java.sql.SQLException;
 enum estados{CREAR,MODIFICAR,CONSULTAR,VENTANA1,VENTANA2,VENTANA3,
             CREAR_PERSONAJE,CREAR_ACONTECIMIENTO,CREAR_COLECTIVO,BBDD_PERSONAJE,
             BBDD_COLECTIVO,BBDD_ACONTECIMIENTO,BBDD_DOCUMENTO,
-            BUSQUEDA_SIMPLE,BUSQUEDA_AVANZADA,CREAR_PERSONAJE_DOC,
-            CREAR_ACONTECIMIENTO_DOC,CREAR_COLECTIVO_DOC,BBDD_PERSONAJE_DOC,
-            BBDD_COLECTIVO_DOC,BBDD_ACONTECIMIENTO_DOC};
+            BUSQUEDA_SIMPLE,BUSQUEDA_AVANZADA};
 /**
  *
  * @author Daniel
@@ -51,6 +49,7 @@ public class GUIManager {
     }
 
     public void cierraVentanas(){
+        v1.dispose();
         v2.dispose();
         v3.dispose();
         v4.dispose();
@@ -59,6 +58,7 @@ public class GUIManager {
         vCrearCol.dispose();
         vCrearAcont.dispose();
         vBusqSimple.dispose();
+        vBusqAdv.dispose();
         bd.close();
     }
 
@@ -226,18 +226,6 @@ public class GUIManager {
                 vBusqSimple.setVisible(false);
                 vBusqAdv.setVisible(false);
                 break;
-            case BUSQUEDA_SIMPLE:
-                v1.setVisible(false);
-                v2.setVisible(false);
-                v3.setVisible(false);
-                v4.setVisible(false);
-                vM.setVisible(false);
-                vCrearPj.setVisible(false);
-                vCrearCol.setVisible(false);
-                vCrearAcont.setVisible(false);
-                vBusqSimple.setVisible(true);
-                vBusqAdv.setVisible(false);
-                break;
             case CONSULTAR:
                 v1.setVisible(false);
                 v2.setVisible(false);
@@ -250,6 +238,19 @@ public class GUIManager {
                 vBusqSimple.setVisible(false);
                 vBusqAdv.setVisible(false);
                 break;
+            case BUSQUEDA_SIMPLE:
+                v1.setVisible(false);
+                v2.setVisible(false);
+                v3.setVisible(false);
+                v4.setVisible(false);
+                vM.setVisible(false);
+                vCrearPj.setVisible(false);
+                vCrearCol.setVisible(false);
+                vCrearAcont.setVisible(false);
+                vBusqSimple.setConsultaSimple();
+                vBusqSimple.setVisible(true);
+                vBusqAdv.setVisible(false);
+                break;
             case BUSQUEDA_AVANZADA:
                 v1.setVisible(false);
                 v2.setVisible(false);
@@ -259,22 +260,10 @@ public class GUIManager {
                 vCrearPj.setVisible(false);
                 vCrearCol.setVisible(false);
                 vCrearAcont.setVisible(false);
+                vBusqSimple.setConsultaAvanzada();
                 vBusqSimple.setVisible(false);
                 vBusqAdv.setVisible(true);
-                break;
-            case CREAR_PERSONAJE_DOC:
-                break;
-            case CREAR_ACONTECIMIENTO_DOC:
-                break;
-            case CREAR_COLECTIVO_DOC:
-                break;
-            case BBDD_PERSONAJE_DOC:
-                break;
-            case BBDD_COLECTIVO_DOC:
-                break;
-            case BBDD_ACONTECIMIENTO_DOC:
-                break;
-                
+                break;                
             default:
                 estado = estados.VENTANA1;
                 break;

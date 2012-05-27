@@ -213,7 +213,7 @@ public final class Ventana3 extends JFrame {
     private void construyeVentanaEleccion() {
         if (estado == estado.MODIFICAR) {
             ventanaEleccion = new JFrame("Elige opción");
-            JPanel panel = new JPanel(new GridLayout(2, 1));
+            JPanel panel = new JPanel(new GridLayout(3, 1));
             JButton botonCrearNuevo = new JButton("Crear Nuevo");
             JButton botonAddDeBBDD = new JButton("Añadir de la BBDD");
             JButton botonModifica = new JButton("Modificar de la BBDD");

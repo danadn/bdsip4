@@ -309,10 +309,11 @@ public class VentanaCrearCol extends javax.swing.JFrame {
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
         if (estado == estado.MODIFICAR) {
-             if(manejador.getId()!=null)
+            if (manejador.getId() != null) {
                 manejador.cambiaEstado(estados.VENTANA3);
-            else
+            } else {
                 manejador.cambiaEstado(estados.MODIFICAR);
+            }
         } else if (estado == estados.CREAR) {
             if (camposRellenos()) {
                 try {
@@ -323,8 +324,9 @@ public class VentanaCrearCol extends javax.swing.JFrame {
                     // Asociamos el Colectivo al Documento
                     int idDocumento = Integer.parseInt(manejador.getBBDDManager().consultaPeticion(
                             "SELECT max(id) as id FROM documento;", "id"));
-                    if(manejador.getId()!=null)
-                        idDocumento=(int)Integer.valueOf(manejador.getId());
+                    if (manejador.getId() != null) {
+                        idDocumento = (int) Integer.valueOf(manejador.getId());
+                    }
                     manejador.getBBDDManager().consultaInsetar("INSERT INTO "
                             + "colectivosDocumento (idDocumento,colectivo) VALUES"
                             + "(" + idDocumento + ",'" + textNombre.getText() + "');");
@@ -348,8 +350,9 @@ public class VentanaCrearCol extends javax.swing.JFrame {
                     textURIFich.setText("");
                     ficheros.clear();
                     actualizaTablaFicheros();
-                    if(manejador.getId()!=null)
+                    if (manejador.getId() != null) {
                         manejador.getV1().setEstado(estados.MODIFICAR);
+                    }
                     manejador.cambiaEstado(estados.VENTANA3);
                 } catch (SQLException ex) {
                     System.out.print(ex);
@@ -357,6 +360,8 @@ public class VentanaCrearCol extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos", "Aviso", 2);
             }
+        } else if (estado == estados.CONSULTAR) {
+            manejador.cambiaEstado(estados.VENTANA1);
         }
     }//GEN-LAST:event_botonAceptarActionPerformed
 
@@ -460,14 +465,15 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
 // TODO add your handling code here:
     try {
-                if(manejador.getId()!=null){
-            manejador.getBBDDManager().consultaInsetar("DELETE FROM `dochistoria`.`colectivosdocumento` WHERE `colectivosdocumento`.`idDocumento`="+(int)Integer.valueOf(manejador.getId())+" AND `colectivosdocumento`.`colectivo`='"+ colBase + "';");
+        if (manejador.getId() != null) {
+            manejador.getBBDDManager().consultaInsetar("DELETE FROM `dochistoria`.`colectivosdocumento` WHERE `colectivosdocumento`.`idDocumento`=" + (int) Integer.valueOf(manejador.getId()) + " AND `colectivosdocumento`.`colectivo`='" + colBase + "';");
             manejador.cambiaEstado(estados.VENTANA3);
-        }else{
-        
-        
-        manejador.getBBDDManager().consultaInsetar("DELETE FROM `dochistoria`.`colectivo` WHERE `colectivo`.`nombre`='" + colBase + "';");
-        manejador.cambiaEstado(estados.MODIFICAR);}
+        } else {
+
+
+            manejador.getBBDDManager().consultaInsetar("DELETE FROM `dochistoria`.`colectivo` WHERE `colectivo`.`nombre`='" + colBase + "';");
+            manejador.cambiaEstado(estados.MODIFICAR);
+        }
     } catch (SQLException ex) {
         Logger.getLogger(VentanaCrearAcont.class.getName()).log(Level.SEVERE, null, ex);
     }
@@ -542,28 +548,52 @@ private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
     public void mandaEstadoV1(estados s) {
         estado = s;
+        botonAddFich.setVisible(true);
+        textURIFich.setEditable(true);
+        textNomFich.setEditable(true);
+        textNombre.setEditable(true);
+        textDescripcion.setEditable(true);
+        textFormato.setEditable(true);
         if (s == estados.CREAR) {
             jButton1.setVisible(false);
             jButton2.setVisible(false);
             jButton3.setVisible(false);
             jButton4.setVisible(false);
             jButton5.setVisible(false);
+            botonAceptar.setText("Crear");
             //mod = false;
         } else if (s == estados.MODIFICAR) {
+            botonAceptar.setText("Aceptar");
             jButton1.setVisible(true);
             jButton2.setVisible(true);
             jButton3.setVisible(true);
-            if(manejador.getId()==null)
+            if (manejador.getId() == null) {
                 jButton3.setText("Eliminar");
-            else
+            } else {
                 jButton3.setText("Desligar");
+            }
             jButton4.setVisible(true);
             jButton5.setVisible(true);
-            //mod = true;
+        } else if (s == estados.CONSULTAR) {
+            textURIFich.setText("");
+            textNomFich.setText("");
+            textFormato.setText("");
+            textURIFich.setEditable(false);
+            textNomFich.setEditable(false);
+            textNombre.setEditable(false);
+            textDescripcion.setEditable(false);
+            textFormato.setEditable(false);
+            jButton1.setVisible(false);
+            jButton2.setVisible(false);
+            jButton3.setVisible(false);
+            jButton4.setVisible(false);
+            jButton5.setVisible(false);
+            botonAddFich.setVisible(false);
+            botonAceptar.setText("Volver");
         }
     }
 
-    public void cargaColectivo(String colectivo) {
+    void cargaColectivo(String colectivo) {
         try {
             colBase = colectivo;
             textNombre.setText(colectivo);
@@ -573,27 +603,31 @@ private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         } catch (SQLException ex) {
             Logger.getLogger(VentanaCrearAcont.class.getName()).log(Level.SEVERE, null, ex);
         }
-    };
-    
+    }
+
+    ;
+
     private void cargaTablaFicheros(String colectivo) throws SQLException {
         String consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM colectivosfichero WHERE `colectivosfichero`.`colectivo`='" + colectivo + "';", "ficheroCol");
         tablaFicheros.removeAll();
         if (consulta != null) {
             DefaultTableModel m;
             m = new DefaultTableModel(new Object[]{"Ficheros"}, 0);
-            String[] ficheros = consulta.split(",");
-            System.out.println(ficheros);
+            String[] fichs = consulta.split(",");
+            System.out.println(fichs);
 
-            for (int k = 0; k < ficheros.length; k++) {
-                m.addRow(new Object[]{ficheros[k]});
+            for (int k = 0; k < fichs.length; k++) {
+                m.addRow(new Object[]{fichs[k]});
             }
             tablaFicheros.setModel(m);
         } else {
             DefaultTableModel m = new DefaultTableModel(new Object[]{"Ficheros"}, 0);
             tablaFicheros.setModel(m);
         }
-    };
-    
+    }
+
+    ;
+
     private void rellenaDatosFichero(String fichero) throws SQLException {
         textNomFich.setText(fichero);
         String consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM `dochistoria`.`fichero_colectivo` WHERE `fichero_colectivo`.`nombreFichCol`='" + fichero + "';", "formatoFichCol");

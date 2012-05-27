@@ -954,11 +954,11 @@ private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         if (consulta != null) {
             DefaultTableModel m;
             m = new DefaultTableModel(new Object[]{"Ficheros"}, 0);
-            String[] ficheros = consulta.split(",");
-            System.out.println(ficheros);
+            String[] fichs = consulta.split(",");
+            System.out.println(fichs);
 
-            for (int k = 0; k < ficheros.length; k++) {
-                m.addRow(new Object[]{ficheros[k]});
+            for (int k = 0; k < fichs.length; k++) {
+                m.addRow(new Object[]{fichs[k]});
             }
             tablaFicheros.setModel(m);
         } else {
@@ -975,11 +975,11 @@ private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         if (consulta != null) {
             DefaultTableModel m;
             m = new DefaultTableModel(new Object[]{"Catalogaciones"}, 0);
-            String[] catalogaciones = consulta.split(",");
-            System.out.println(catalogaciones);
+            String[] cats = consulta.split(",");
+            System.out.println(cats);
 
-            for (int k = 0; k < catalogaciones.length; k++) {
-                m.addRow(new Object[]{catalogaciones[k]});
+            for (int k = 0; k < cats.length; k++) {
+                m.addRow(new Object[]{cats[k]});
             }
             tablaCat.setModel(m);
         } else {
@@ -1001,11 +1001,11 @@ private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private void rellenaDatosCatalogacion(String catalogacion) throws SQLException {
         textNombreCat.setText(catalogacion);
         String consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM `dochistoria`.`catalogacion` WHERE `catalogacion`.`nombreCat`='" + catalogacion + "';", "tipo");
-        if (consulta == "lista_valores") {
+        if (consulta.equals("lista_valores")) {
             comboTipo.setSelectedIndex(0);
-        } else if (consulta == "taxonomia") {
+        } else if (consulta.equals("taxonomia")) {
             comboTipo.setSelectedIndex(1);
-        } else if (consulta == "tesauro") {
+        } else if (consulta.equals("tesauro")) {
             comboTipo.setSelectedIndex(2);
         }
         consulta = manejador.getBBDDManager().consultaPeticion("SELECT * FROM `dochistoria`.`catalogacion` WHERE `catalogacion`.`nombreCat`='" + catalogacion + "';", "fuente");
