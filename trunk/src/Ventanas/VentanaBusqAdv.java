@@ -8,24 +8,41 @@
  *
  * Created on 25-may-2012, 18:07:39
  */
-
 package Ventanas;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Daniel
  */
 public class VentanaBusqAdv extends javax.swing.JFrame {
+
     GUIManager manejador;
 
     /** Creates new form VentanaBusqAdv */
     public VentanaBusqAdv(GUIManager m) {
         manejador = m;
+        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation((d.width / 3), (d.height / 3));
         initComponents();
+        textoNomYApe.setEnabled(false);
+        textAlias.setEnabled(false);
+        textCargos.setEnabled(false);
+        textoLugarDef.setEnabled(false);
+        textoLugarNac.setEnabled(false);
+        textTitulo.setEnabled(false);
+        textNombreCat.setEnabled(false);
+        textColec.setEnabled(false);
+        textAcont.setEnabled(false);
+        AnoFin.setEnabled(false);
+        AnoIni.setEnabled(false);
     }
 
     /** This method is called from within the constructor to
@@ -42,25 +59,36 @@ public class VentanaBusqAdv extends javax.swing.JFrame {
         checkAcont = new javax.swing.JCheckBox();
         checkColectivo = new javax.swing.JCheckBox();
         checkDoc = new javax.swing.JCheckBox();
-        jSeparator1 = new javax.swing.JSeparator();
-        labelTitulo1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        Ano1 = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        Mes1 = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        Dia1 = new javax.swing.JTextField();
-        Dia2 = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        Mes2 = new javax.swing.JTextField();
-        Ano2 = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
         botonBuscar = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel1 = new javax.swing.JLabel();
+        textoNomYApe = new javax.swing.JTextField();
+        textoLugarNac = new javax.swing.JTextField();
+        jLabel23 = new javax.swing.JLabel();
+        textoLugarDef = new javax.swing.JTextField();
+        jLabel24 = new javax.swing.JLabel();
+        textCargos = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        textAlias = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
+        jSeparator3 = new javax.swing.JSeparator();
+        jLabel15 = new javax.swing.JLabel();
+        AnoIni = new javax.swing.JTextField();
+        textAcont = new javax.swing.JTextField();
+        labelTitulo1 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        AnoFin = new javax.swing.JTextField();
+        jSeparator4 = new javax.swing.JSeparator();
+        textColec = new javax.swing.JTextField();
+        labelTitulo2 = new javax.swing.JLabel();
+        jSeparator5 = new javax.swing.JSeparator();
+        jSeparator6 = new javax.swing.JSeparator();
+        jSeparator7 = new javax.swing.JSeparator();
+        textTitulo = new javax.swing.JTextField();
+        labelTitulo3 = new javax.swing.JLabel();
+        textNombreCat = new javax.swing.JTextField();
+        labelDescripcion5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -75,63 +103,107 @@ public class VentanaBusqAdv extends javax.swing.JFrame {
         });
 
         checkAcont.setText("Acontecimiento");
+        checkAcont.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkAcontActionPerformed(evt);
+            }
+        });
 
         checkColectivo.setText("Colectivo");
+        checkColectivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkColectivoActionPerformed(evt);
+            }
+        });
 
         checkDoc.setText("Documento");
-
-        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
-
-        labelTitulo1.setFont(new java.awt.Font("Tahoma", 0, 12));
-        labelTitulo1.setText("Nombres:");
-
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        checkDoc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                checkDocActionPerformed(evt);
             }
         });
-
-        jLabel1.setText("Ficheros:");
-
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setText("Fechas:");
-
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12));
-        jLabel7.setText("Año");
-
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12));
-        jLabel8.setText("Mes");
-
-        Mes1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Mes1ActionPerformed(evt);
-            }
-        });
-
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12));
-        jLabel9.setText("Dia");
-
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12));
-        jLabel10.setText("Mes");
-
-        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 12));
-        jLabel11.setText("Año");
-
-        Mes2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Mes2ActionPerformed(evt);
-            }
-        });
-
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12));
-        jLabel12.setText("Dia");
 
         botonBuscar.setText("Buscar");
+        botonBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonBuscarActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel1.setText("Nombre y Apellidos:");
+
+        textoNomYApe.setText("Arnold Swarchseneger");
+
+        textoLugarNac.setText("Austria");
+
+        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel23.setText("Lugar de nacimiento:");
+
+        textoLugarDef.setText("Yemen");
+
+        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel24.setText("Lugar de muerte:");
+
+        textCargos.setText("Gobernador");
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel3.setText("Cargos:");
+
+        textAlias.setText("Terminator");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel4.setText("Aliases:");
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel15.setText("Año inicio:");
+
+        AnoIni.setText("2004");
+
+        textAcont.setText("Elec. California");
+        textAcont.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textAcontActionPerformed(evt);
+            }
+        });
+
+        labelTitulo1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelTitulo1.setText("Acontecimiento:");
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel16.setText("Año fin");
+
+        AnoFin.setText("2004");
+
+        textColec.setText("Grupo Republicano");
+        textColec.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textColecActionPerformed(evt);
+            }
+        });
+
+        labelTitulo2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelTitulo2.setText("Nombre:");
+
+        textTitulo.setText("EEUU en el s. XXI");
+        textTitulo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textTituloActionPerformed(evt);
+            }
+        });
+
+        labelTitulo3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelTitulo3.setText("Titulo:");
+
+        textNombreCat.setText("EEUU_S_XII");
+        textNombreCat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textNombreCatActionPerformed(evt);
+            }
+        });
+
+        labelDescripcion5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelDescripcion5.setText("Catalogaciones:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -140,52 +212,95 @@ public class VentanaBusqAdv extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(checkAcont)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
+                    .addComponent(checkPj)
+                    .addComponent(labelTitulo)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(checkDoc)
-                            .addComponent(checkColectivo)
-                            .addComponent(checkAcont)
-                            .addComponent(labelTitulo)
-                            .addComponent(checkPj))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelTitulo1)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Ano2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addComponent(textCargos, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel3))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel10)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Mes2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel12)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Dia2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Ano1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Mes1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Dia1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(14, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(211, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addGap(38, 38, 38))
+                                    .addComponent(textAlias, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(10, 10, 10)
+                                    .addComponent(textoNomYApe, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(textoLugarNac))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel1)
+                                    .addGap(35, 35, 35)
+                                    .addComponent(jLabel23))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textoLugarDef, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                            .addComponent(jLabel24))))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jSeparator3, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(textAcont, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(AnoIni, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel16)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(AnoFin, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelTitulo1)
+                .addContainerGap(324, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jSeparator5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
+                    .addComponent(checkColectivo, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelTitulo2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(textColec, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(191, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(checkDoc)
+                    .addComponent(jSeparator6, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jSeparator7, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(labelDescripcion5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textNombreCat))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(labelTitulo3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
                 .addComponent(botonBuscar)
                 .addContainerGap())
         );
@@ -193,80 +308,375 @@ public class VentanaBusqAdv extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(labelTitulo1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(53, 53, 53))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(labelTitulo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(checkPj)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(checkAcont)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(checkColectivo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(checkDoc)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel2)))
+                .addComponent(labelTitulo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkPj)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 4, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(Ano1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8)
-                    .addComponent(Mes1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9)
-                    .addComponent(Dia1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel23)
+                    .addComponent(jLabel24))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(Ano2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10)
-                    .addComponent(Mes2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12)
-                    .addComponent(Dia2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textoNomYApe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textoLugarNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textoLugarDef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botonBuscar)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(textCargos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textAlias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(26, 26, 26)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkAcont)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelTitulo1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textAcont, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15)
+                    .addComponent(AnoIni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16)
+                    .addComponent(AnoFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11)
+                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(checkColectivo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelTitulo2)
+                    .addComponent(textColec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkDoc)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelTitulo3)
+                    .addComponent(textTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelDescripcion5)
+                    .addComponent(textNombreCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonBuscar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void checkPjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkPjActionPerformed
-        // TODO add your handling code here:
+        if (checkPj.isSelected()) {
+            textoNomYApe.setEnabled(true);
+            textAlias.setEnabled(true);
+            textCargos.setEnabled(true);
+            textoLugarDef.setEnabled(true);
+            textoLugarNac.setEnabled(true);
+        } else {
+            textoNomYApe.setEnabled(false);
+            textAlias.setEnabled(false);
+            textCargos.setEnabled(false);
+            textoLugarDef.setEnabled(false);
+            textoLugarNac.setEnabled(false);
+        }
     }//GEN-LAST:event_checkPjActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void textAcontActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textAcontActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+}//GEN-LAST:event_textAcontActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void textColecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textColecActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+}//GEN-LAST:event_textColecActionPerformed
 
-    private void Mes1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Mes1ActionPerformed
-        // TODO add your handling code here:
-}//GEN-LAST:event_Mes1ActionPerformed
+    private void checkAcontActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkAcontActionPerformed
+        if (checkAcont.isSelected()) {
+            textAcont.setEnabled(true);
+            AnoFin.setEnabled(true);
+            AnoIni.setEnabled(true);
+        } else {
+            textAcont.setEnabled(false);
+            AnoFin.setEnabled(false);
+            AnoIni.setEnabled(false);
+        }
+    }//GEN-LAST:event_checkAcontActionPerformed
 
-    private void Mes2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Mes2ActionPerformed
+    private void textTituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textTituloActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_Mes2ActionPerformed
+}//GEN-LAST:event_textTituloActionPerformed
+
+    private void textNombreCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textNombreCatActionPerformed
+        // TODO add your handling code here:
+}//GEN-LAST:event_textNombreCatActionPerformed
+
+    private void checkColectivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkColectivoActionPerformed
+        if (checkColectivo.isSelected()) {
+            textColec.setEnabled(true);
+        } else {
+            textColec.setEnabled(false);
+        }
+    }//GEN-LAST:event_checkColectivoActionPerformed
+
+    private void checkDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkDocActionPerformed
+        if (checkDoc.isSelected()) {
+            textTitulo.setEnabled(true);
+            textNombreCat.setEnabled(true);
+        } else {
+            textTitulo.setEnabled(false);
+            textNombreCat.setEnabled(false);
+        }
+    }//GEN-LAST:event_checkDocActionPerformed
+
+    private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
+        manejador.getvBusqSimple().muestraResultados(ejecutaBusquedaPj(),
+                ejecutaBusquedaAcont(),
+                ejecutaBusquedaCol(),
+                ejecutaBusquedaDoc());
+        this.setVisible(false);
+        manejador.getvBusqSimple().setVisible(true);
+    }//GEN-LAST:event_botonBuscarActionPerformed
+
+    private DefaultTableModel ejecutaBusquedaPj() {
+        DefaultTableModel pj = new javax.swing.table.DefaultTableModel(
+                new Object[][]{},
+                new String[]{"Nombre", "fechaNac", "lugarNac", "fechaMuerte", "lugarMuerte", "Biografia"}) {
+
+            boolean[] canEdit = new boolean[]{false, false, false, false, false, false};
+
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+        };
+        if (checkPj.isSelected()) {
+            try {
+                if (textoNomYApe.getText().length() > 0) {
+                    String[] nombre = textoNomYApe.getText().split(",");
+                    for (int i = 0; i < nombre.length; i++) {
+                        String consulta = "SELECT * FROM personaje WHERE nombreYApe = '" + nombre[i] + "';";
+                        // Sacamos todos los datos del personaje
+                        String[] nombreYApe = manejador.getBBDDManager().
+                                consultaPeticion(consulta, "nombreYApe").split(",");
+                        String[] fechaNac = manejador.getBBDDManager().
+                                consultaPeticion(consulta, "fechaNac").split(",");
+                        String[] lugarNac = manejador.getBBDDManager().
+                                consultaPeticion(consulta, "lugarNac").split(",");
+                        String[] fechaMuerte = manejador.getBBDDManager().
+                                consultaPeticion(consulta, "fechaMuerte").split(",");
+                        String[] lugarMuerte = manejador.getBBDDManager().
+                                consultaPeticion(consulta, "lugarMuerte").split(",");
+                        String[] Biografia = manejador.getBBDDManager().
+                                consultaPeticion(consulta, "biografia").split(",");
+                        // Como el nombre del personaje es PRIMARY KEY no se va a repetir
+                        // luego no hace falta buscar repetidos en el defaulttablemodel
+                        for (int numElem = 0; numElem < nombreYApe.length; numElem++) {
+                            if (!nombreYApe[numElem].equals("")) {
+                                pj.addRow(new Object[]{nombreYApe[numElem],
+                                            fechaNac[numElem],
+                                            lugarNac[numElem],
+                                            fechaMuerte[numElem],
+                                            lugarMuerte[numElem],
+                                            Biografia[numElem]});
+                            }
+                        }
+                    }
+                }
+                if (textAlias.getText().length() > 0) {
+                    String alias[] = textAlias.getText().split(",");
+                    for (int i = 0; i < alias.length; i++) {
+                        String[] personajes = manejador.getBBDDManager().
+                                consultaPeticion("SELECT * FROM alias WHERE "
+                                + "nomAlias = '" + alias[i] + "';", "personaje").split(",");
+                        for (int j = 0; j < personajes.length; j++) {
+                            String consulta = "SELECT * FROM personaje WHERE "
+                                    + "nombreYApe = '" + personajes[j] + "';";
+                            // Sacamos todos los datos del personaje
+                            String[] nombreYApe = manejador.getBBDDManager().
+                                    consultaPeticion(consulta, "nombreYApe").split(",");
+                            String[] fechaNac = manejador.getBBDDManager().
+                                    consultaPeticion(consulta, "fechaNac").split(",");
+                            String[] lugarNac = manejador.getBBDDManager().
+                                    consultaPeticion(consulta, "lugarNac").split(",");
+                            String[] fechaMuerte = manejador.getBBDDManager().
+                                    consultaPeticion(consulta, "fechaMuerte").split(",");
+                            String[] lugarMuerte = manejador.getBBDDManager().
+                                    consultaPeticion(consulta, "lugarMuerte").split(",");
+                            String[] Biografia = manejador.getBBDDManager().
+                                    consultaPeticion(consulta, "biografia").split(",");
+                            // Buscamos si el elemento ha sido ya añadido:
+                            for (int numElem = 0; numElem < nombreYApe.length; numElem++) {
+                                boolean encontrado = false;
+                                for (int fila = 0; fila < pj.getRowCount(); fila++) {
+                                    if (nombreYApe[numElem].equals(pj.getValueAt(fila, 0))) {
+                                        encontrado = true;
+                                        break;
+                                    }
+                                }
+                                if (!encontrado) {
+                                    if (!nombreYApe[numElem].equals("")) {
+                                        pj.addRow(new Object[]{nombreYApe[numElem],
+                                                    fechaNac[numElem],
+                                                    lugarNac[numElem],
+                                                    fechaMuerte[numElem],
+                                                    lugarMuerte[numElem],
+                                                    Biografia[numElem]});
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                if (textCargos.getText().length() > 0) {
+                    String cargos[] = textCargos.getText().split(",");
+                    for (int i = 0; i < cargos.length; i++) {
+                        String[] personajes = manejador.getBBDDManager().
+                                consultaPeticion("SELECT * FROM desempenia WHERE "
+                                + "cargo = '" + cargos[i] + "';", "personaje").split(",");
+                        for (int j = 0; j < personajes.length; j++) {
+                            String consulta = "SELECT * FROM personaje WHERE "
+                                    + "nombreYApe = '" + personajes[j] + "';";
+                            // Sacamos todos los datos del personaje
+                            String[] nombreYApe = manejador.getBBDDManager().
+                                    consultaPeticion(consulta, "nombreYApe").split(",");
+                            String[] fechaNac = manejador.getBBDDManager().
+                                    consultaPeticion(consulta, "fechaNac").split(",");
+                            String[] lugarNac = manejador.getBBDDManager().
+                                    consultaPeticion(consulta, "lugarNac").split(",");
+                            String[] fechaMuerte = manejador.getBBDDManager().
+                                    consultaPeticion(consulta, "fechaMuerte").split(",");
+                            String[] lugarMuerte = manejador.getBBDDManager().
+                                    consultaPeticion(consulta, "lugarMuerte").split(",");
+                            String[] Biografia = manejador.getBBDDManager().
+                                    consultaPeticion(consulta, "biografia").split(",");
+                            // Buscamos si el elemento ha sido ya añadido:
+                            for (int numElem = 0; numElem < nombreYApe.length; numElem++) {
+                                boolean encontrado = false;
+                                for (int fila = 0; fila < pj.getRowCount(); fila++) {
+                                    if (nombreYApe[numElem].equals(pj.getValueAt(fila, 0))) {
+                                        encontrado = true;
+                                        break;
+                                    }
+                                }
+                                if (!encontrado) {
+                                    if (!nombreYApe[numElem].equals("")) {
+                                        pj.addRow(new Object[]{nombreYApe[numElem],
+                                                    fechaNac[numElem],
+                                                    lugarNac[numElem],
+                                                    fechaMuerte[numElem],
+                                                    lugarMuerte[numElem],
+                                                    Biografia[numElem]});
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                if (textoLugarDef.getText().length() > 0) {
+                    String[] defs = textoLugarDef.getText().split(",");
+                    for (int i = 0; i < defs.length; i++) {
+                        String consulta = "SELECT * FROM personaje WHERE lugarMuerte = '" + defs[i] + "';";
+                        // Sacamos todos los datos del personaje
+                        String[] nombreYApe = manejador.getBBDDManager().
+                                consultaPeticion(consulta, "nombreYApe").split(",");
+                        String[] fechaNac = manejador.getBBDDManager().
+                                consultaPeticion(consulta, "fechaNac").split(",");
+                        String[] lugarNac = manejador.getBBDDManager().
+                                consultaPeticion(consulta, "lugarNac").split(",");
+                        String[] fechaMuerte = manejador.getBBDDManager().
+                                consultaPeticion(consulta, "fechaMuerte").split(",");
+                        String[] lugarMuerte = manejador.getBBDDManager().
+                                consultaPeticion(consulta, "lugarMuerte").split(",");
+                        String[] Biografia = manejador.getBBDDManager().
+                                consultaPeticion(consulta, "biografia").split(",");
+                        // Buscamos si el elemento ha sido ya añadido:
+                        for (int numElem = 0; numElem < nombreYApe.length; numElem++) {
+                            boolean encontrado = false;
+                            for (int fila = 0; fila < pj.getRowCount(); fila++) {
+                                if (nombreYApe[numElem].equals(pj.getValueAt(fila, 0))) {
+                                    encontrado = true;
+                                    break;
+                                }
+                            }
+                            if (!encontrado) {
+                                if (!nombreYApe[numElem].equals("")) {
+                                    pj.addRow(new Object[]{nombreYApe[numElem],
+                                                fechaNac[numElem],
+                                                lugarNac[numElem],
+                                                fechaMuerte[numElem],
+                                                lugarMuerte[numElem],
+                                                Biografia[numElem]});
+                                }
+                            }
+                        }
+                    }
+                }
+                if (textoLugarNac.getText().length() > 0) {
+                    String[] nacs = textoLugarNac.getText().split(",");
+                    for (int i = 0; i < nacs.length; i++) {
+                        String consulta = "SELECT * FROM personaje WHERE lugarNac = '" + nacs[i] + "';";
+                        // Sacamos todos los datos del personaje
+                        String[] nombreYApe = manejador.getBBDDManager().
+                                consultaPeticion(consulta, "nombreYApe").split(",");
+                        String[] fechaNac = manejador.getBBDDManager().
+                                consultaPeticion(consulta, "fechaNac").split(",");
+                        String[] lugarNac = manejador.getBBDDManager().
+                                consultaPeticion(consulta, "lugarNac").split(",");
+                        String[] fechaMuerte = manejador.getBBDDManager().
+                                consultaPeticion(consulta, "fechaMuerte").split(",");
+                        String[] lugarMuerte = manejador.getBBDDManager().
+                                consultaPeticion(consulta, "lugarMuerte").split(",");
+                        String[] Biografia = manejador.getBBDDManager().
+                                consultaPeticion(consulta, "biografia").split(",");
+                        // Buscamos si el elemento ha sido ya añadido:
+                        for (int numElem = 0; numElem < nombreYApe.length; numElem++) {
+                            boolean encontrado = false;
+                            for (int fila = 0; fila < pj.getRowCount(); fila++) {
+                                if (nombreYApe[numElem].equals(pj.getValueAt(fila, 0))) {
+                                    encontrado = true;
+                                    break;
+                                }
+                            }
+                            if (!encontrado) {
+                                if (!nombreYApe[numElem].equals("")) {
+                                    pj.addRow(new Object[]{nombreYApe[numElem],
+                                                fechaNac[numElem],
+                                                lugarNac[numElem],
+                                                fechaMuerte[numElem],
+                                                lugarMuerte[numElem],
+                                                Biografia[numElem]});
+                                }
+                            }
+                        }
+                    }
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, ex, "Aviso", 2);
+            }
+        }
+        return pj;
+    }
 
     /**
-    * @param args the command line arguments
-    */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 try {
                     new VentanaBusqAdv(new GUIManager()).setVisible(true);
@@ -276,32 +686,300 @@ public class VentanaBusqAdv extends javax.swing.JFrame {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField Ano1;
-    private javax.swing.JTextField Ano2;
-    private javax.swing.JTextField Dia1;
-    private javax.swing.JTextField Dia2;
-    private javax.swing.JTextField Mes1;
-    private javax.swing.JTextField Mes2;
+    private javax.swing.JTextField AnoFin;
+    private javax.swing.JTextField AnoIni;
     private javax.swing.JButton botonBuscar;
     private javax.swing.JCheckBox checkAcont;
     private javax.swing.JCheckBox checkColectivo;
     private javax.swing.JCheckBox checkDoc;
     private javax.swing.JCheckBox checkPj;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JSeparator jSeparator6;
+    private javax.swing.JSeparator jSeparator7;
+    private javax.swing.JLabel labelDescripcion5;
     private javax.swing.JLabel labelTitulo;
     private javax.swing.JLabel labelTitulo1;
+    private javax.swing.JLabel labelTitulo2;
+    private javax.swing.JLabel labelTitulo3;
+    private javax.swing.JTextField textAcont;
+    private javax.swing.JTextField textAlias;
+    private javax.swing.JTextField textCargos;
+    private javax.swing.JTextField textColec;
+    private javax.swing.JTextField textNombreCat;
+    private javax.swing.JTextField textTitulo;
+    private javax.swing.JTextField textoLugarDef;
+    private javax.swing.JTextField textoLugarNac;
+    private javax.swing.JTextField textoNomYApe;
     // End of variables declaration//GEN-END:variables
 
+    private DefaultTableModel ejecutaBusquedaAcont() {
+        DefaultTableModel ac = new javax.swing.table.DefaultTableModel(
+                new Object[][]{},
+                new String[]{"Acontecimiento", "Descripcion", "Comienzo", "Fin"}) {
+
+            boolean[] canEdit = new boolean[]{false, false, false, false};
+
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+        };
+        if (checkAcont.isSelected()) {
+            try {
+                if (textAcont.getText().length() > 0) {
+                    String[] acont = textAcont.getText().split(",");
+                    for (int i = 0; i < acont.length; i++) {
+                        String consulta = "SELECT * FROM acontecimiento WHERE "
+                                + "nombreAcont = '" + acont[i] + "'";
+                        // Sacamos todos los datos del acontecimiento
+                        String[] nombreAcont = manejador.getBBDDManager().
+                                consultaPeticion(consulta, "nombreAcont").split(",");
+                        String[] descrip = manejador.getBBDDManager().
+                                consultaPeticion(consulta, "descrip").split(",");
+                        String[] fechaC = manejador.getBBDDManager().
+                                consultaPeticion(consulta, "fechaC").split(",");
+                        String[] fechaF = manejador.getBBDDManager().
+                                consultaPeticion(consulta, "fechaF").split(",");
+                        for (int numElem = 0; numElem < nombreAcont.length; numElem++) {
+                            // Buscamos si el elemento ha sido ya añadido:
+                            boolean encontrado = false;
+                            for (int fila = 0; fila < ac.getRowCount(); fila++) {
+                                if (nombreAcont[numElem].equals(ac.getValueAt(fila, 0))) {
+                                    encontrado = true;
+                                    break;
+                                }
+                            }
+                            if (!encontrado) {
+                                if (!nombreAcont[numElem].equals("")) {
+                                    ac.addRow(new Object[]{nombreAcont[numElem],
+                                                descrip[numElem],
+                                                fechaC[numElem],
+                                                fechaF[numElem]});
+                                }
+                            }
+                        }
+                    }
+                }
+                if (AnoFin.getText().length() > 0) {
+                    String[] anos = AnoFin.getText().split(",");
+                    for (int i = 0; i < anos.length; i++) {
+                        String[] fechas = manejador.getBBDDManager().
+                                consultaPeticion("SELECT * FROM acontecimiento", "fechaF").split(",");
+                        for (int j = 0; j < fechas.length; j++) {
+                            if (fechas[j].contains(anos[i])) {
+                                String consulta = "SELECT * FROM acontecimiento "
+                                        + "WHERE fechaF = '" + fechas[j] + "';";
+                                // Sacamos todos los datos del acontecimiento
+                                String[] nombreAcont = manejador.getBBDDManager().
+                                        consultaPeticion(consulta, "nombreAcont").split(",");
+                                String[] descrip = manejador.getBBDDManager().
+                                        consultaPeticion(consulta, "descrip").split(",");
+                                String[] fechaC = manejador.getBBDDManager().
+                                        consultaPeticion(consulta, "fechaC").split(",");
+                                String[] fechaF = manejador.getBBDDManager().
+                                        consultaPeticion(consulta, "fechaF").split(",");
+                                for (int numElem = 0; numElem < nombreAcont.length; numElem++) {
+                                    // Buscamos si el elemento ha sido ya añadido:
+                                    boolean encontrado = false;
+                                    for (int fila = 0; fila < ac.getRowCount(); fila++) {
+                                        if (nombreAcont[numElem].equals(ac.getValueAt(fila, 0))) {
+                                            encontrado = true;
+                                            break;
+                                        }
+                                    }
+                                    if (!encontrado) {
+                                        if (!nombreAcont[numElem].equals("")) {
+                                            ac.addRow(new Object[]{nombreAcont[numElem],
+                                                        descrip[numElem],
+                                                        fechaC[numElem],
+                                                        fechaF[numElem]});
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                if (AnoIni.getText().length() > 0) {
+                    String[] anos = AnoIni.getText().split(",");
+                    for (int i = 0; i < anos.length; i++) {
+                        String[] fechas = manejador.getBBDDManager().
+                                consultaPeticion("SELECT * FROM acontecimiento", "fechaC").split(",");
+                        for (int j = 0; j < fechas.length; j++) {
+                            if (fechas[j].contains(anos[i])) {
+                                String consulta = "SELECT * FROM acontecimiento "
+                                        + "WHERE fechaC = '" + fechas[j] + "';";
+                                // Sacamos todos los datos del acontecimiento
+                                String[] nombreAcont = manejador.getBBDDManager().
+                                        consultaPeticion(consulta, "nombreAcont").split(",");
+                                String[] descrip = manejador.getBBDDManager().
+                                        consultaPeticion(consulta, "descrip").split(",");
+                                String[] fechaC = manejador.getBBDDManager().
+                                        consultaPeticion(consulta, "fechaC").split(",");
+                                String[] fechaF = manejador.getBBDDManager().
+                                        consultaPeticion(consulta, "fechaF").split(",");
+                                for (int numElem = 0; numElem < nombreAcont.length; numElem++) {
+                                    // Buscamos si el elemento ha sido ya añadido:
+                                    boolean encontrado = false;
+                                    for (int fila = 0; fila < ac.getRowCount(); fila++) {
+                                        if (nombreAcont[numElem].equals(ac.getValueAt(fila, 0))) {
+                                            encontrado = true;
+                                            break;
+                                        }
+                                    }
+                                    if (!encontrado) {
+                                        if (!nombreAcont[numElem].equals("")) {
+                                            ac.addRow(new Object[]{nombreAcont[numElem],
+                                                        descrip[numElem],
+                                                        fechaC[numElem],
+                                                        fechaF[numElem]});
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, ex, "Aviso", 2);
+            }
+        }
+        return ac;
+    }
+
+    private DefaultTableModel ejecutaBusquedaCol() {
+        DefaultTableModel col = new javax.swing.table.DefaultTableModel(
+                new Object[][]{},
+                new String[]{"Colectivo", "Descripcion"}) {
+
+            boolean[] canEdit = new boolean[]{false, false};
+
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+        };
+        if (checkColectivo.isSelected()) {
+            try {
+                if (textColec.getText().length() > 0) {
+                    String[] colectivos = textColec.getText().split(",");
+                    for (int i = 0; i < colectivos.length; i++) {
+                        String consulta = "SELECT * FROM colectivo WHERE "
+                                + "nombre = '" + colectivos[i] + "'";
+                        // Sacamos todos los datos del colectivo
+                        String[] nombre = manejador.getBBDDManager().
+                                consultaPeticion(consulta, "nombre").split(",");
+                        String[] descColec = manejador.getBBDDManager().
+                                consultaPeticion(consulta, "descColec").split(",");
+                        // Buscamos si el elemento ha sido ya añadido:
+                        for (int numElem = 0; numElem < nombre.length; numElem++) {
+                            boolean encontrado = false;
+                            for (int fila = 0; fila < col.getRowCount(); fila++) {
+                                if (nombre[numElem].equals(col.getValueAt(fila, 0))) {
+                                    encontrado = true;
+                                    break;
+                                }
+                            }
+                            if (!encontrado) {
+                                if (!nombre[numElem].equals("")) {
+                                    col.addRow(new Object[]{nombre[numElem], descColec[numElem]});
+                                }
+                            }
+                        }
+                    }
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, ex, "Aviso", 2);
+            }
+        }
+        return col;
+    }
+
+    private DefaultTableModel ejecutaBusquedaDoc() {
+        DefaultTableModel doc = new javax.swing.table.DefaultTableModel(
+                new Object[][]{}, new String[]{"id", "Documentos"}) {
+
+            boolean[] canEdit = new boolean[]{false, false};
+
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+        };
+        if (checkDoc.isSelected()) {
+            try {
+                if (textTitulo.getText().length() > 0) {
+                    String[] titulos = textTitulo.getText().split(",");
+                    for (int i = 0; i < titulos.length; i++) {
+                        String consulta = "SELECT * FROM documento WHERE "
+                                + "descripcion = '" + titulos[i] + "';";
+                        String[] id = manejador.getBBDDManager().
+                                consultaPeticion(consulta, "id").split(",");
+                        String[] descripcion = manejador.getBBDDManager().
+                                consultaPeticion(consulta, "descripcion").split(",");
+                        for (int numElem = 0; numElem < id.length; numElem++) {
+                            boolean encontrado = false;
+                            for (int fila = 0; fila < doc.getRowCount(); fila++) {
+                                if (id[numElem].equals(doc.getValueAt(fila, 0))) {
+                                    encontrado = true;
+                                    break;
+                                }
+                            }
+                            if (!encontrado) {
+                                if (!id[numElem].equals("")) {
+                                    doc.addRow(new Object[]{id[numElem], descripcion[numElem]});
+                                }
+                            }
+                        }
+                    }
+                }
+                if (textNombreCat.getText().length() > 0) {
+                    String[] cats = textNombreCat.getText().split(",");
+                    for (int i = 0; i < cats.length; i++) {
+                        String consulta = "SELECT * FROM catalogacionesDoc WHERE"
+                                + " catalogacion = '" + cats[i] + "';";
+                        String[] titulos = manejador.getBBDDManager().
+                                consultaPeticion(consulta, "descripcion").split(",");
+                        for (int j = 0; j < titulos.length; j++) {
+                            String consultaDesc = "SELECT * FROM documento WHERE "
+                                    + "descripcion = '" + titulos[j] + "';";
+                            String[] id = manejador.getBBDDManager().
+                                    consultaPeticion(consultaDesc, "id").split(",");
+                            String[] descripcion = manejador.getBBDDManager().
+                                    consultaPeticion(consultaDesc, "descripcion").split(",");
+                            for (int numElem = 0; numElem < id.length; numElem++) {
+                                boolean encontrado = false;
+                                for (int fila = 0; fila < doc.getRowCount(); fila++) {
+                                    if (id[numElem].equals(doc.getValueAt(fila, 0))) {
+                                        encontrado = true;
+                                        break;
+                                    }
+                                }
+                                if (!encontrado) {
+                                    if (!id[numElem].equals("")) {
+                                        doc.addRow(new Object[]{id[numElem], descripcion[numElem]});
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, ex, "Aviso", 2);
+            }
+        }
+        return doc;
+    }
 }

@@ -17,8 +17,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+enum estadoConsulta {SIMPLE, AVANZADA};
 
 /**
  *
@@ -28,9 +29,11 @@ public class VentanaBusqSimple extends javax.swing.JFrame {
 
     GUIManager manejador;
     private Icon loading;
+    estadoConsulta s;
 
     /** Creates new form VentanaBusqSimple */
     VentanaBusqSimple(GUIManager m) {
+        s = estadoConsulta.SIMPLE;
         manejador = m;
         loading = new ImageIcon("./img/loading.gif");
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
@@ -283,7 +286,7 @@ public class VentanaBusqSimple extends javax.swing.JFrame {
 
     private void tablaColMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaColMouseClicked
         int row = tablaCol.rowAtPoint(evt.getPoint());
-       // manejador.getVentanaAcont().cargaColectivo(tablaCol.getValueAt(row, 0).toString());
+        manejador.getVentanaCol().cargaColectivo(tablaCol.getValueAt(row, 0).toString());
         manejador.cambiaEstado(estados.CREAR_COLECTIVO);
     }//GEN-LAST:event_tablaColMouseClicked
 
@@ -440,7 +443,7 @@ public class VentanaBusqSimple extends javax.swing.JFrame {
                         String result = resultado[k];
                         if (result.contains(busq)) {
                             result = "'" + result + "'";
-                            // Sacamos todos los datos del personaje
+                            // Sacamos todos los datos del acontecimiento
                             String[] nombreAcont = manejador.getBBDDManager().
                                     consultaPeticion("SELECT nombreAcont FROM acontecimiento "
                                     + "WHERE " + camposBusqueda[i] + "=" + result, "nombreAcont").split(",");
@@ -481,7 +484,7 @@ public class VentanaBusqSimple extends javax.swing.JFrame {
                 new Object[][]{},
                 new String[]{"Colectivo", "Descripcion"}) {
 
-            boolean[] canEdit = new boolean[]{false, false, false, false, false, false};
+            boolean[] canEdit = new boolean[]{false, false};
 
             @Override
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -505,7 +508,7 @@ public class VentanaBusqSimple extends javax.swing.JFrame {
                         String result = resultado[k];
                         if (result.contains(busq)) {
                             result = "'" + result + "'";
-                            // Sacamos todos los datos del personaje
+                            // Sacamos todos los datos del colectivo
                             String[] nombre = manejador.getBBDDManager().
                                     consultaPeticion("SELECT nombre FROM colectivo "
                                     + "WHERE " + camposBusqueda[i] + "=" + result, "nombre").split(",");
@@ -532,6 +535,29 @@ public class VentanaBusqSimple extends javax.swing.JFrame {
         }
     }
 
+    public void muestraResultados(DefaultTableModel pj,
+                                  DefaultTableModel ac,
+                                  DefaultTableModel col,
+                                  DefaultTableModel doc){
+         tablaPj.setModel(pj);
+         tablaAcont.setModel(ac);
+         tablaCol.setModel(col);
+         tablaDocs.setModel(doc);
+    }
+
+    public void setConsultaAvanzada(){
+        s = estadoConsulta.AVANZADA;
+        jLabel1.setVisible(false);
+        textBusqueda.setVisible(false);
+        botonBuscar.setVisible(false);
+    }
+
+    public void setConsultaSimple(){
+        s = estadoConsulta.SIMPLE;
+        jLabel1.setVisible(true);
+        textBusqueda.setVisible(true);
+        botonBuscar.setVisible(true);
+    }
     /**
      * @param args the command line arguments
      */

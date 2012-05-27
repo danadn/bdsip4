@@ -939,7 +939,7 @@ public class VentanaCrearPj extends javax.swing.JFrame {
                         manejador.getV1().setEstado(estados.MODIFICAR);
                     manejador.cambiaEstado(estados.VENTANA3);
                 } catch (SQLException ex) {
-                    System.out.print(ex);
+                    JOptionPane.showMessageDialog(null, ex, "Aviso", 2);
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos", "Aviso", 2);
@@ -1357,8 +1357,8 @@ private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         m = new DefaultTableModel(new Object[]{"Alias"}, 0);
         Iterator<String> itAlias = alias.iterator();
         while (itAlias.hasNext()) {
-            String alias = itAlias.next();
-            m.addRow(new Object[]{alias});
+            String als = itAlias.next();
+            m.addRow(new Object[]{als});
         }
         tablaAlias.setModel(m);
     }
@@ -1462,11 +1462,11 @@ private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         if (consulta != null) {
             DefaultTableModel m;
             m = new DefaultTableModel(new Object[]{"Alias"}, 0);
-            String[] alias = consulta.split(",");
-            System.out.println(alias);
+            String[] als = consulta.split(",");
+            System.out.println(als);
 
-            for (int k = 0; k < alias.length; k++) {
-                m.addRow(new Object[]{alias[k]});
+            for (int k = 0; k < als.length; k++) {
+                m.addRow(new Object[]{als[k]});
             }
             tablaAlias.setModel(m);
         } else {
@@ -1483,11 +1483,11 @@ private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         if (consulta != null) {
             DefaultTableModel m;
             m = new DefaultTableModel(new Object[]{"Cargos"}, 0);
-            String[] cargos = consulta.split(",");
-            System.out.println(cargos);
+            String[] cargs = consulta.split(",");
+            System.out.println(cargs);
 
-            for (int k = 0; k < cargos.length; k++) {
-                m.addRow(new Object[]{cargos[k]});
+            for (int k = 0; k < cargs.length; k++) {
+                m.addRow(new Object[]{cargs[k]});
             }
             tablaCargos.setModel(m);
         } else {
